@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private int _playerID;
     [SerializeField] private Transform _attrachAnchor;
     [SerializeField] private float _speed;
 
@@ -21,11 +22,11 @@ public class Player : MonoBehaviour
     {
         if (_currentDonorAttached != null)
         {
-            if (Input.GetButtonUp("Fire1"))
+            if (Input.GetButtonUp("x" + _playerID))
             {
                 _hasBeenAttachedCheck = true;
             }
-            else if (Input.GetButtonDown("Fire1") && _hasBeenAttachedCheck)
+            else if (Input.GetButtonDown("x" + _playerID) && _hasBeenAttachedCheck)
             {
                 DetachDonor();
             }
@@ -39,8 +40,8 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float hAxis = Input.GetAxis("Horizontal");
-        float vAxis = Input.GetAxis("Vertical");
+        float hAxis = Input.GetAxis("Horizontal" + _playerID);
+        float vAxis = Input.GetAxis("Vertical" + _playerID);
 
         if (hAxis != 0.0f || vAxis != 0.0f)
         {
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Donor") && Input.GetButtonDown("Fire1"))
+        if (other.CompareTag("Donor") && Input.GetButtonDown("X" + _playerID ))
         {
             AttachDonor(other.GetComponent<BloodDonor>());
         }
