@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 23620550536545268}
   - component: {fileID: 33500057575318474}
   - component: {fileID: 54008356137750154}
-  - component: {fileID: 114477364778100916}
   - component: {fileID: 136734704179096132}
+  - component: {fileID: 114477364778100916}
   m_Layer: 0
   m_Name: BloodDonor
   m_TagString: Donor
@@ -99,7 +99,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &114477364778100916
 MonoBehaviour:

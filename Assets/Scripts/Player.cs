@@ -10,28 +10,37 @@ public class Player : MonoBehaviour
 
     private Rigidbody _rgd;
     private BloodDonor _currentDonorAttached = null;
+    private bool _hasBeenAttachedCheck = false;
 
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
     }
-	
-	void FixedUpdate ()
+
+    private void Update()
+    {
+        if (_currentDonorAttached != null)
+        {
+            if (Input.GetButtonUp("Fire1"))
+            {
+                _hasBeenAttachedCheck = true;
+            }
+            else if (Input.GetButtonDown("Fire1") && _hasBeenAttachedCheck)
+            {
+                DetachDonor();
+            }
+        }
+    }
+
+    void FixedUpdate ()
     {
         Move();
-
-        if (Input.GetButtonUp("Fire1"))
-        {
-            DetachDonor();
-        }
     }
 
     private void Move()
     {
         float hAxis = Input.GetAxis("Horizontal");
         float vAxis = Input.GetAxis("Vertical");
-
-        Debug.Log(hAxis);
 
         if (hAxis != 0.0f || vAxis != 0.0f)
         {
@@ -46,16 +55,24 @@ public class Player : MonoBehaviour
     {
         donor.transform.parent = _attrachAnchor;
         donor.transform.localPosition = Vector3.zero;
-        donor.GetComponent<Rigidbody>().isKinematic = true;
+        donor.GetComponent<Collider>().isTrigger = true;
+
+        donor.GetRigidbody().useGravity = false;
+        donor.GetRigidbody().isKinematic = true;
+
         _currentDonorAttached = donor;
     }
 
     private void DetachDonor()
     {
         _currentDonorAttached.transform.parent = null;
-        _currentDonorAttached.GetComponent<Rigidbody>().isKinematic = false;
+        _currentDonorAttached.GetComponent<Collider>().isTrigger = false;
+
+        _currentDonorAttached.GetRigidbody().useGravity = true;
+        _currentDonorAttached.GetRigidbody().isKinematic = false;
 
         _currentDonorAttached = null;
+        _hasBeenAttachedCheck = false;
     }
 
     private void OnTriggerStay(Collider other)

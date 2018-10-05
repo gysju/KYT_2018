@@ -6,7 +6,14 @@ public class BloodDonor : MonoBehaviour
 {
     public BloodInfo Blood;
 
-	void Start ()
+    private Rigidbody _rgd;
+
+    private void Awake()
+    {
+        _rgd = GetComponent<Rigidbody>();
+    }
+
+    void Start ()
     {
 		
 	}
@@ -15,4 +22,9 @@ public class BloodDonor : MonoBehaviour
     {
 		
 	}
+
+    public Rigidbody GetRigidbody()
+    {
+        return _rgd;
+    }
 }
