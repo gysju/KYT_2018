@@ -5,7 +5,6 @@ using UnityEngine;
 public class BloodDonor : MonoBehaviour
 {
     public BloodInfo Blood;
-
     private Rigidbody _rgd;
 
     private void Awake()
