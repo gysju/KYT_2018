@@ -22,11 +22,11 @@ public class Player : MonoBehaviour
     {
         if (_currentDonorAttached != null)
         {
-            if (Input.GetButtonUp("x" + _playerID))
+            if (Input.GetButtonUp("X" + _playerID))
             {
                 _hasBeenAttachedCheck = true;
             }
-            else if (Input.GetButtonDown("x" + _playerID) && _hasBeenAttachedCheck)
+            else if (Input.GetButtonDown("X" + _playerID) && _hasBeenAttachedCheck)
             {
                 DetachDonor();
             }
