@@ -5,22 +5,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Transform _attrachAnchor;
     [SerializeField] private float _speed;
+
     private Rigidbody _rgd;
+    private BloodDonor _currentDonorAttached = null;
 
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
     }
-
-    void Start ()
-    {
-		
-	}
 	
 	void FixedUpdate ()
     {
         Move();
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            DetachDonor();
+        }
     }
 
     private void Move()
@@ -36,6 +39,30 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 
             _rgd.AddForce( transform.forward * _speed * Time.deltaTime, ForceMode.VelocityChange);
+        }
+    }
+
+    private void AttachDonor( BloodDonor donor)
+    {
+        donor.transform.parent = _attrachAnchor;
+        donor.transform.localPosition = Vector3.zero;
+        donor.GetComponent<Rigidbody>().isKinematic = true;
+        _currentDonorAttached = donor;
+    }
+
+    private void DetachDonor()
+    {
+        _currentDonorAttached.transform.parent = null;
+        _currentDonorAttached.GetComponent<Rigidbody>().isKinematic = false;
+
+        _currentDonorAttached = null;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Donor") && Input.GetButtonDown("Fire1"))
+        {
+            AttachDonor(other.GetComponent<BloodDonor>());
         }
     }
 }
