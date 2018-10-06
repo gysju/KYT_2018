@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private DragableObj _currentObjAttached = null;
     private bool _hasBeenAttachedCheck = false;
 
-    private Collider _lastColHighlight;
+    private HighlightObj _lastHighlightObj = new HighlightObj(null, null, false);
 
     private void Awake()
     {
@@ -89,29 +89,33 @@ public class Player : MonoBehaviour
 
     private void TryGrab()
     {
-        Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactObj);
-        if (cols != null && cols.Length > 0)
+        //Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactObj);
+        //if (cols != null && cols.Length > 0)
+        Collider col = _lastHighlightObj.col;
+        if (col == null) return;
+
+        if (_lastHighlightObj.isAnObj)
         {
-            if (cols[0].CompareTag("Donor"))
+            if (col.CompareTag("Donor"))
             {
-                BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
+                BloodDonor donor = (col.GetComponent<BloodDonor>());
                 if (donor.CurrentState != BloodDonor.State.taking && donor.CurrentState != BloodDonor.State.rageQuit)
                     AttachObj(donor);
             }
-            else if (cols[0].CompareTag("Bloodbag"))
+            else if (col.CompareTag("Bloodbag"))
             {
-                BloodBag bloodbag = (cols[0].GetComponent<BloodBag>());
+                BloodBag bloodbag = (col.GetComponent<BloodBag>());
                 AttachObj(bloodbag);
             }
         }
         else
         {
-            cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
-            if (cols != null && cols.Length > 0)
+            //cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
+            //if (cols != null && cols.Length > 0)
             {
-                if (cols[0].CompareTag("BloodShelf"))
+                if (col.CompareTag("BloodShelf"))
                 {
-                    BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
+                    BloodShelf shelf = col.GetComponent<BloodShelf>();
                     if (shelf != null)
                     {
                         BloodBag b = shelf.TakeOut();
@@ -126,12 +130,14 @@ public class Player : MonoBehaviour
     /// <summary>Check surounding object around the player</summary>
     private void CheckOnDrop()
     {
-        Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
-        if (cols != null && cols.Length > 0)
+        //Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
+        //if (cols != null && cols.Length > 0)
+        Collider col = _lastHighlightObj.col;
+        if (!_lastHighlightObj.isAnObj && col != null)
         {
-            if (cols[0].CompareTag("Doctor_Door"))
+            if (col.CompareTag("Doctor_Door"))
             {
-                Doctor doc = cols[0].GetComponent<Doctor>();
+                Doctor doc = col.GetComponent<Doctor>();
                 if (doc != null && _currentObjAttached is BloodDonor)
                 {
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
@@ -143,9 +149,9 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else if (cols[0].CompareTag("Bed"))
+            else if (col.CompareTag("Bed"))
             {
-                Bed bed = cols[0].GetComponent<Bed>();
+                Bed bed = col.GetComponent<Bed>();
                 if (bed != null && _currentObjAttached is BloodDonor)
                 {
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
@@ -159,9 +165,9 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else if (cols[0].CompareTag("BloodShelf"))
+            else if (col.CompareTag("BloodShelf"))
             {
-                BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
+                BloodShelf shelf = col.GetComponent<BloodShelf>();
                 if (shelf != null && _currentObjAttached is BloodBag)
                 {
                     BloodBag bb = (BloodBag)_currentObjAttached;
@@ -181,13 +187,12 @@ public class Player : MonoBehaviour
         Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactObj);
         if (cols != null && cols.Length > 0)
         {
-            Debug.Log(cols[0]);
-            if (_lastColHighlight != cols[0])
+            if (_lastHighlightObj.col != cols[0])
             {
-                if (_lastColHighlight != null)
-                    _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 0);
-                _lastColHighlight = cols[0];
-                _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 1);
+                if (_lastHighlightObj.col != null)
+                    _lastHighlightObj.mat.SetFloat("_Highlight", 0);
+                _lastHighlightObj.SetData(cols[0], cols[0].GetComponentInChildren<MeshRenderer>().material, true);
+                _lastHighlightObj.mat.SetFloat("_Highlight", 1);
             }
         }
         else
@@ -195,17 +200,37 @@ public class Player : MonoBehaviour
             cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
             if (cols != null && cols.Length > 0)
             {
-                Debug.Log(cols[0]);
-                if (_lastColHighlight != cols[0])
-                {
-                    if (_lastColHighlight != null)
-                        _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 0);
-                    _lastColHighlight = cols[0];
-                    _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 1);
-                }
+                if (_lastHighlightObj.col != null)
+                    _lastHighlightObj.mat.SetFloat("_Highlight", 0);
+                _lastHighlightObj.SetData(cols[0], cols[0].GetComponentInChildren<MeshRenderer>().material, false);
+                _lastHighlightObj.mat.SetFloat("_Highlight", 1);
             }
-            else if (_lastColHighlight != null)
-                _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 0);
+            else if (_lastHighlightObj.col != null)
+            {
+                _lastHighlightObj.mat.SetFloat("_Highlight", 0);
+                _lastHighlightObj.col = null;
+            }
+        }
+    }
+
+    private struct HighlightObj
+    {
+        public Material mat;
+        public Collider col;
+        public bool isAnObj;
+
+        public HighlightObj(Collider col, Material mat, bool isAnObj)
+        {
+            this.mat = mat;
+            this.col = col;
+            this.isAnObj = isAnObj;
+        }
+
+        public void SetData(Collider col, Material mat, bool isAnObj)
+        {
+            this.mat = mat;
+            this.col = col;
+            this.isAnObj = isAnObj;
         }
     }
 }
