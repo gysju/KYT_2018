@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 1baa6ebed9964e34989fabbd5dfc0526
+guid: 906415e8258ef05468bf806b9dff5782
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Doctor
+    100000: DOCTOR_FEMALE
     100002: //RootNode
-    400000: Doctor
+    400000: DOCTOR_FEMALE
     400002: //RootNode
     2100000: palette
-    2300000: Doctor
-    3300000: Doctor
-    4300000: Doctor
+    2300000: DOCTOR_FEMALE
+    3300000: DOCTOR_FEMALE
+    4300000: DOCTOR_FEMALE
   externalObjects: {}
   materials:
     importMaterials: 1
