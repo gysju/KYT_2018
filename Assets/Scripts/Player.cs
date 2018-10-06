@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask _interactObj;
     [SerializeField] private LayerMask _interactPlace;
 
+    [SerializeField] private AudioClip AttachedSound;
+    [SerializeField] private AudioClip DetachedSound;
+
+    private AudioSource Source;
     private Rigidbody _rgd;
     private DragableObj _currentObjAttached = null;
     private bool _hasBeenAttachedCheck = false;
@@ -25,6 +29,7 @@ public class Player : MonoBehaviour
     {
         _rgd = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
+        Source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -86,6 +91,8 @@ public class Player : MonoBehaviour
         obj.Attach(_attrachAnchor);
 
         _currentObjAttached = obj;
+        Source.clip = AttachedSound;
+        Source.Play();
     }
 
     private void DetachObj()
@@ -94,6 +101,8 @@ public class Player : MonoBehaviour
 
         _currentObjAttached = null;
         _hasBeenAttachedCheck = false;
+        Source.clip = DetachedSound;
+        Source.Play();
     }
 
     private void TryGrab()
