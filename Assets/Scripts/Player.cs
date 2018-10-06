@@ -94,6 +94,23 @@ public class Player : MonoBehaviour
                 AttachObj(bloodbag);
             }
         }
+        else
+        {
+            cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactPlace);
+            if (cols != null && cols.Length > 0)
+            {
+                if (cols[0].CompareTag("BloodShelf"))
+                {
+                    BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
+                    if (shelf != null)
+                    {
+                        BloodBag b = shelf.TakeOut();
+                        if (b != null)
+                            AttachObj(b);
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>Check surounding object around the player</summary>
@@ -129,6 +146,18 @@ public class Player : MonoBehaviour
                             bed.SetDonor(bd);
                         }
                         else bd.CurrentState = BloodDonor.State.leave;
+                    }
+                }
+            }
+            else if (cols[0].CompareTag("BloodShelf"))
+            {
+                BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
+                if (shelf != null && _currentObjAttached is BloodBag)
+                {
+                    BloodBag bb = (BloodBag)_currentObjAttached;
+                    if (bb != null)
+                    {
+                        shelf.FillIn(bb);
                     }
                 }
             }

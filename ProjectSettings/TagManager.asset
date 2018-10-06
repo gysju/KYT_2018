@@ -8,6 +8,7 @@ TagManager:
   - Doctor_Door
   - Bed
   - Bloodbag
+  - BloodShelf
   layers:
   - Default
   - TransparentFX
