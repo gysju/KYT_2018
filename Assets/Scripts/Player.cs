@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int _playerID;
     [SerializeField] private Transform _attrachAnchor;
+    [SerializeField] private Transform _grabCenter;
     [SerializeField] private float _speed;
 
     [SerializeField] private LayerMask _interactObj;
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        HighlightTargetObj();
+
         if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
@@ -86,7 +89,7 @@ public class Player : MonoBehaviour
 
     private void TryGrab()
     {
-        Collider[] cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactObj);
+        Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactObj);
         if (cols != null && cols.Length > 0)
         {
             if (cols[0].CompareTag("Donor"))
@@ -103,7 +106,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactPlace);
+            cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
             if (cols != null && cols.Length > 0)
             {
                 if (cols[0].CompareTag("BloodShelf"))
@@ -123,7 +126,7 @@ public class Player : MonoBehaviour
     /// <summary>Check surounding object around the player</summary>
     private void CheckOnDrop()
     {
-        Collider[] cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactPlace);
+        Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
         if (cols != null && cols.Length > 0)
         {
             if (cols[0].CompareTag("Doctor_Door"))
@@ -175,15 +178,34 @@ public class Player : MonoBehaviour
 
     private void HighlightTargetObj()
     {
-        Collider[] cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactObj);
+        Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactObj);
         if (cols != null && cols.Length > 0)
         {
+            Debug.Log(cols[0]);
             if (_lastColHighlight != cols[0])
             {
-                //_lastColHighlight.Highlight = false;
+                if (_lastColHighlight != null)
+                    _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 0);
                 _lastColHighlight = cols[0];
-                //_lastColHighlight.Highlight = true;
+                _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 1);
             }
+        }
+        else
+        {
+            cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
+            if (cols != null && cols.Length > 0)
+            {
+                Debug.Log(cols[0]);
+                if (_lastColHighlight != cols[0])
+                {
+                    if (_lastColHighlight != null)
+                        _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 0);
+                    _lastColHighlight = cols[0];
+                    _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 1);
+                }
+            }
+            else if (_lastColHighlight != null)
+                _lastColHighlight.GetComponentInChildren<MeshRenderer>().material.SetFloat("_Highlight", 0);
         }
     }
 }

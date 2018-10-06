@@ -319,7 +319,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b4ddaed0303b6be48b20bd04519ecb1f, type: 3}
+  - {fileID: 2100000, guid: a0067144a86c4094faac4eef6d3a9343, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -422,7 +422,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 2.5171247, z: 1.2}
+  m_Size: {x: 0.7, y: 2.5171247, z: 1.2}
   m_Center: {x: 0, y: 1.2585623, z: 1.2000002}
 --- !u!114 &114214779966183714
 MonoBehaviour:
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   info:
-    type: 0
+    type: 1
     family: 1
     rhesus: 2
   bloodBags: []
