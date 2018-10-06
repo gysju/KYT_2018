@@ -60,4 +60,14 @@ public class GameManager : MonoBehaviour
     {
         _bloodDonors.Add( Instantiate( _bloodDonor, _bdSpawn.position, _bdSpawn.rotation));
     }
+
+    public void ClearAllInstance()
+    {
+        for (int i = 0; i < _bloodDonors.Count; i++)
+        {
+            Destroy(_bloodDonors[i].gameObject);
+        }
+
+        _bloodDonors.Clear();
+    }
 }
