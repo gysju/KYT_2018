@@ -7,7 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public enum GameState { Paused, Menu, InGame}
-    public GameState State = GameState.InGame;
+    public GameState State
+    {
+        get { return _state;}
+        set { _state = value;}
+    }
+
+    private GameState _state;
 
     [Header("GameSettings")]
     [SerializeField] GameData _data;
@@ -41,13 +47,13 @@ public class GameManager : MonoBehaviour
         {
             if (State == GameState.InGame)
             {
+                CanvasManager.Instance.DisplayPauseMenu();
                 State = GameState.Paused;
-                Time.timeScale = 0.0f;
             }
             else if (State == GameState.Paused)
             {
+                CanvasManager.Instance.HidePauseMenu();
                 State = GameState.InGame;
-                Time.timeScale = 1.0f;
             }
         }
 	}
@@ -55,10 +61,5 @@ public class GameManager : MonoBehaviour
     void SpawnBloodDonor()
     {
         _bloodDonors.Add( Instantiate( _bloodDonor, _bdSpawn.position, _bdSpawn.rotation));
-    }
-
-    public GameState GetGameState()
-    {
-        return State;
     }
 }

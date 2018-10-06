@@ -43,7 +43,7 @@ public class BloodDonor : DragableObj
 	
 	void Update ()
     {
-        if (GameManager.Instance.GetGameState() != GameManager.GameState.InGame)
+        if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
         OnStateUpdate();
