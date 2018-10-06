@@ -49,31 +49,31 @@ public class BloodInfo
     {
         BloodType type = (BloodType)Random.Range(1, 4);
         BloodFamily fam = (BloodFamily)Random.Range(1, 5);
-        BloodRhesus rhe = (BloodRhesus)Random.Range(1, 5);
+        BloodRhesus rhe = (BloodRhesus)Random.Range(1, 3);
 
         return new BloodInfo(type, fam, rhe);
     }
 
     /// <summary>What can he get in place</summary>
     /// <returns></returns>
-    public Compoatibilities Compatibility()
+    public Compatibilities Compatibility()
     {
-        Compoatibilities compt = new Compoatibilities(0,0,0,0);
-        if (type == BloodType.Blood)
+        Compatibilities compt = new Compatibilities(BloodType.None, 0, 0, 0, 0);
+        if (type == BloodType.Blood || type == BloodType.Platelet)
         {
             switch (family)
             {
                 case BloodFamily.A:
-                    compt = new Compoatibilities(1, 0, 0, 1);
+                    compt = new Compatibilities(type, 1, 0, 0, 1);
                     break;
                 case BloodFamily.B:
-                    compt = new Compoatibilities(0, 1, 0, 1);
+                    compt = new Compatibilities(type, 0, 1, 0, 1);
                     break;
                 case BloodFamily.AB:
-                    compt = new Compoatibilities(1, 1, 1, 1);
+                    compt = new Compatibilities(type, 1, 1, 1, 1);
                     break;
                 case BloodFamily.O:
-                    compt = new Compoatibilities(0, 0, 0, 1);
+                    compt = new Compatibilities(type, 0, 0, 0, 1);
                     break;
             }
         }
@@ -82,34 +82,16 @@ public class BloodInfo
             switch (family)
             {
                 case BloodFamily.A:
-                    compt = new Compoatibilities(1, 0, 0, 1);
+                    compt = new Compatibilities(type, 1, 0, 1, 0);
                     break;
                 case BloodFamily.B:
-                    compt = new Compoatibilities(0, 1, 0, 1);
+                    compt = new Compatibilities(type, 0, 1, 1, 0);
                     break;
                 case BloodFamily.AB:
-                    compt = new Compoatibilities(1, 1, 1, 1);
+                    compt = new Compatibilities(type, 0, 0, 1, 0);
                     break;
                 case BloodFamily.O:
-                    compt = new Compoatibilities(0, 0, 0, 1);
-                    break;
-            }
-        }
-        else if (type == BloodType.Platelet)
-        {
-            switch (family)
-            {
-                case BloodFamily.A:
-                    compt = new Compoatibilities(1, 0, 0, 1);
-                    break;
-                case BloodFamily.B:
-                    compt = new Compoatibilities(0, 1, 0, 1);
-                    break;
-                case BloodFamily.AB:
-                    compt = new Compoatibilities(1, 1, 1, 1);
-                    break;
-                case BloodFamily.O:
-                    compt = new Compoatibilities(0, 0, 0, 1);
+                    compt = new Compatibilities(type, 1, 1, 1, 1);
                     break;
             }
         }
@@ -117,16 +99,35 @@ public class BloodInfo
         return compt;
     }
 
-    public struct Compoatibilities
+    public struct Compatibilities
     {
-        public int a, b, ab, o;
+        public BloodType type;
+        public int[] ababo;
 
-        public Compoatibilities(int a, int b, int ab, int o)
+        public int a { get { return ababo[0]; } set { ababo[0] = value; } }
+        public int b { get { return ababo[1]; } set { ababo[1] = value; } }
+        public int ab { get { return ababo[2]; } set { ababo[2] = value; } }
+        public int o { get { return ababo[3]; } set { ababo[3] = value; } }
+
+        public Compatibilities(BloodType type)
         {
-            this.a = a;
-            this.b = b;
-            this.ab = ab;
-            this.o = o;
+            this.type = type;
+            ababo = new int[] { 0, 0, 0, 0 };
+        }
+
+        public Compatibilities(BloodType type, int a, int b, int ab, int o)
+        {
+            this.type = type;
+            ababo = new int[] { a, b, ab, o };
+        }
+
+        public void Increase(Compatibilities compt)
+        {
+            if (type != compt.type) return;
+            ababo[0] += compt.ababo[0];
+            ababo[1] += compt.ababo[1];
+            ababo[2] += compt.ababo[2];
+            ababo[3] += compt.ababo[3];
         }
     }
 }

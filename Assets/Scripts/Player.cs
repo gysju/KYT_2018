@@ -179,7 +179,20 @@ public class Player : MonoBehaviour
                         shelf.FillIn(bb);
                     }
                 }
-            } else if (_currentObjAttached is BloodDonor)
+            }
+            else if (cols[0].CompareTag("commands"))
+            {
+                Commands commands = cols[0].GetComponent<Commands>();
+                if (commands != null && _currentObjAttached is BloodBag)
+                {
+                    BloodBag bb = (BloodBag)_currentObjAttached;
+                    if (bb != null)
+                    {
+                        commands.AddBag(bb);
+                    }
+                }
+            }
+            else if (_currentObjAttached is BloodDonor)
                 ((BloodDonor)_currentObjAttached).onProcess = false;
         } else if (_currentObjAttached is BloodDonor)
             ((BloodDonor)_currentObjAttached).onProcess = false;
