@@ -10,6 +10,8 @@ public class BloodDonor : DragableObj
     [SerializeField] private GameData _data;
     [SerializeField] private Image _waitingBar;
 
+    /*[HideInInspector]*/ public bool onProcess;
+    /*[HideInInspector]*/ public int progressionStat;
     public enum State { idle, home, medic, taking, leave, rageQuit }
     public State CurrentState {
         get {
@@ -24,7 +26,7 @@ public class BloodDonor : DragableObj
     public State _state = State.idle;
 
     private Rigidbody _rgd;
-    private NavMeshAgent _navMeshAgent;
+    [HideInInspector] public NavMeshAgent _navMeshAgent;
     private float _currentIdle = 0.0f;
 
     private List<Transform> _currentPath;
@@ -46,8 +48,11 @@ public class BloodDonor : DragableObj
         if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
-        OnStateUpdate();
-        HasReachedHisDestination();
+        if (!onProcess)
+        {
+            OnStateUpdate();
+            HasReachedHisDestination();
+        }
     }
 
     void OnStateEnter()
@@ -110,12 +115,16 @@ public class BloodDonor : DragableObj
                 _currentIdle = 0.0f;
                 break;
             case State.home:
+                progressionStat = (int)CurrentState;
                 break;
             case State.medic:
+                progressionStat = (int)CurrentState;
                 break;
             case State.taking:
+                progressionStat = (int)CurrentState;
                 break;
             case State.leave:
+                progressionStat = (int)CurrentState;
                 break;
             default:
                 break;
@@ -167,6 +176,8 @@ public class BloodDonor : DragableObj
         if (_currentPath == null)
             return;
 
+        if (!_navMeshAgent.enabled) return;
+
         float dist = _navMeshAgent.remainingDistance;
         if (dist != Mathf.Infinity && _navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && _navMeshAgent.remainingDistance == 0)
         {
@@ -185,8 +196,11 @@ public class BloodDonor : DragableObj
 
     public void SetDestination( Vector3 destination )
     {
-        _navMeshAgent.isStopped = false;
-        _navMeshAgent.SetDestination(destination);
+        if (_navMeshAgent.enabled)
+        {
+            _navMeshAgent.isStopped = false;
+            _navMeshAgent.SetDestination(destination);
+        }
     }
 
     public Rigidbody GetRigidbody()
@@ -200,6 +214,12 @@ public class BloodDonor : DragableObj
         transform.localPosition = Vector3.zero;
         GetComponent<Collider>().isTrigger = true;
 
+        _navMeshAgent.SetDestination(transform.position);
+        _navMeshAgent.isStopped = true;
+        _navMeshAgent.enabled = false;
+
+        onProcess = true;
+
         _rgd.useGravity = false;
         _rgd.isKinematic = true;
     }
@@ -208,6 +228,13 @@ public class BloodDonor : DragableObj
     {
         base.Detach();
         GetComponent<Collider>().isTrigger = false;
+
+        if (!onProcess)
+        {
+            _navMeshAgent.enabled = true;
+            _navMeshAgent.SetDestination(transform.position);
+            _navMeshAgent.isStopped = false;
+        }
 
         _rgd.useGravity = true;
         _rgd.isKinematic = false;

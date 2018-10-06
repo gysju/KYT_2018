@@ -20,6 +20,7 @@ public class Doctor : InteractableWihDonor {
     protected override void End()
     {
         _donor.CurrentState = Random.Range((float)0, 1) < data.rejectChance ? BloodDonor.State.leave : BloodDonor.State.medic;
+        _donor._navMeshAgent.enabled = true;
         base.End();
     }
     #endregion

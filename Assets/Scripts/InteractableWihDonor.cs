@@ -24,6 +24,7 @@ public class InteractableWihDonor : Timer {
 
         base.Begin();
 
+        _donor.onProcess = true;
         _donor.transform.position = _inside.position;
         _donor.transform.rotation = _inside.rotation;
     }
@@ -33,8 +34,11 @@ public class InteractableWihDonor : Timer {
 
         base.End();
 
+        _donor.onProcess = false;
         _donor.transform.position = _outside.position;
         _donor.transform.rotation = _outside.rotation;
+        if (_donor._navMeshAgent.enabled)
+            _donor._navMeshAgent.SetDestination(_outside.position);
         _donor = null;
     }
     #endregion

@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Bloodbag
   m_Shader: {fileID: 4800000, guid: 02cba6bed3e3cb54897a36ee8367b64a, type: 3}
-  m_ShaderKeywords: _HIGHLIGHT_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -62,7 +62,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Highlight: 1
+    - _Highlight: 0
     - _HighlightIntensity: 3.13
     - _HighlightSpeed: 3.57
     - _Metallic: 0

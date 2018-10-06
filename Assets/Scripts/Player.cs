@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private DragableObj _currentObjAttached = null;
     private bool _hasBeenAttachedCheck = false;
 
+    private Collider _lastColHighlight;
+
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
@@ -90,7 +92,7 @@ public class Player : MonoBehaviour
             if (cols[0].CompareTag("Donor"))
             {
                 BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
-                if (donor.CurrentState != BloodDonor.State.taking)
+                if (donor.CurrentState != BloodDonor.State.taking && donor.CurrentState != BloodDonor.State.rageQuit)
                     AttachObj(donor);
             }
             else if (cols[0].CompareTag("Bloodbag"))
@@ -132,9 +134,9 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if (bd.CurrentState == BloodDonor.State.home)
+                        if (bd.progressionStat == (int)BloodDonor.State.home || bd._state == BloodDonor.State.home)
                             doc.SetDonor((BloodDonor)_currentObjAttached);
-                        else bd.CurrentState = BloodDonor.State.leave;
+                        else bd.CurrentState = BloodDonor.State.rageQuit;
                     }
                 }
             }
@@ -146,11 +148,11 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if (bd.CurrentState == BloodDonor.State.medic /*&& bed.type == bd.Blood.EBloodType*/)
+                        if ((bd.progressionStat == (int)BloodDonor.State.medic || bd._state == BloodDonor.State.medic) && bed.type == bd.Blood.type)
                         {
                             bed.SetDonor(bd);
                         }
-                        else bd.CurrentState = BloodDonor.State.leave;
+                        else bd.CurrentState = BloodDonor.State.rageQuit;
                     }
                 }
             }
@@ -165,6 +167,22 @@ public class Player : MonoBehaviour
                         shelf.FillIn(bb);
                     }
                 }
+            } else if (_currentObjAttached is BloodDonor)
+                ((BloodDonor)_currentObjAttached).onProcess = false;
+        } else if (_currentObjAttached is BloodDonor)
+            ((BloodDonor)_currentObjAttached).onProcess = false;
+    }
+
+    private void HighlightTargetObj()
+    {
+        Collider[] cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactObj);
+        if (cols != null && cols.Length > 0)
+        {
+            if (_lastColHighlight != cols[0])
+            {
+                //_lastColHighlight.Highlight = false;
+                _lastColHighlight = cols[0];
+                //_lastColHighlight.Highlight = true;
             }
         }
     }

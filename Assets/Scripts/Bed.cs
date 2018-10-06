@@ -34,8 +34,12 @@ public class Bed : InteractableWihDonor {
             BloodBag b = Instantiate(bloodbag, bloodbagSpawn.position, bloodbagSpawn.rotation).GetComponent<BloodBag>();
             b.bloodInfo = _donor.Blood;
             _donor.CurrentState = BloodDonor.State.leave;
-        }
 
+            _donor._navMeshAgent.enabled = true;
+            _donor._navMeshAgent.SetDestination(transform.position);
+            _donor._navMeshAgent.isStopped = false;
+        }
+        
         base.End();
     }
     #endregion
