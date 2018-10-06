@@ -48,12 +48,10 @@ public class GameManager : MonoBehaviour
             if (State == GameState.InGame)
             {
                 CanvasManager.Instance.DisplayPauseMenu();
-                State = GameState.Paused;
             }
             else if (State == GameState.Paused)
             {
                 CanvasManager.Instance.HidePauseMenu();
-                State = GameState.InGame;
             }
         }
 	}
