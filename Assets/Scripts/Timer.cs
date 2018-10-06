@@ -5,7 +5,8 @@ using UnityEngine;
 public class Timer : MonoBehaviour {
 
     #region Var
-    public float duration = 10;
+    public GameData data;
+    protected float duration = 5;
     private bool running;
     private float _time;
     #endregion

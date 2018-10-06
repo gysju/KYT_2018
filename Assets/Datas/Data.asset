@@ -17,4 +17,11 @@ MonoBehaviour:
   MaxIdleTime: 10
   MedicColor: {r: 0, g: 0.35876274, b: 1, a: 1}
   MaxMedicTime: 7
+  rejectChance: 0
+  TakingBloodColor: {r: 0.7169812, g: 0.23335709, b: 0.23335709, a: 1}
+  MaxTakingBloodTime: 7
+  TakingPlasmaColor: {r: 0.9528302, g: 0.93697584, b: 0.46293166, a: 1}
+  MaxTakingPlasmaTime: 20
+  TakingPlateletColor: {r: 0.6981132, g: 0.6810495, b: 0.510413, a: 1}
+  MaxTakingPlateletTime: 30
   RageQuitColor: {r: 0, g: 0, b: 0, a: 1}
