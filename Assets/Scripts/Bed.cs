@@ -16,7 +16,7 @@ public class Bed : InteractableWihDonor {
     public override void Begin()
     {
         base.Begin();
-        _donor.state = BloodDonor.State.taking;
+        _donor.CurrentState = BloodDonor.State.taking;
     }
     protected override void End()
     {
@@ -24,7 +24,7 @@ public class Bed : InteractableWihDonor {
         {
             BloodBag b = Instantiate(bloodbag, bloodbagSpawn.position, bloodbagSpawn.rotation).GetComponent<BloodBag>();
             b.bloodInfo = _donor.Blood;
-            _donor.state = BloodDonor.State.leave;
+            _donor.CurrentState = BloodDonor.State.leave;
         }
 
         base.End();

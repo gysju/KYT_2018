@@ -16,7 +16,7 @@ public class Doctor : InteractableWihDonor {
     }
     protected override void End()
     {
-        _donor.state = Random.Range((float)0, 1) < invalidePerson ? BloodDonor.State.leave : BloodDonor.State.medic;
+        _donor.CurrentState = Random.Range((float)0, 1) < invalidePerson ? BloodDonor.State.leave : BloodDonor.State.medic;
         base.End();
     }
     #endregion

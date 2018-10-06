@@ -1,14 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BloodDonor : DragableObj
 {
     public BloodInfo Blood;
-    private Rigidbody _rgd;
 
-    public enum State { home, medic, taking, leave }
-    public State state = State.home;
+    public enum State { idle, home, medic, taking, leave }
+    public State CurrentState {
+        get {
+            return _state;
+        }
+        set {
+            OnStateExit();
+            _state = value;
+            OnStateEnter();
+        }
+    }
+    public State _state = State.idle;
+
+    private Rigidbody _rgd;
+    private NavMeshAgent _navMeshAgent;
 
     private void Awake()
     {
@@ -24,6 +37,68 @@ public class BloodDonor : DragableObj
     {
 		
 	}
+
+    void OnStateEnter()
+    {
+        switch (CurrentState)
+        {
+            case State.idle:
+                break;
+            case State.home:
+                break;
+            case State.medic:
+                break;
+            case State.taking:
+                break;
+            case State.leave:
+                break;
+            default:
+                break;
+        }
+    }
+
+    void OnStateUpdate()
+    {
+        switch (CurrentState)
+        {
+            case State.idle:
+                break;
+            case State.home:
+                break;
+            case State.medic:
+                break;
+            case State.taking:
+                break;
+            case State.leave:
+                break;
+            default:
+                break;
+        }
+    }
+
+    void OnStateExit()
+    {
+        switch (CurrentState)
+        {
+            case State.idle:
+                break;
+            case State.home:
+                break;
+            case State.medic:
+                break;
+            case State.taking:
+                break;
+            case State.leave:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SetDestination( Vector3 destination )
+    {
+        _navMeshAgent.SetDestination(destination);
+    }
 
     public Rigidbody GetRigidbody()
     {

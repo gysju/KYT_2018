@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             if (cols[0].CompareTag("Donor"))
             {
                 BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
-                if (donor.state != BloodDonor.State.taking)
+                if (donor.CurrentState != BloodDonor.State.taking)
                     AttachObj(donor);
             }
             else if (cols[0].CompareTag("Bloodbag"))
@@ -110,9 +110,9 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if (bd.state == BloodDonor.State.home)
+                        if (bd.CurrentState == BloodDonor.State.home)
                             doc.SetDonor((BloodDonor)_currentObjAttached);
-                        else bd.state = BloodDonor.State.leave;
+                        else bd.CurrentState = BloodDonor.State.leave;
                     }
                 }
             }
@@ -124,11 +124,11 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if (bd.state == BloodDonor.State.medic /*&& bed.type == bd.Blood.EBloodType*/)
+                        if (bd.CurrentState == BloodDonor.State.medic /*&& bed.type == bd.Blood.EBloodType*/)
                         {
                             bed.SetDonor(bd);
                         }
-                        else bd.state = BloodDonor.State.leave;
+                        else bd.CurrentState = BloodDonor.State.leave;
                     }
                 }
             }
