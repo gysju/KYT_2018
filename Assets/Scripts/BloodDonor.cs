@@ -31,16 +31,23 @@ public class BloodDonor : DragableObj
 
     private List<Transform> _currentPath;
     private int _currentPathIndex = 0;
-     
+    private Animator _animator;
+
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     void Start ()
     {
         CurrentState = State.home;
+
+        if (_data.HumansDatas != null)
+        {
+            SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
+        }
     }
 	
 	void Update ()
@@ -53,6 +60,21 @@ public class BloodDonor : DragableObj
             OnStateUpdate();
             HasReachedHisDestination();
         }
+
+        if ( CurrentState == State.idle)
+        {
+            _animator.SetFloat("Speed", 0.0f);
+        }
+        else
+        {
+            _animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
+        }
+    }
+
+    void SetModels(GameData.HumanData humanData)
+    {
+        GetComponentInChildren<MeshFilter>().mesh = humanData.Model;
+        GetComponentInChildren<MeshRenderer>().material = humanData.Mat;
     }
 
     void OnStateEnter()

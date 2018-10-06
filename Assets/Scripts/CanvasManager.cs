@@ -48,6 +48,7 @@ public class CanvasManager : MonoBehaviour {
         GameManager.Instance.State = GameManager.GameState.Paused;
 
         Time.timeScale = 0.0f;
+        SoundManager.Instance.PauseSound();
     }
 
     public void HidePauseMenu()
@@ -56,6 +57,7 @@ public class CanvasManager : MonoBehaviour {
         GameManager.Instance.State = GameManager.GameState.InGame;
 
         Time.timeScale = 1.0f;
+        SoundManager.Instance.ResumeSound();
     }
 
     public void DisplayMainMenu()

@@ -19,9 +19,12 @@ public class Player : MonoBehaviour
 
     private HighlightObj _lastHighlightObj = new HighlightObj(null, null, false);
 
+    private Animator _animator;
+
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -68,7 +71,13 @@ public class Player : MonoBehaviour
             float angle = Mathf.Atan2(vAxis, -hAxis) * Mathf.Rad2Deg - 90.0f;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 
-            _rgd.AddForce( transform.forward * _speed * Time.deltaTime, ForceMode.VelocityChange);
+            _rgd.AddForce(transform.forward * _speed * Time.deltaTime, ForceMode.VelocityChange);
+
+            _animator.SetFloat("Speed", Mathf.Clamp01( Mathf.Abs( hAxis ) + Mathf.Abs(vAxis)));
+        }
+        else
+        {
+            _animator.SetFloat("Speed", 0.0f);
         }
     }
 

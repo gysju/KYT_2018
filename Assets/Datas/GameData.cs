@@ -23,12 +23,25 @@ public class GameData : ScriptableObject
     [Space(10)]
     public Color TakingBloodColor;
     public float MaxTakingBloodTime;
+    [Space(10)]
+
     public Color TakingPlasmaColor;
     public float MaxTakingPlasmaTime;
+    [Space(10)]
+
     public Color TakingPlateletColor;
     public float MaxTakingPlateletTime;
 
-
     [Space(10)]
     public Color RageQuitColor;
+
+    [System.Serializable]
+    public struct HumanData
+    {
+        public Mesh Model;
+        public Material Mat;
+    }
+
+    [Header("Humans")]
+    public List<HumanData> HumansDatas = new List<HumanData>();
 }
