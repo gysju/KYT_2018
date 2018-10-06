@@ -6,8 +6,9 @@ using UnityEngine.AI;
 public class BloodDonor : DragableObj
 {
     public BloodInfo Blood;
+    [SerializeField] private GameData _data;
 
-    public enum State { idle, home, medic, taking, leave }
+    public enum State { idle, home, medic, taking, leave, rageQuit }
     public State CurrentState {
         get {
             return _state;
@@ -22,6 +23,10 @@ public class BloodDonor : DragableObj
 
     private Rigidbody _rgd;
     private NavMeshAgent _navMeshAgent;
+    private float _currentIdle = 0.0f;
+
+    private List<Transform> _currentPath;
+    private int _currentPathIndex = 0;
 
     private void Awake()
     {
@@ -32,12 +37,12 @@ public class BloodDonor : DragableObj
     void Start ()
     {
         CurrentState = State.home;
-
     }
 	
 	void Update ()
     {
         OnStateUpdate();
+        HasReachedHisDestination();
     }
 
     void OnStateEnter()
@@ -45,16 +50,24 @@ public class BloodDonor : DragableObj
         switch (CurrentState)
         {
             case State.idle:
+                _currentPath = null;
+                _navMeshAgent.isStopped = true;
                 break;
             case State.home:
-                SetDestination(PathManager.Instance.PathsHomeToDoc[0].position);
+                _currentPath = PathManager.Instance.PathsHomeToDoc;
+                SetDestination(_currentPath[0].position);
                 break;
             case State.medic:
                 break;
             case State.taking:
                 break;
             case State.leave:
-                SetDestination(PathManager.Instance.PathsBedToExit[0].position);
+                _currentPath = PathManager.Instance.PathsBedToExit;
+                SetDestination(_currentPath[0].position);
+                break;
+            case State.rageQuit:
+                _currentPath = PathManager.Instance.PathsBedToExit;
+                SetDestination(_currentPath[0].position);
                 break;
             default:
                 break;
@@ -66,6 +79,7 @@ public class BloodDonor : DragableObj
         switch (CurrentState)
         {
             case State.idle:
+                CheckRageQuit();
                 break;
             case State.home:
                 break;
@@ -85,6 +99,7 @@ public class BloodDonor : DragableObj
         switch (CurrentState)
         {
             case State.idle:
+                _currentIdle = 0.0f;
                 break;
             case State.home:
                 break;
@@ -99,8 +114,39 @@ public class BloodDonor : DragableObj
         }
     }
 
+    void CheckRageQuit()
+    {
+        if ( _currentIdle > _data.MaxIdleTime)
+        {
+            CurrentState = State.rageQuit;
+        }
+        _currentIdle += Time.deltaTime;
+    }
+
+    void HasReachedHisDestination()
+    {
+        if (_currentPath == null)
+            return;
+
+        float dist = _navMeshAgent.remainingDistance;
+        if (dist != Mathf.Infinity && _navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && _navMeshAgent.remainingDistance == 0)
+        {
+            _currentPathIndex ++;
+            if (_currentPathIndex >= _currentPath.Count)
+            {
+                _currentPathIndex = 0;
+                CurrentState = State.idle;
+            }
+            else
+            {
+                SetDestination(_currentPath[_currentPathIndex].position);
+            }
+        }
+    }
+
     public void SetDestination( Vector3 destination )
     {
+        _navMeshAgent.isStopped = false;
         _navMeshAgent.SetDestination(destination);
     }
 
