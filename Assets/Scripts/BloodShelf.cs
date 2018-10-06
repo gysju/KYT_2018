@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BloodShelf : MonoBehaviour {
@@ -10,15 +11,12 @@ public class BloodShelf : MonoBehaviour {
     [HideInInspector] public List<BloodBag> bloodBags;
 
     [SerializeField] private Transform stock;
-    [SerializeField] private TextMesh family, resus;
+    [SerializeField] private TextMeshProUGUI family, rhesus1, rhesus2;
     #endregion
     #region MonoFunction
     private void Start()
     {
-        string f = info.family.ToString();
-        family.text = ""+f[0];
-        if (f[1] == 'P') resus.text = "+";
-        else if (f[1] == 'N') resus.text = "-";
+        SetBloodInfoText();
     }
     #endregion
     #region Function
@@ -49,6 +47,39 @@ public class BloodShelf : MonoBehaviour {
         else Debug.Log("Empthy");
 
         return null;
+    }
+
+    private void SetBloodInfoText()
+    {
+        string f = info.family.ToString();
+        string r = info.rhesus.ToString();
+        family.text = f;
+        if (r.Equals("neg"))
+        {
+            if (f.Length > 1)
+            {
+                rhesus1.text = "-";
+                rhesus2.text = "";
+            }
+            else
+            {
+                rhesus1.text = "";
+                rhesus2.text = "-";
+            }
+        }
+        else if (r.Equals("pos"))
+        {
+            if (f.Length > 1)
+            {
+                rhesus1.text = "+";
+                rhesus2.text = "";
+            }
+            else
+            {
+                rhesus1.text = "";
+                rhesus2.text = "+";
+            }
+        }
     }
     #endregion
 }
