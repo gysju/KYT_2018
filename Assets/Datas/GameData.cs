@@ -18,6 +18,16 @@ public class GameData : ScriptableObject
     [Space(10)]
     public Color MedicColor;
     public float MaxMedicTime;
+    public float rejectChance;
+
+    [Space(10)]
+    public Color TakingBloodColor;
+    public float MaxTakingBloodTime;
+    public Color TakingPlasmaColor;
+    public float MaxTakingPlasmaTime;
+    public Color TakingPlateletColor;
+    public float MaxTakingPlateletTime;
+
 
     [Space(10)]
     public Color RageQuitColor;

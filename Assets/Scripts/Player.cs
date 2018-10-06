@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     [SerializeField] private int _playerID;
     [SerializeField] private Transform _attrachAnchor;
     [SerializeField] private float _speed;
-    [SerializeField] private Collider _trigger;
 
     [SerializeField] private LayerMask _interactObj;
     [SerializeField] private LayerMask _interactPlace;

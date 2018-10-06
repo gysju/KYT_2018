@@ -11,6 +11,15 @@ public class Bed : InteractableWihDonor {
     [SerializeField] private Transform bloodbagSpawn;
     #endregion
     #region MonoFunction
+    private void Start()
+    {
+        if (type == BloodInfo.BloodType.Blood)
+            duration = data.MaxTakingBloodTime;
+        else if (type == BloodInfo.BloodType.Plasma)
+            duration = data.MaxTakingPlasmaTime;
+        else if (type == BloodInfo.BloodType.Platelet)
+            duration = data.MaxTakingPlateletTime;
+    }
     #endregion
     #region Function
     public override void Begin()
