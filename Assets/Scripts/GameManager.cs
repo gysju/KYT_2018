@@ -5,9 +5,10 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [Header("GameSettings")]
-    [SerializeField] Transform _pathParent;
-    List<Transform> _paths = new List<Transform>();
+
 
     [Header("Blood donor settings")]
     [SerializeField] private BloodDonor _bloodDonor;
@@ -15,12 +16,20 @@ public class GameManager : MonoBehaviour
 
     List<BloodDonor> _bloodDonors = new List<BloodDonor>();
 
-	void Start ()
+    private void Awake()
     {
-        _paths = _pathParent.GetComponentsInChildren<Transform>().ToList();
-        if (_paths[0] == _pathParent)
-            _paths.Remove(_paths[0]);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
+    void Start ()
+    {
         SpawnBloodDonor();
     }
 
@@ -32,23 +41,5 @@ public class GameManager : MonoBehaviour
     void SpawnBloodDonor()
     {
         _bloodDonors.Add( Instantiate( _bloodDonor, _bdSpawn.position, _bdSpawn.rotation));
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-
-        if (_paths == null || _paths.Count == 0)
-        {
-            _paths = _pathParent.GetComponentsInChildren<Transform>().ToList();
-            if (_paths!= null && _paths[0] == _pathParent)
-                _paths.Remove(_paths[0]);
-        }
-
-        for (int i = 0; i < _paths.Count; i++)
-        {
-            if (i < _paths.Count - 1)
-                Gizmos.DrawLine(_paths[i].position, _paths[i + 1].position);
-        }
     }
 }

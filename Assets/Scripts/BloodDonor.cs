@@ -26,17 +26,19 @@ public class BloodDonor : DragableObj
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Start ()
     {
-		
-	}
+        CurrentState = State.home;
+
+    }
 	
 	void Update ()
     {
-		
-	}
+        OnStateUpdate();
+    }
 
     void OnStateEnter()
     {
@@ -45,12 +47,14 @@ public class BloodDonor : DragableObj
             case State.idle:
                 break;
             case State.home:
+                SetDestination(PathManager.Instance.PathsHomeToDoc[0].position);
                 break;
             case State.medic:
                 break;
             case State.taking:
                 break;
             case State.leave:
+                SetDestination(PathManager.Instance.PathsBedToExit[0].position);
                 break;
             default:
                 break;
