@@ -31,6 +31,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PlayMusic("TitleMusic");
+    }
+
     public void PlayMusic(string name)
     {
         SoundsSettings soundSettings = Sounds.Find(x => x.Name == name);
