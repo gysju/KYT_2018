@@ -11,4 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3ccf1c9fab7aa44b8d0f3cfbd0c73d, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  MaxIdleTime: 5
+  GameDuration: 10
+  Score: 0
+  IdleColor: {r: 1, g: 0, b: 0, a: 1}
+  MaxIdleTime: 10
+  MedicColor: {r: 0, g: 0.35876274, b: 1, a: 1}
+  MaxMedicTime: 7
+  RageQuitColor: {r: 0, g: 0, b: 0, a: 1}

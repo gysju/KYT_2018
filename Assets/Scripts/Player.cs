@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.GetGameState() != GameManager.GameState.InGame)
+            return;
+
         if (_currentObjAttached != null)
         {
             if (Input.GetButtonUp("X" + _playerID))
@@ -45,6 +48,9 @@ public class Player : MonoBehaviour
 
     void FixedUpdate ()
     {
+        if (GameManager.Instance.GetGameState() != GameManager.GameState.InGame)
+            return;
+
         Move();
     }
 
