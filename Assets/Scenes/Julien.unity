@@ -3025,16 +3025,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114620910743784212, guid: 785ca7ae2fdb32b448895a01f9644920,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 946192963}
-    - target: {fileID: 114926222039473098, guid: 785ca7ae2fdb32b448895a01f9644920,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 946192963}
     - target: {fileID: 114701774031793346, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3045,49 +3035,45 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 946192963}
-    - target: {fileID: 1486101156394966, guid: 785ca7ae2fdb32b448895a01f9644920, type: 2}
-      propertyPath: m_IsActive
+    - target: {fileID: 114926222039473098, guid: 785ca7ae2fdb32b448895a01f9644920,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 946192963}
+    - target: {fileID: 114620910743784212, guid: 785ca7ae2fdb32b448895a01f9644920,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 946192963}
+    - target: {fileID: 114218988969395542, guid: 785ca7ae2fdb32b448895a01f9644920,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224855264770051092, guid: 785ca7ae2fdb32b448895a01f9644920,
+    - target: {fileID: 114218988969395542, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224855264770051092, guid: 785ca7ae2fdb32b448895a01f9644920,
+    - target: {fileID: 114025404251709938, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
+      propertyPath: m_havePropertiesChanged
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224855264770051092, guid: 785ca7ae2fdb32b448895a01f9644920,
+    - target: {fileID: 114025404251709938, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224130759829299628, guid: 785ca7ae2fdb32b448895a01f9644920,
+    - target: {fileID: 114358537946039046, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
+      propertyPath: m_havePropertiesChanged
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224130759829299628, guid: 785ca7ae2fdb32b448895a01f9644920,
+    - target: {fileID: 114358537946039046, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224130759829299628, guid: 785ca7ae2fdb32b448895a01f9644920,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224855264770051092, guid: 785ca7ae2fdb32b448895a01f9644920,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224130759829299628, guid: 785ca7ae2fdb32b448895a01f9644920,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 785ca7ae2fdb32b448895a01f9644920, type: 2}
