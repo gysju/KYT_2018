@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class BloodDonor : DragableObj
 {
     public BloodInfo Blood;
     [SerializeField] private GameData _data;
+    [SerializeField] private Image _waitingBar;
 
     public enum State { idle, home, medic, taking, leave, rageQuit }
     public State CurrentState {
@@ -27,7 +29,7 @@ public class BloodDonor : DragableObj
 
     private List<Transform> _currentPath;
     private int _currentPathIndex = 0;
-
+     
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
@@ -52,12 +54,14 @@ public class BloodDonor : DragableObj
             case State.idle:
                 _currentPath = null;
                 _navMeshAgent.isStopped = true;
+                _waitingBar.color = _data.IdleColor;
                 break;
             case State.home:
                 _currentPath = PathManager.Instance.PathsHomeToDoc;
                 SetDestination(_currentPath[0].position);
                 break;
             case State.medic:
+                _waitingBar.color = _data.MedicColor;
                 break;
             case State.taking:
                 break;
@@ -68,6 +72,7 @@ public class BloodDonor : DragableObj
             case State.rageQuit:
                 _currentPath = PathManager.Instance.PathsBedToExit;
                 SetDestination(_currentPath[0].position);
+                _waitingBar.color = _data.RageQuitColor;
                 break;
             default:
                 break;
@@ -121,6 +126,37 @@ public class BloodDonor : DragableObj
             CurrentState = State.rageQuit;
         }
         _currentIdle += Time.deltaTime;
+        SetHudBar();
+    }
+
+    void CheckMedicTime()
+    {
+        if (_currentIdle > _data.MaxMedicTime)
+        {
+            CurrentState = State.idle;
+        }
+        _currentIdle += Time.deltaTime;
+        SetHudBar();
+    }
+
+    void SetHudBar()
+    {
+        switch (CurrentState)
+        {
+            case State.medic:
+                _waitingBar.fillAmount = _currentIdle / _data.MaxMedicTime;
+                break;
+            case State.idle:
+            case State.home:
+                _waitingBar.fillAmount = _currentIdle / _data.MaxIdleTime;
+                break;
+            case State.rageQuit:
+                _waitingBar.fillAmount = 1.0f;
+                break;
+            default:
+                _waitingBar.fillAmount = 0.0f;
+                break;
+        }
     }
 
     void HasReachedHisDestination()
