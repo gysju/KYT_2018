@@ -874,6 +874,26 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114872987084067646, guid: 3f6e81f1193986640a197284085013c7,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114872987084067646, guid: 3f6e81f1193986640a197284085013c7,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114910857867610140, guid: 3f6e81f1193986640a197284085013c7,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114910857867610140, guid: 3f6e81f1193986640a197284085013c7,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114642761833318044, guid: 3f6e81f1193986640a197284085013c7,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -894,16 +914,6 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114872987084067646, guid: 3f6e81f1193986640a197284085013c7,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114872987084067646, guid: 3f6e81f1193986640a197284085013c7,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114664070082968908, guid: 3f6e81f1193986640a197284085013c7,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -913,35 +923,6 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910857867610140, guid: 3f6e81f1193986640a197284085013c7,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114910857867610140, guid: 3f6e81f1193986640a197284085013c7,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224054096800329536, guid: 3f6e81f1193986640a197284085013c7,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.159
-      objectReference: {fileID: 0}
-    - target: {fileID: 224054096800329536, guid: 3f6e81f1193986640a197284085013c7,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046357897887992, guid: 3f6e81f1193986640a197284085013c7, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 114301888477350222, guid: 3f6e81f1193986640a197284085013c7,
-        type: 2}
-      propertyPath: info.rhesus
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f6e81f1193986640a197284085013c7, type: 2}
@@ -1499,15 +1480,6 @@ Prefab:
     - target: {fileID: 4474533140386650, guid: cdaece7012ddbb5459bab2f89a4e7b0d, type: 2}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114903078089160692, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
-        type: 2}
-      propertyPath: _playerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855961399977396, guid: cdaece7012ddbb5459bab2f89a4e7b0d, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdaece7012ddbb5459bab2f89a4e7b0d, type: 2}
@@ -2434,8 +2406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca2a76985b3ba64d944f31c38b47b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: 2
-  _data: {fileID: 0}
+  _data: {fileID: 11400000, guid: b8e99c7fc86d35748a9f4a0dfdb772c6, type: 2}
   _bloodDonor: {fileID: 114477364778100916, guid: 41452cd741deeaf41ad3bae3dbdb194d,
     type: 2}
   _bdSpawn: {fileID: 32646320}
