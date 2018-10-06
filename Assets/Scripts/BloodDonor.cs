@@ -41,6 +41,11 @@ public class BloodDonor : DragableObj
     void Start ()
     {
         CurrentState = State.home;
+
+        if (_data.HumansDatas != null)
+        {
+            SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
+        }
     }
 	
 	void Update ()
@@ -53,6 +58,12 @@ public class BloodDonor : DragableObj
             OnStateUpdate();
             HasReachedHisDestination();
         }
+    }
+
+    void SetModels(GameData.HumanData humanData)
+    {
+        GetComponent<MeshFilter>().mesh = humanData.Model;
+        GetComponent<MeshRenderer>().material = humanData.Mat;
     }
 
     void OnStateEnter()
