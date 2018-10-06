@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Donor
   - Doctor_Door
+  - Bed
+  - Bloodbag
   layers:
   - Default
   - TransparentFX
@@ -18,8 +20,8 @@ TagManager:
   - PostProcessing
   - 
   - 
-  - 
-  - 
+  - InteractableObj
+  - InteractablePlace
   - 
   - 
   - 

@@ -8,9 +8,13 @@ public class Player : MonoBehaviour
     [SerializeField] private int _playerID;
     [SerializeField] private Transform _attrachAnchor;
     [SerializeField] private float _speed;
+    [SerializeField] private Collider _trigger;
+
+    [SerializeField] private LayerMask _interactObj;
+    [SerializeField] private LayerMask _interactPlace;
 
     private Rigidbody _rgd;
-    private BloodDonor _currentDonorAttached = null;
+    private DragableObj _currentObjAttached = null;
     private bool _hasBeenAttachedCheck = false;
 
     private void Awake()
@@ -20,7 +24,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (_currentDonorAttached != null)
+        if (_currentObjAttached != null)
         {
             if (Input.GetButtonUp("X" + _playerID))
             {
@@ -28,8 +32,14 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetButtonDown("X" + _playerID) && _hasBeenAttachedCheck)
             {
-                DetachDonor();
+                CheckOnDrop();
+                DetachObj();
             }
+        }
+        else if (Input.GetButtonDown("X" + _playerID))
+        {
+            CheckOnDrop();
+            TryGrab();
         }
     }
 
@@ -52,35 +62,76 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AttachDonor( BloodDonor donor)
+    private void AttachObj(DragableObj obj)
     {
-        donor.transform.parent = _attrachAnchor;
-        donor.transform.localPosition = Vector3.zero;
-        donor.GetComponent<Collider>().isTrigger = true;
+        obj.Attach(_attrachAnchor);
 
-        donor.GetRigidbody().useGravity = false;
-        donor.GetRigidbody().isKinematic = true;
-
-        _currentDonorAttached = donor;
+        _currentObjAttached = obj;
     }
 
-    private void DetachDonor()
+    private void DetachObj()
     {
-        _currentDonorAttached.transform.parent = null;
-        _currentDonorAttached.GetComponent<Collider>().isTrigger = false;
+        _currentObjAttached.Detach();
 
-        _currentDonorAttached.GetRigidbody().useGravity = true;
-        _currentDonorAttached.GetRigidbody().isKinematic = false;
-
-        _currentDonorAttached = null;
+        _currentObjAttached = null;
         _hasBeenAttachedCheck = false;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void TryGrab()
     {
-        if (other.CompareTag("Donor") && Input.GetButtonDown("X" + _playerID ))
+        Collider[] cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactObj);
+        if (cols != null && cols.Length > 0)
         {
-            AttachDonor(other.GetComponent<BloodDonor>());
+            if (cols[0].CompareTag("Donor"))
+            {
+                BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
+                if (donor.state != BloodDonor.State.taking)
+                    AttachObj(donor);
+            }
+            else if (cols[0].CompareTag("Bloodbag"))
+            {
+                BloodBag bloodbag = (cols[0].GetComponent<BloodBag>());
+                AttachObj(bloodbag);
+            }
+        }
+    }
+
+    /// <summary>Check surounding object around the player</summary>
+    private void CheckOnDrop()
+    {
+        Collider[] cols = Physics.OverlapSphere(_attrachAnchor.position, .75f, _interactPlace);
+        if (cols != null && cols.Length > 0)
+        {
+            if (cols[0].CompareTag("Doctor_Door"))
+            {
+                Doctor doc = cols[0].GetComponent<Doctor>();
+                if (doc != null && _currentObjAttached is BloodDonor)
+                {
+                    BloodDonor bd = (BloodDonor)_currentObjAttached;
+                    if (bd != null)
+                    {
+                        if (bd.state == BloodDonor.State.home)
+                            doc.SetDonor((BloodDonor)_currentObjAttached);
+                        else bd.state = BloodDonor.State.leave;
+                    }
+                }
+            }
+            else if (cols[0].CompareTag("Bed"))
+            {
+                Bed bed = cols[0].GetComponent<Bed>();
+                if (bed != null && _currentObjAttached is BloodDonor)
+                {
+                    BloodDonor bd = (BloodDonor)_currentObjAttached;
+                    if (bd != null)
+                    {
+                        if (bd.state == BloodDonor.State.medic /*&& bed.type == bd.Blood.EBloodType*/)
+                        {
+                            bed.SetDonor(bd);
+                        }
+                        else bd.state = BloodDonor.State.leave;
+                    }
+                }
+            }
         }
     }
 }

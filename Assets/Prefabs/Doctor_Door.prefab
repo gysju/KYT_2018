@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4398682242496672}
   - component: {fileID: 65674810816553310}
   - component: {fileID: 114077843537459208}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Doctor_Door
   m_TagString: Doctor_Door
   m_Icon: {fileID: 0}
@@ -195,8 +195,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.4508283, y: 1, z: 0.98090565}
+  m_Center: {x: 0.030217757, y: 0, z: -0.38409954}
 --- !u!114 &114077843537459208
 MonoBehaviour:
   m_ObjectHideFlags: 1
