@@ -13,24 +13,120 @@ public class BloodInfo
     public BloodFamily family = BloodFamily.None;
     public BloodRhesus rhesus = BloodRhesus.None;
 
-    public bool Equals(BloodInfo info)
+    public BloodInfo(BloodType type, BloodFamily family, BloodRhesus rhesus)
     {
-        return family == info.family && type == info.type && rhesus == info.rhesus;
+        this.type = type;
+        this.family = family;
+        this.rhesus = rhesus;
+    }
+
+    public bool Equals(BloodInfo info, bool c_type, bool c_family, bool c_rhesus)
+    {
+        bool equal = true;
+        if (c_type && type != info.type)
+            equal = false;
+        else if (c_family && family != info.family)
+            equal = false;
+        else if (c_rhesus && rhesus != info.rhesus)
+            equal = false;
+
+        return equal;
+    }
+    public bool EqualsType(BloodInfo info, bool c_type, bool c_family)
+    {
+        return Equals(info, c_type, c_family, false);
+    }
+    public bool EqualsType(BloodInfo info, bool c_type)
+    {
+        return Equals(info, c_type, true, true);
     }
     public bool EqualsType(BloodInfo info)
     {
-        return type == info.type;
+        return Equals(info, true, true, true);
     }
-    public bool EqualsFamRhe(BloodInfo info)
+
+    public static BloodInfo GetRand()
     {
-        return family == info.family && rhesus == info.rhesus;
+        BloodType type = (BloodType)Random.Range(1, 4);
+        BloodFamily fam = (BloodFamily)Random.Range(1, 5);
+        BloodRhesus rhe = (BloodRhesus)Random.Range(1, 5);
+
+        return new BloodInfo(type, fam, rhe);
     }
-    public bool EqualsFam(BloodInfo info)
+
+    /// <summary>What can he get in place</summary>
+    /// <returns></returns>
+    public Compoatibilities Compatibility()
     {
-        return family == info.family;
+        Compoatibilities compt = new Compoatibilities(0,0,0,0);
+        if (type == BloodType.Blood)
+        {
+            switch (family)
+            {
+                case BloodFamily.A:
+                    compt = new Compoatibilities(1, 0, 0, 1);
+                    break;
+                case BloodFamily.B:
+                    compt = new Compoatibilities(0, 1, 0, 1);
+                    break;
+                case BloodFamily.AB:
+                    compt = new Compoatibilities(1, 1, 1, 1);
+                    break;
+                case BloodFamily.O:
+                    compt = new Compoatibilities(0, 0, 0, 1);
+                    break;
+            }
+        }
+        else if (type == BloodType.Plasma)
+        {
+            switch (family)
+            {
+                case BloodFamily.A:
+                    compt = new Compoatibilities(1, 0, 0, 1);
+                    break;
+                case BloodFamily.B:
+                    compt = new Compoatibilities(0, 1, 0, 1);
+                    break;
+                case BloodFamily.AB:
+                    compt = new Compoatibilities(1, 1, 1, 1);
+                    break;
+                case BloodFamily.O:
+                    compt = new Compoatibilities(0, 0, 0, 1);
+                    break;
+            }
+        }
+        else if (type == BloodType.Platelet)
+        {
+            switch (family)
+            {
+                case BloodFamily.A:
+                    compt = new Compoatibilities(1, 0, 0, 1);
+                    break;
+                case BloodFamily.B:
+                    compt = new Compoatibilities(0, 1, 0, 1);
+                    break;
+                case BloodFamily.AB:
+                    compt = new Compoatibilities(1, 1, 1, 1);
+                    break;
+                case BloodFamily.O:
+                    compt = new Compoatibilities(0, 0, 0, 1);
+                    break;
+            }
+        }
+
+        return compt;
     }
-    public bool EqualsRhe(BloodInfo info)
+
+    public struct Compoatibilities
     {
-        return rhesus == info.rhesus;
+        public int a, b, ab, o;
+
+        public Compoatibilities(int a, int b, int ab, int o)
+        {
+            this.a = a;
+            this.b = b;
+            this.ab = ab;
+            this.o = o;
+        }
     }
 }

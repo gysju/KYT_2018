@@ -89,33 +89,29 @@ public class Player : MonoBehaviour
 
     private void TryGrab()
     {
-        //Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactObj);
-        //if (cols != null && cols.Length > 0)
-        Collider col = _lastHighlightObj.col;
-        if (col == null) return;
-
-        if (_lastHighlightObj.isAnObj)
+        Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactObj);
+        if (cols != null && cols.Length > 0)
         {
-            if (col.CompareTag("Donor"))
+            if (cols[0].CompareTag("Donor"))
             {
-                BloodDonor donor = (col.GetComponent<BloodDonor>());
+                BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
                 if (donor.CurrentState != BloodDonor.State.taking && donor.CurrentState != BloodDonor.State.rageQuit)
                     AttachObj(donor);
             }
-            else if (col.CompareTag("Bloodbag"))
+            else if (cols[0].CompareTag("Bloodbag"))
             {
-                BloodBag bloodbag = (col.GetComponent<BloodBag>());
+                BloodBag bloodbag = (cols[0].GetComponent<BloodBag>());
                 AttachObj(bloodbag);
             }
         }
         else
         {
-            //cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
-            //if (cols != null && cols.Length > 0)
+            cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
+            if (cols != null && cols.Length > 0)
             {
-                if (col.CompareTag("BloodShelf"))
+                if (cols[0].CompareTag("BloodShelf"))
                 {
-                    BloodShelf shelf = col.GetComponent<BloodShelf>();
+                    BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
                     if (shelf != null)
                     {
                         BloodBag b = shelf.TakeOut();
@@ -130,14 +126,12 @@ public class Player : MonoBehaviour
     /// <summary>Check surounding object around the player</summary>
     private void CheckOnDrop()
     {
-        //Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
-        //if (cols != null && cols.Length > 0)
-        Collider col = _lastHighlightObj.col;
-        if (!_lastHighlightObj.isAnObj && col != null)
+        Collider[] cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
+        if (cols != null && cols.Length > 0)
         {
-            if (col.CompareTag("Doctor_Door"))
+            if (cols[0].CompareTag("Doctor_Door"))
             {
-                Doctor doc = col.GetComponent<Doctor>();
+                Doctor doc = cols[0].GetComponent<Doctor>();
                 if (doc != null && _currentObjAttached is BloodDonor)
                 {
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
@@ -149,9 +143,9 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else if (col.CompareTag("Bed"))
+            else if (cols[0].CompareTag("Bed"))
             {
-                Bed bed = col.GetComponent<Bed>();
+                Bed bed = cols[0].GetComponent<Bed>();
                 if (bed != null && _currentObjAttached is BloodDonor)
                 {
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
@@ -165,9 +159,9 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else if (col.CompareTag("BloodShelf"))
+            else if (cols[0].CompareTag("BloodShelf"))
             {
-                BloodShelf shelf = col.GetComponent<BloodShelf>();
+                BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
                 if (shelf != null && _currentObjAttached is BloodBag)
                 {
                     BloodBag bb = (BloodBag)_currentObjAttached;

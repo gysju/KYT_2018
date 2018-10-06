@@ -9,6 +9,7 @@ TagManager:
   - Bed
   - Bloodbag
   - BloodShelf
+  - commands
   layers:
   - Default
   - TransparentFX
