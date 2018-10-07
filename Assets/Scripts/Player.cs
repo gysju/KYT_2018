@@ -48,17 +48,19 @@ public class Player : MonoBehaviour
 
         if (_currentObjAttached != null)
         {
-            if (Input.GetButtonUp("X" + _playerID))
+            if (Input.GetKeyUp("joystick " + (_playerID+1) + " button 0"))
             {
                 _hasBeenAttachedCheck = true;
+
             }
-            else if (Input.GetButtonDown("X" + _playerID) && _hasBeenAttachedCheck)
+            else if (Input.GetKeyDown("joystick " + (_playerID+1) + " button 0") && _hasBeenAttachedCheck)
             {
                 CheckOnDrop();
                 DetachObj();
+
             }
         }
-        else if (Input.GetButtonDown("X" + _playerID))
+        else if (Input.GetKeyDown("joystick " + (_playerID+1) + " button 0"))
         {
             CheckOnDrop();
             TryGrab();
