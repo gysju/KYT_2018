@@ -22,7 +22,7 @@ public class BloodShelf : MonoBehaviour {
     #region Function
     public void FillIn(BloodBag bag)
     {
-        if (bag.bloodInfo.Equals(info))
+        if (bag.bloodInfo.Equals(info, true, true, false))
         {
             bag.transform.position = stock.position;
             bag.gameObject.SetActive(false);
