@@ -94,5 +94,9 @@ public class BloodShelf : MonoBehaviour {
             }
         }
     }
+    public int GetNumber()
+    {
+        return bloodBags.Count;
+    }
     #endregion
 }

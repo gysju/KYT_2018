@@ -8,7 +8,7 @@ public class Bed : InteractableWihDonor {
     public BloodInfo.BloodType type;
     public GameObject bloodbag;
 
-    [SerializeField] private Transform bloodbagSpawn;
+    [SerializeField] private Transform _bloodbagSpawn;
     #endregion
     #region MonoFunction
     private void Start()
@@ -26,14 +26,16 @@ public class Bed : InteractableWihDonor {
     {
         base.Begin();
         _donor.CurrentState = BloodDonor.State.taking;
+        _donor.animator.SetBool("sleep", true);
     }
     protected override void End()
     {
         if (_donor != null)
         {
-            BloodBag b = Instantiate(bloodbag, bloodbagSpawn.position, bloodbagSpawn.rotation).GetComponent<BloodBag>();
+            BloodBag b = Instantiate(bloodbag, _bloodbagSpawn.position, _bloodbagSpawn.rotation).GetComponent<BloodBag>();
             b.bloodInfo = _donor.Blood;
             _donor.CurrentState = BloodDonor.State.leave;
+            _donor.animator.SetBool("sleep", false);
 
             _donor._navMeshAgent.enabled = true;
             _donor._navMeshAgent.SetDestination(transform.position);

@@ -31,13 +31,14 @@ public class BloodDonor : DragableObj
 
     private List<Transform> _currentPath;
     private int _currentPathIndex = 0;
-    private Animator _animator;
+    public Animator animator;
 
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _animator = GetComponentInChildren<Animator>();
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
     }
 
     void Start ()
@@ -63,11 +64,11 @@ public class BloodDonor : DragableObj
 
         if ( CurrentState == State.idle)
         {
-            _animator.SetFloat("Speed", 0.0f);
+            animator.SetFloat("Speed", 0.0f);
         }
         else
         {
-            _animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
+            animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
         }
     }
 
