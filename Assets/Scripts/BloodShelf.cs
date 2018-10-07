@@ -98,5 +98,10 @@ public class BloodShelf : MonoBehaviour {
     {
         return bloodBags.Count;
     }
+
+    public void ResetStock()
+    {
+        bloodBags.Clear();
+    }
     #endregion
 }

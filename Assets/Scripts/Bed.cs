@@ -34,6 +34,9 @@ public class Bed : InteractableWihDonor {
         {
             BloodBag b = Instantiate(bloodbag, _bloodbagSpawn.position, _bloodbagSpawn.rotation).GetComponent<BloodBag>();
             b.bloodInfo = _donor.Blood;
+
+            GameManager.Instance.AddBag(b);
+
             _donor.CurrentState = BloodDonor.State.leave;
             _donor.animator.SetBool("sleep", false);
 

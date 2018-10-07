@@ -22,6 +22,10 @@ public class Commands : MonoBehaviour {
         command.AddAnswer(bag.bloodInfo);
         Destroy(bag.gameObject);
     }
+    public void ResetCommand()
+    {
+        command.Init();
+    }
     #endregion
 }
 
@@ -41,7 +45,10 @@ public class Command
     {
         this.bords = bords;
         this.sprites = sprites;
+    }
 
+    public void Init()
+    {
         InitListCommands();
         Generate();
     }

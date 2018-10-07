@@ -26,6 +26,12 @@ public class GameManager : MonoBehaviour
     public Player _playerOne;
     public Player _playerTwo;
 
+    public BloodShelf[] shelves;
+
+    private List<BloodBag> bloodBags;
+
+    public Commands command;
+
     private void Awake()
     {
         if (Instance == null)
@@ -92,5 +98,21 @@ public class GameManager : MonoBehaviour
 
         _playerOne.ResetPosition();
         _playerTwo.ResetPosition();
+
+        for (int i = 0; i < shelves.Length; i++)
+            shelves[i].ResetStock();
+
+        foreach(BloodBag b in bloodBags)
+        {
+            Destroy(b.gameObject);
+        }
+        bloodBags.Clear();
+
+        command.ResetCommand();
+    }
+
+    public void AddBag(BloodBag b)
+    {
+        bloodBags.Add(b);
     }
 }
