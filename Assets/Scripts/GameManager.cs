@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Start ()
     {
-        SpawnBloodDonor();
+        StartCoroutine( SpawnBloodDonor());
     }
 
 	void Update ()
@@ -56,9 +56,22 @@ public class GameManager : MonoBehaviour
         }
 	}
 
-    void SpawnBloodDonor()
+    IEnumerator SpawnBloodDonor()
     {
-        _bloodDonors.Add( Instantiate( _bloodDonor, _bdSpawn.position, _bdSpawn.rotation));
+        if (_bloodDonors.Count > 0)
+        {
+            yield return new WaitForSeconds(_data.SpawnSpeed);
+        }
+
+        if(_bloodDonors.Count < _data.MaxHumanCount)
+            _bloodDonors.Add( Instantiate( _bloodDonor, _bdSpawn.position, _bdSpawn.rotation));
+
+        StartCoroutine(SpawnBloodDonor());
+    }
+
+    public void Removedonor( BloodDonor donor)
+    {
+        _bloodDonors.Remove(donor);
     }
 
     public void ClearAllInstance()

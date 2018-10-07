@@ -44,4 +44,6 @@ public class GameData : ScriptableObject
 
     [Header("Humans")]
     public List<HumanData> HumansDatas = new List<HumanData>();
+    public float SpawnSpeed = 15.0f;
+    public int MaxHumanCount = 3;
 }
