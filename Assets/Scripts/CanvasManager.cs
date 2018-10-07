@@ -66,6 +66,12 @@ public class CanvasManager : MonoBehaviour {
         }
     }
 
+    public void AddScore(int value)
+    {
+        _score += value;
+        ScoreText.text = _score.ToString();
+    }
+
     public void DisplayPauseMenu()
     {
         _pauseMenu.gameObject.SetActive(true);
@@ -116,6 +122,8 @@ public class CanvasManager : MonoBehaviour {
 
         Time.timeScale = 1.0f;
         _time = _data.GameDuration;
+        _score = 0;
+        ScoreText.text = "0";
     }
 
     public void QuiGame()
