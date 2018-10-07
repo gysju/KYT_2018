@@ -58,7 +58,7 @@ public class CanvasManager : MonoBehaviour {
     private void Update()
     {
         _time = Mathf.Max(0.0f, _time - Time.deltaTime);
-        TimeText.text = _time.ToString("0.00");
+        TimeText.text = _time.ToString("0.0");
 
         if (_time <= 0.0F && GameManager.Instance.State == GameManager.GameState.InGame)
         {
