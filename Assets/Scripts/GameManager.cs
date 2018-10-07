@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     public BloodShelf[] shelves;
 
-    private List<BloodBag> bloodBags;
+    private List<BloodBag> bloodBags = new List<BloodBag>();
 
     public Commands command;
 
@@ -102,11 +102,14 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < shelves.Length; i++)
             shelves[i].ResetStock();
 
-        foreach(BloodBag b in bloodBags)
+        if (bloodBags != null)
         {
-            Destroy(b.gameObject);
+            foreach (BloodBag b in bloodBags)
+            {
+                Destroy(b.gameObject);
+            }
+            bloodBags.Clear();
         }
-        bloodBags.Clear();
 
         command.ResetCommand();
     }

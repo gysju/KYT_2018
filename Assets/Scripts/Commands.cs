@@ -13,6 +13,9 @@ public class Commands : MonoBehaviour {
     #region MonoFunction
     private void Start()
     {
+        for (int i = 4; i < 4; i++)
+            bords[i].SetData(false, null, null);
+
         command = new Command(bords, sprites);
     }
     #endregion
@@ -45,6 +48,7 @@ public class Command
     {
         this.bords = bords;
         this.sprites = sprites;
+        Init();
     }
 
     public void Init()
