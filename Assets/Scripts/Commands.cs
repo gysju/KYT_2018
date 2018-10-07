@@ -105,12 +105,13 @@ public class Command
         else
         {
             given.Add(answer);
+            CanvasManager.Instance.AddScore(5);
             compts[(int)answer.type - 1].ababo[(int)answer.family - 1]++;
             remaining--;
             if (remaining <= 0)
             {
                 Debug.Log("command completed");
-                CanvasManager.Instance.AddScore(10);
+                CanvasManager.Instance.AddScore(20);
                 Generate();
             }
         }
