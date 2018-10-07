@@ -80,7 +80,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1554441454585662
 GameObject:
   m_ObjectHideFlags: 1
@@ -609,11 +609,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -722,11 +722,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -763,14 +763,16 @@ MonoBehaviour:
     m_Bits: 4096
   AttachedSound: {fileID: 8300000, guid: a2dd04c55fe8b644f9f5370205111a93, type: 3}
   DetachedSound: {fileID: 8300000, guid: 0bfb2bd9d2b225646868843a6a3ac81e, type: 3}
-  _bul: {fileID: 0}
-  _bulImg: {fileID: 0}
-  _bulText: {fileID: 0}
-  _bulText_Img: {fileID: 0}
+  _bul: {fileID: 1468489566921260}
+  _bulImg: {fileID: 114178086504041736}
+  _bulText: {fileID: 114486816200960882}
+  _bulText_Img: {fileID: 114458163142178706}
   sprites:
   - {fileID: 21300000, guid: 7d9ef3a48a0913446b51ba2f0448212e, type: 3}
   - {fileID: 21300000, guid: 6687fae8c3c0e1a46a03115da78e3466, type: 3}
   - {fileID: 21300000, guid: 67a0f2928778fd24f97b32bedc80de58, type: 3}
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114747383947554914
 MonoBehaviour:
   m_ObjectHideFlags: 1
