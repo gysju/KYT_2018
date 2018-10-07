@@ -58,6 +58,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnBloodDonor()
     {
+        while (State != GameState.InGame)
+        {
+            yield return null;
+        }
+
         if (_bloodDonors.Count > 0)
         {
             yield return new WaitForSeconds(_data.SpawnSpeed);
@@ -82,5 +87,7 @@ public class GameManager : MonoBehaviour
         }
 
         _bloodDonors.Clear();
+
+        //set playerPos
     }
 }
