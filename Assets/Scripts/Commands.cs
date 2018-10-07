@@ -99,6 +99,7 @@ public class Command
             if (remaining <= 0)
             {
                 Debug.Log("command completed");
+                CanvasManager.Instance.AddScore(10);
                 Generate();
             }
         }
