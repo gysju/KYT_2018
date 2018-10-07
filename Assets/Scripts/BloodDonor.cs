@@ -51,6 +51,7 @@ public class BloodDonor : DragableObj
         if (_data.HumansDatas != null)
         {
             SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
+            Blood = BloodInfo.GetRand();
         }
     }
 	
