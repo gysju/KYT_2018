@@ -8,6 +8,7 @@ ModelImporter:
     400000: bloodbag
     400002: //RootNode
     2100000: palette
+    2100002: bloodbagMat
     2300000: bloodbag
     3300000: bloodbag
     4300000: bloodbag
