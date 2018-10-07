@@ -991,9 +991,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceTex:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 0}
         m_Scale: {x: -0.01, y: 0.02}
-        m_Offset: {x: 0, y: 0.41}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 28388497342017292}
         m_Scale: {x: 1, y: 1}
@@ -1014,7 +1014,7 @@ Material:
     - _ColorMask: 15
     - _Diffuse: 0.5
     - _FaceDilate: 0
-    - _FaceUVSpeedX: 1
+    - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0.05
     - _GlowOffset: 0
