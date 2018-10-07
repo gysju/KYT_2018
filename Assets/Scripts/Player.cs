@@ -32,8 +32,14 @@ public class Player : MonoBehaviour
 
     private Animator _animator;
 
+    public Vector3 startPosition;
+    public Quaternion startRotation;
+
     private void Awake()
     {
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
         _rgd = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
         Source = GetComponent<AudioSource>();
@@ -316,5 +322,10 @@ public class Player : MonoBehaviour
             _bulText_Img.text = text;
             _bulText.text = "";
         }
+    }
+    public void ResetPosition()
+    {
+        transform.position = startPosition;
+        transform.rotation = startRotation;
     }
 }

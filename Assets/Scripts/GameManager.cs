@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
 
         _bloodDonors.Clear();
 
-        //_playerOne.ResetPosition();
-        //_playerTwo.ResetPosition();
+        _playerOne.ResetPosition();
+        _playerTwo.ResetPosition();
     }
 }
