@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3ccf1c9fab7aa44b8d0f3cfbd0c73d, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  GameDuration: 10
+  GameDuration: 5
   Score: 0
   IdleColor: {r: 1, g: 0, b: 0, a: 1}
   MaxIdleTime: 10
@@ -32,3 +32,5 @@ MonoBehaviour:
     Mat: {fileID: 2100000, guid: ec6d1868c3627e24da08244ee43dbb3f, type: 3}
   - Model: {fileID: 4300000, guid: 3e31862fee85e67499362cdb5eb3a8c9, type: 3}
     Mat: {fileID: 2100000, guid: 3e31862fee85e67499362cdb5eb3a8c9, type: 3}
+  SpawnSpeed: 15
+  MaxHumanCount: 3

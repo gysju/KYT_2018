@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform _bdSpawn;
 
     List<BloodDonor> _bloodDonors = new List<BloodDonor>();
+    public Player _playerOne;
+    public Player _playerTwo;
 
     private void Awake()
     {
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour
 
         _bloodDonors.Clear();
 
-        //set playerPos
+        //_playerOne.ResetPosition();
+        //_playerTwo.ResetPosition();
     }
 }
