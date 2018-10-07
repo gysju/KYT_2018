@@ -6,11 +6,12 @@ public class Commands : MonoBehaviour {
 
     #region Var
     public Command command;
+    
     #endregion
     #region MonoFunction
     private void Start()
     {
-        command = new Command(4);
+        command = new Command();
     }
     #endregion
     #region Function
@@ -22,21 +23,29 @@ public class Commands : MonoBehaviour {
     #endregion
 }
 
-[System.Serializable]
 public class Command
 {
     public List<BloodInfo> ask, given;
     public int remaining;
 
+    private List<int> nBagnextCommands = new List<int>();
+
     public BloodInfo.Compatibilities[] compts, givenCompts;
 
-    public Command(int nBag)
+    public Command()
     {
-        Generate(nBag);
+        Generate();
     }
 
-    public void Generate(int nBag)
+    public void Generate()
     {
+        int nBag = 4;
+        if (nBagnextCommands.Count > 0)
+        {
+            nBag = nBagnextCommands[0];
+            nBagnextCommands.RemoveAt(0);
+        }
+
         ask = new List<BloodInfo>();
         given = new List<BloodInfo>();
         compts = new BloodInfo.Compatibilities[] {
@@ -66,7 +75,7 @@ public class Command
         if (compts[(int)answer.type - 1].ababo[(int)answer.family - 1] <= givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1])
         {
             Debug.Log("lose command");
-            Generate(4);
+            Generate();
         }
         else
         {
@@ -76,5 +85,22 @@ public class Command
             if (remaining <= 0)
                 Debug.Log("command completed");
         }
+    }
+
+    private void InitListCommands()
+    {
+        nBagnextCommands = new List<int>();
+
+        nBagnextCommands.Add(2);
+        nBagnextCommands.Add(2);
+        nBagnextCommands.Add(2);
+        nBagnextCommands.Add(3);
+        nBagnextCommands.Add(3);
+        nBagnextCommands.Add(3);
+        nBagnextCommands.Add(3);
+        nBagnextCommands.Add(3);
+        nBagnextCommands.Add(4);
+        nBagnextCommands.Add(4);
+        nBagnextCommands.Add(4);
     }
 }
