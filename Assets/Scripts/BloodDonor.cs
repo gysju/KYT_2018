@@ -20,7 +20,10 @@ public class BloodDonor : DragableObj
         set {
             OnStateExit();
             _state = value;
-            OnStateEnter();
+            if (gameObject.activeSelf)
+                OnStateEnter();
+            else
+                Destroy(gameObject);
         }
     }
     public State _state = State.idle;
@@ -148,6 +151,10 @@ public class BloodDonor : DragableObj
                 break;
             case State.leave:
                 progressionStat = (int)CurrentState;
+                break;
+            case State.rageQuit:
+                GameManager.Instance.Removedonor(this);
+                gameObject.SetActive(false);
                 break;
             default:
                 break;
