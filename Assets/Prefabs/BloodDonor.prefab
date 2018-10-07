@@ -317,6 +317,7 @@ MonoBehaviour:
   progressionStat: 0
   _state: 0
   _navMeshAgent: {fileID: 0}
+  animator: {fileID: 95878453862357170}
 --- !u!114 &114815103653452862
 MonoBehaviour:
   m_ObjectHideFlags: 1

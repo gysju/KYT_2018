@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
@@ -15,6 +16,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] private AudioClip AttachedSound;
     [SerializeField] private AudioClip DetachedSound;
+
+    [SerializeField] private GameObject _bul;
+    [SerializeField] private UnityEngine.UI.Image _bulImg;
+    [SerializeField] private TextMeshProUGUI _bulText, _bulText_Img;
+
+    [SerializeField] private Sprite[] sprites;
 
     private AudioSource Source;
     private Rigidbody _rgd;
@@ -169,7 +176,7 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if ((bd.progressionStat == (int)BloodDonor.State.medic || bd._state == BloodDonor.State.medic) && bed.type == bd.Blood.type)
+                        if ((bd.progressionStat == (int)BloodDonor.State.medic || bd._state == BloodDonor.State.medic) /*&& bed.type == bd.Blood.type*/)
                         {
                             bed.SetDonor(bd);
                         }
@@ -218,6 +225,19 @@ public class Player : MonoBehaviour
                     _lastHighlightObj.mat.SetFloat("_Highlight", 0);
                 _lastHighlightObj.SetData(cols[0], cols[0].GetComponentInChildren<MeshRenderer>().material, true);
                 _lastHighlightObj.mat.SetFloat("_Highlight", 1);
+
+                if (cols[0].CompareTag("Donor"))
+                {
+                    BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
+                    if (donor != null)
+                        SetBul(true, sprites[(int)donor.Blood.type - 1], "" + donor.Blood.family);
+                }
+                else if (cols[0].CompareTag("Bloodbag"))
+                {
+                    BloodBag bloodbag = (cols[0].GetComponent<BloodBag>());
+                    if (bloodbag != null)
+                        SetBul(true, sprites[(int)bloodbag.bloodInfo.type -1], "" + bloodbag.bloodInfo.family);
+                }
             }
         }
         else
@@ -229,11 +249,23 @@ public class Player : MonoBehaviour
                     _lastHighlightObj.mat.SetFloat("_Highlight", 0);
                 _lastHighlightObj.SetData(cols[0], cols[0].GetComponentInChildren<MeshRenderer>().material, false);
                 _lastHighlightObj.mat.SetFloat("_Highlight", 1);
+
+                if (_lastHighlightObj.col.CompareTag("BloodShelf"))
+                {
+                    BloodShelf shelf = _lastHighlightObj.col.GetComponent<BloodShelf>();
+                    if (shelf != null && _currentObjAttached == null)
+                    {
+                        SetBul(true, ""+shelf.GetNumber());
+                    }
+                }
             }
             else if (_lastHighlightObj.col != null)
             {
                 _lastHighlightObj.mat.SetFloat("_Highlight", 0);
                 _lastHighlightObj.col = null;
+
+                if (_bul.activeSelf)
+                    SetBul(false, "");
             }
         }
     }
@@ -256,6 +288,31 @@ public class Player : MonoBehaviour
             this.mat = mat;
             this.col = col;
             this.isAnObj = isAnObj;
+        }
+    }
+
+    public void SetBul(bool active, string text)
+    {
+        _bul.SetActive(active);
+        if (!string.IsNullOrEmpty(text))
+            _bulText.text = text;
+
+        _bulImg.gameObject.SetActive(false);
+        _bulText_Img.text = "";
+    }
+    public void SetBul(bool active, Sprite sprite, string text)
+    {
+        _bul.SetActive(active);
+        if (active)
+        {
+            _bulImg.sprite = sprite;
+            _bulImg.gameObject.SetActive(true);
+        } else _bulImg.gameObject.SetActive(false);
+
+        if (!string.IsNullOrEmpty(text))
+        {
+            _bulText_Img.text = text;
+            _bulText.text = "";
         }
     }
 }
