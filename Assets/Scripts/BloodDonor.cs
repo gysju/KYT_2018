@@ -210,7 +210,7 @@ public class BloodDonor : DragableObj
         if (!_navMeshAgent.enabled) return;
 
         float dist = _navMeshAgent.remainingDistance;
-        if (dist != Mathf.Infinity && _navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && _navMeshAgent.remainingDistance == 0)
+        if (dist != Mathf.Infinity && _navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && dist <= 0.25)
         {
             _currentPathIndex ++;
             if (_currentPathIndex >= _currentPath.Count)
