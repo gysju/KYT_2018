@@ -209,7 +209,7 @@ public class BloodDonor : DragableObj
 
         if (!_navMeshAgent.enabled) return;
 
-        float dist = _navMeshAgent.remainingDistance;
+        float dist = (_navMeshAgent.destination - transform.position).magnitude;
         if (dist != Mathf.Infinity && _navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && dist <= 0.25)
         {
             _currentPathIndex ++;
@@ -227,11 +227,10 @@ public class BloodDonor : DragableObj
 
     public void SetDestination( Vector3 destination )
     {
-        if (_navMeshAgent.enabled)
-        {
-            _navMeshAgent.isStopped = false;
-            _navMeshAgent.SetDestination(destination);
-        }
+        _navMeshAgent.enabled = true;
+        
+        _navMeshAgent.isStopped = false;
+        _navMeshAgent.SetDestination(destination);
     }
 
     public Rigidbody GetRigidbody()
@@ -267,5 +266,6 @@ public class BloodDonor : DragableObj
 
         _rgd.useGravity = true;
         _rgd.isKinematic = false;
+        onProcess = false;
     }
 }

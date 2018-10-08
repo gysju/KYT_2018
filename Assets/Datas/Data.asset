@@ -35,4 +35,4 @@ MonoBehaviour:
   - Model: {fileID: 4300000, guid: 3e31862fee85e67499362cdb5eb3a8c9, type: 3}
     Mat: {fileID: 2100000, guid: 3e31862fee85e67499362cdb5eb3a8c9, type: 3}
   SpawnSpeed: 10
-  MaxHumanCount: 5
+  MaxHumanCount: 1

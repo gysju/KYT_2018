@@ -19978,6 +19978,32 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1010203133}
   m_Mesh: {fileID: 4300000, guid: 3adb2cfac4f241f429b48aa16119a532, type: 3}
+--- !u!1 &1010335186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1855961399977396, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 251404557}
+--- !u!195 &1010335191
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1010335186}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 0
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1017100266
 GameObject:
   m_ObjectHideFlags: 0
@@ -24517,6 +24543,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1354322610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1307769828014238, guid: 4c62eb2ac1ac323409be1ce232f49c0e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1689977732}
+--- !u!195 &1354322615
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1354322610}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 0
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1356563803
 GameObject:
   m_ObjectHideFlags: 0
