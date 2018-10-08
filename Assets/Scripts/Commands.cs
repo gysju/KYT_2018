@@ -9,6 +9,8 @@ public class Commands : MonoBehaviour {
 
     public Bord[] bords;
     public Sprite[] sprites;
+    public GameData _data;
+
     #endregion
     #region MonoFunction
     private void Start()
@@ -16,7 +18,7 @@ public class Commands : MonoBehaviour {
         for (int i = 4; i < 4; i++)
             bords[i].SetData(false, null, null);
 
-        command = new Command(bords, sprites);
+        command = new Command(bords, sprites, _data);
     }
     #endregion
     #region Function
@@ -43,11 +45,13 @@ public class Command
 
     public Bord[] bords;
     public Sprite[] sprites;
+    public GameData data;
 
-    public Command(Bord[] bords, Sprite[] sprites)
+    public Command(Bord[] bords, Sprite[] sprites, GameData gameData)
     {
         this.bords = bords;
         this.sprites = sprites;
+        this.data = gameData;
         Init();
     }
 
@@ -105,13 +109,13 @@ public class Command
         else
         {
             given.Add(answer);
-            CanvasManager.Instance.AddScore(5);
+            CanvasManager.Instance.AddScore(data.ScoreByCommandPartiallyComplete);
             compts[(int)answer.type - 1].ababo[(int)answer.family - 1]++;
             remaining--;
             if (remaining <= 0)
             {
                 Debug.Log("command completed");
-                CanvasManager.Instance.AddScore(20);
+                CanvasManager.Instance.AddScore(data.ScoreByCommandComplete);
                 Generate();
             }
         }

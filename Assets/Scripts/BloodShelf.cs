@@ -7,7 +7,7 @@ public class BloodShelf : MonoBehaviour {
 
     #region Var
     public BloodInfo info;
-
+    [SerializeField] private GameData _data;
     [HideInInspector] public List<BloodBag> bloodBags;
 
     [SerializeField] private Transform stock;
@@ -28,6 +28,7 @@ public class BloodShelf : MonoBehaviour {
             bag.gameObject.SetActive(false);
 
             bloodBags.Add(bag);
+            CanvasManager.Instance.AddScore(_data.ScoreByBloodStocked);
         }
         else
         {
@@ -42,6 +43,7 @@ public class BloodShelf : MonoBehaviour {
             BloodBag b = bloodBags[0];
             b.gameObject.SetActive(true);
             bloodBags.RemoveAt(0);
+            CanvasManager.Instance.AddScore(-_data.ScoreByBloodStocked);
             return b;
         }
         else Debug.Log("Empthy");

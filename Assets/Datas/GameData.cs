@@ -7,7 +7,9 @@ public class GameData : ScriptableObject
 {
     [Header("Rules")]
     public float GameDuration = 10.0f;
-    [HideInInspector] public float Score = 0.0f;
+    public int ScoreByCommandComplete = 25;
+    public int ScoreByCommandPartiallyComplete = 5;
+    public int ScoreByBloodStocked = 2;
 
     [Header("HUD")]
     [Space(10)]
