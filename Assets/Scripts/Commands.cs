@@ -25,7 +25,8 @@ public class Commands : MonoBehaviour {
     public void AddBag(BloodBag bag)
     {
         command.AddAnswer(bag.bloodInfo);
-        Destroy(bag.gameObject);
+        //Destroy(bag.gameObject);
+        bag.gameObject.SetActive(false);
     }
     public void ResetCommand()
     {

@@ -106,7 +106,8 @@ public class GameManager : MonoBehaviour
         {
             foreach (BloodBag b in bloodBags)
             {
-                Destroy(b.gameObject);
+                if (b != null)
+                    Destroy(b.gameObject);
             }
             bloodBags.Clear();
         }
