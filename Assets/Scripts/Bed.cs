@@ -36,13 +36,13 @@ public class Bed : InteractableWihDonor {
             b.bloodInfo = _donor.Blood;
 
             GameManager.Instance.AddBag(b);
+            
+            _donor._navMeshAgent.enabled = true;
+            //_donor._navMeshAgent.SetDestination(transform.position);
+            //_donor._navMeshAgent.isStopped = false;
 
             _donor.CurrentState = BloodDonor.State.leave;
             _donor.animator.SetBool("sleep", false);
-
-            _donor._navMeshAgent.enabled = true;
-            _donor._navMeshAgent.SetDestination(transform.position);
-            _donor._navMeshAgent.isStopped = false;
         }
         
         base.End();

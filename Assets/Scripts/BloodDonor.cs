@@ -263,8 +263,6 @@ public class BloodDonor : DragableObj
         if (!onProcess)
         {
             _navMeshAgent.enabled = true;
-            _navMeshAgent.SetDestination(transform.position);
-            _navMeshAgent.isStopped = false;
         }
 
         _rgd.useGravity = true;
