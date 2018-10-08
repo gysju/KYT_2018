@@ -36,6 +36,8 @@ public class BloodDonor : DragableObj
     private int _currentPathIndex = 0;
     public Animator animator;
 
+    public bool desableKinematic = true;
+
     private void Awake()
     {
         _rgd = GetComponent<Rigidbody>();
@@ -60,19 +62,19 @@ public class BloodDonor : DragableObj
         if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
-        if (!onProcess)
-        {
-            OnStateUpdate();
-            HasReachedHisDestination();
-        }
-
-        if ( CurrentState == State.idle)
+        if (CurrentState == State.idle)
         {
             animator.SetFloat("Speed", 0.0f);
         }
         else
         {
             animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
+        }
+
+        if (!onProcess)
+        {
+            OnStateUpdate();
+            HasReachedHisDestination();
         }
     }
 
@@ -152,6 +154,8 @@ public class BloodDonor : DragableObj
                 break;
             case State.leave:
                 progressionStat = (int)CurrentState;
+                GameManager.Instance.Removedonor(this);
+                gameObject.SetActive(false);
                 break;
             case State.rageQuit:
                 GameManager.Instance.Removedonor(this);
@@ -244,13 +248,15 @@ public class BloodDonor : DragableObj
         transform.localPosition = Vector3.zero;
         GetComponent<Collider>().isTrigger = true;
 
-        _navMeshAgent.SetDestination(transform.position);
-        _navMeshAgent.isStopped = true;
-        _navMeshAgent.enabled = false;
+        if (_navMeshAgent.enabled)
+        {
+            _navMeshAgent.SetDestination(transform.position);
+            _navMeshAgent.isStopped = true;
+        }
 
         onProcess = true;
 
-        _rgd.useGravity = false;
+        //_rgd.useGravity = false;
         _rgd.isKinematic = true;
     }
 
@@ -259,13 +265,9 @@ public class BloodDonor : DragableObj
         base.Detach();
         GetComponent<Collider>().isTrigger = false;
 
-        if (!onProcess)
-        {
-            _navMeshAgent.enabled = true;
-        }
-
-        _rgd.useGravity = true;
-        _rgd.isKinematic = false;
+        //_rgd.useGravity = true;
+        if (desableKinematic)
+            _rgd.isKinematic = false;
         onProcess = false;
     }
 }

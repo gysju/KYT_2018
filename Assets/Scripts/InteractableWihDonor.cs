@@ -7,6 +7,7 @@ public class InteractableWihDonor : Timer {
     #region Var
     protected BloodDonor _donor;
     [SerializeField] protected Transform _inside, _outside;
+    private float _enterYPos;
 
     public bool occupied { get { return _donor == null; } }
     #endregion
@@ -24,6 +25,11 @@ public class InteractableWihDonor : Timer {
 
         base.Begin();
 
+        _enterYPos = _donor.transform.position.y;
+
+        _donor._navMeshAgent.SetDestination(_outside.position);
+        _donor._navMeshAgent.isStopped = true;
+
         _donor.onProcess = true;
         _donor.transform.position = _inside.position;
         _donor.transform.rotation = _inside.rotation;
@@ -35,10 +41,11 @@ public class InteractableWihDonor : Timer {
         base.End();
 
         _donor.onProcess = false;
-        _donor.transform.position = _outside.position;
+        _donor.transform.position = new Vector3(_outside.position.x, _enterYPos, _outside.position.z);
         _donor.transform.rotation = _outside.rotation;
-        if (_donor._navMeshAgent.enabled)
-            _donor._navMeshAgent.SetDestination(_outside.position);
+
+        //_donor._navMeshAgent.isStopped = false;
+
         _donor = null;
     }
     #endregion

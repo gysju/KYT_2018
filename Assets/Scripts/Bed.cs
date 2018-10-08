@@ -27,6 +27,9 @@ public class Bed : InteractableWihDonor {
         base.Begin();
         _donor.CurrentState = BloodDonor.State.taking;
         _donor.animator.SetBool("sleep", true);
+
+        _donor.desableKinematic = false;
+        _donor._navMeshAgent.enabled = false;
     }
     protected override void End()
     {
@@ -36,16 +39,16 @@ public class Bed : InteractableWihDonor {
             b.bloodInfo = _donor.Blood;
 
             GameManager.Instance.AddBag(b);
-            
+
+            _donor.desableKinematic = true;
+            _donor.GetRigidbody().isKinematic = false;
             _donor._navMeshAgent.enabled = true;
-            //_donor._navMeshAgent.SetDestination(transform.position);
-            //_donor._navMeshAgent.isStopped = false;
 
             _donor.CurrentState = BloodDonor.State.leave;
             _donor.animator.SetBool("sleep", false);
         }
-        
         base.End();
+
     }
     #endregion
 }
