@@ -10,8 +10,8 @@ public class BloodDonor : DragableObj
     [SerializeField] private GameData _data;
     [SerializeField] private Image _waitingBar;
 
-    /*[HideInInspector]*/ public bool onProcess;
-    /*[HideInInspector]*/ public int progressionStat;
+    [HideInInspector] public bool onProcess;
+    [HideInInspector] public int progressionStat;
     public enum State { idle, home, medic, taking, leave, rageQuit }
     public State CurrentState {
         get {
@@ -265,9 +265,8 @@ public class BloodDonor : DragableObj
         base.Detach();
         GetComponent<Collider>().isTrigger = false;
 
-        //_rgd.useGravity = true;
+        
         if (desableKinematic)
             _rgd.isKinematic = false;
-        onProcess = false;
     }
 }
