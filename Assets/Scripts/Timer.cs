@@ -5,12 +5,16 @@ using UnityEngine;
 public class Timer : MonoBehaviour {
 
     #region Var
-    public GameData data;
+    protected GameData _data;
     protected float duration = 5;
     private bool running;
     private float _time;
     #endregion
     #region MonoFunction
+    protected virtual void Start()
+    {
+        _data = GameManager.Instance.RequestData();
+    }
     private void Update ()
     {
 		if (_time < Time.time && running)

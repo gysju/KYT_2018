@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class BloodDonor : DragableObj
 {
     public BloodInfo Blood;
-    [SerializeField] private GameData _data;
+    private GameData _data;
     [SerializeField] private Image _waitingBar;
 
     [HideInInspector] public bool onProcess;
@@ -36,7 +36,7 @@ public class BloodDonor : DragableObj
     private int _currentPathIndex = 0;
     public Animator animator;
 
-    public bool desableKinematic = true;
+    public bool desableKinematic = true;   
 
     private void Awake()
     {
@@ -78,13 +78,18 @@ public class BloodDonor : DragableObj
         }
     }
 
-    void SetModels(GameData.HumanData humanData)
+    private void SetModels(GameData.HumanData humanData)
     {
         GetComponentInChildren<MeshFilter>().mesh = humanData.Model;
         GetComponentInChildren<MeshRenderer>().material = humanData.Mat;
     }
 
-    void OnStateEnter()
+    public void SetData(GameData data)
+    {
+        _data = data;
+    }
+
+    private void OnStateEnter()
     {
         switch (CurrentState)
         {
@@ -116,7 +121,7 @@ public class BloodDonor : DragableObj
         }
     }
 
-    void OnStateUpdate()
+    private void OnStateUpdate()
     {
         switch (CurrentState)
         {
@@ -136,7 +141,7 @@ public class BloodDonor : DragableObj
         }
     }
 
-    void OnStateExit()
+    private void OnStateExit()
     {
         switch (CurrentState)
         {
@@ -166,7 +171,7 @@ public class BloodDonor : DragableObj
         }
     }
 
-    void CheckRageQuit()
+    private void CheckRageQuit()
     {
         if ( _currentIdle > _data.MaxIdleTime)
         {
@@ -176,7 +181,7 @@ public class BloodDonor : DragableObj
         SetHudBar();
     }
 
-    void CheckMedicTime()
+    private void CheckMedicTime()
     {
         if (_currentIdle > _data.MaxMedicTime)
         {
@@ -186,7 +191,7 @@ public class BloodDonor : DragableObj
         SetHudBar();
     }
 
-    void SetHudBar()
+    private void SetHudBar()
     {
         switch (CurrentState)
         {
@@ -206,7 +211,7 @@ public class BloodDonor : DragableObj
         }
     }
 
-    void HasReachedHisDestination()
+    private void HasReachedHisDestination()
     {
         if (_currentPath == null)
             return;

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private GameState _state;
 
     [Header("GameSettings")]
-    [SerializeField] GameData _data;
+    [SerializeField] private GameData _data;
 
     [Header("Blood donor settings")]
     [SerializeField] private BloodDonor _bloodDonor;
@@ -77,7 +77,11 @@ public class GameManager : MonoBehaviour
         }
 
         if(_bloodDonors.Count < _data.MaxHumanCount)
-            _bloodDonors.Add( Instantiate( _bloodDonor, _bdSpawn.position, _bdSpawn.rotation));
+        {
+            BloodDonor donor = Instantiate(_bloodDonor, _bdSpawn.position, _bdSpawn.rotation);
+            donor.SetData(_data);
+            _bloodDonors.Add(donor);
+        }
 
         StartCoroutine(SpawnBloodDonor());
     }
@@ -112,11 +116,17 @@ public class GameManager : MonoBehaviour
             bloodBags.Clear();
         }
 
-        command.ResetCommand();
+        if (command != null)
+            command.ResetCommand();
     }
 
     public void AddBag(BloodBag b)
     {
         bloodBags.Add(b);
+    }
+
+    public GameData RequestData()
+    {
+        return _data;
     }
 }
