@@ -129,4 +129,13 @@ public class GameManager : MonoBehaviour
     {
         return _data;
     }
+
+    public BloodInfo BloodInfoGetRand()
+    {
+        BloodInfo.BloodType type = _data.bloodTypes[Random.Range(0, _data.bloodTypes.Length)];
+        BloodInfo.BloodFamily fam = _data.bloodFamilies[Random.Range(0, _data.bloodFamilies.Length)];
+        BloodInfo.BloodRhesus rhe = (BloodInfo.BloodRhesus)Random.Range(1, 3);
+
+        return new BloodInfo(type, fam, rhe);
+    }
 }

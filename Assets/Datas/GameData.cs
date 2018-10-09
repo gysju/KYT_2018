@@ -11,6 +11,11 @@ public class GameData : ScriptableObject
     public int ScoreByCommandPartiallyComplete = 5;
     public int ScoreByBloodStocked = 2;
 
+    [Header("Blood")]
+    [Space(10)]
+    public BloodInfo.BloodType[] bloodTypes;
+    public BloodInfo.BloodFamily[] bloodFamilies;
+
     [Header("HUD")]
     [Space(10)]
 

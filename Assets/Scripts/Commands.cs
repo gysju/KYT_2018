@@ -86,7 +86,7 @@ public class Command
 
         for (int i = 0; i < nBag; i++)
         {
-            BloodInfo info = BloodInfo.GetRand();
+            BloodInfo info = GameManager.Instance.BloodInfoGetRand();
             compts[(int)info.type - 1].Increase(info.Compatibility());
             ask.Add(info);
 
@@ -101,7 +101,6 @@ public class Command
 
     public void AddAnswer(BloodInfo answer)
     {
-        Debug.Log("a: " + compts[(int)answer.type - 1].ababo[(int)answer.family - 1] + "; b: " + givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1]);
         if (compts[(int)answer.type - 1].ababo[(int)answer.family - 1] <= givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1])
         {
             Debug.Log("lose command");
