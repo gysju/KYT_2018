@@ -171,7 +171,10 @@ public class Player : MonoBehaviour
                     if (bd != null)
                     {
                         if (bd.progressionStat == (int)BloodDonor.State.home || bd._state == BloodDonor.State.home)
-                            doc.SetDonor((BloodDonor)_currentObjAttached);
+                        {
+                            if (!doc.occupied)
+                                doc.SetDonor((BloodDonor)_currentObjAttached);
+                        }
                         else bd.CurrentState = BloodDonor.State.rageQuit;
                     }
                 }
@@ -186,7 +189,8 @@ public class Player : MonoBehaviour
                     {
                         if ((bd.progressionStat == (int)BloodDonor.State.medic || bd._state == BloodDonor.State.medic) /*&& bed.type == bd.Blood.type*/)
                         {
-                            bed.SetDonor(bd);
+                            if (!bed.occupied)
+                                bed.SetDonor(bd);
                         }
                         else bd.CurrentState = BloodDonor.State.rageQuit;
                     }
