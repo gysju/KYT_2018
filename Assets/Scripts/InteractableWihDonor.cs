@@ -9,7 +9,7 @@ public class InteractableWihDonor : Timer {
     [SerializeField] protected Transform _inside, _outside;
     private float _enterYPos;
 
-    public bool occupied { get { return _donor == null; } }
+    public bool occupied { get { return _donor != null; } }
     #endregion
     #region MonoFunction
     #endregion
