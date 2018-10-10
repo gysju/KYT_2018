@@ -11,7 +11,7 @@ public class BloodShelf : MonoBehaviour {
     [HideInInspector] public List<BloodBag> bloodBags;
 
     [SerializeField] private Transform stock;
-    [SerializeField] private TextMeshProUGUI[] family, rhesus1, rhesus2;
+    [SerializeField] private TextMeshProUGUI[] family;
     #endregion
     #region MonoFunction
     private void Start()
@@ -54,47 +54,8 @@ public class BloodShelf : MonoBehaviour {
     private void SetBloodInfoText()
     {
         string f = info.family.ToString();
-        string r = info.rhesus.ToString();
         for (int i = 0; i < family.Length; i++)
             family[i].text = f;
-        if (r.Equals("neg"))
-        {
-            if (f.Length > 1)
-            {
-                for (int i = 0; i < rhesus1.Length; i++)
-                {
-                    rhesus1[i].text = "-"; ;
-                    rhesus2[i].text = ""; ;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < rhesus1.Length; i++)
-                {
-                    rhesus1[i].text = ""; ;
-                    rhesus2[i].text = "-"; ;
-                }
-            }
-        }
-        else if (r.Equals("pos"))
-        {
-            if (f.Length > 1)
-            {
-                for (int i = 0; i < rhesus1.Length; i++)
-                {
-                    rhesus1[i].text = "+"; ;
-                    rhesus2[i].text = ""; ;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < rhesus1.Length; i++)
-                {
-                    rhesus1[i].text = ""; ;
-                    rhesus2[i].text = "+"; ;
-                }
-            }
-        }
     }
     public int GetNumber()
     {

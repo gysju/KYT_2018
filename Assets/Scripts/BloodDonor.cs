@@ -257,6 +257,7 @@ public class BloodDonor : DragableObj
         {
             _navMeshAgent.SetDestination(transform.position);
             _navMeshAgent.isStopped = true;
+            _navMeshAgent.enabled = false;
         }
 
         onProcess = true;
@@ -270,8 +271,10 @@ public class BloodDonor : DragableObj
         base.Detach();
         GetComponent<Collider>().isTrigger = false;
 
-        
         if (desableKinematic)
+        {
             _rgd.isKinematic = false;
+            _navMeshAgent.enabled = true;
+        }
     }
 }

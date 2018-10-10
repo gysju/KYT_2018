@@ -45,15 +45,6 @@ public class BloodInfo
         return Equals(info, true, true, true);
     }
 
-    public static BloodInfo GetRand()
-    {
-        BloodType type = (BloodType)Random.Range(1, 4);
-        BloodFamily fam = (BloodFamily)Random.Range(1, 5);
-        BloodRhesus rhe = (BloodRhesus)Random.Range(1, 3);
-
-        return new BloodInfo(type, fam, rhe);
-    }
-
     /// <summary>What can he get in place</summary>
     /// <returns></returns>
     public Compatibilities Compatibility()

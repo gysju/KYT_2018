@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 54896936372278000}
   - component: {fileID: 114567210593975732}
   - component: {fileID: 82201256349223800}
+  - component: {fileID: 195027037709195020}
   m_Layer: 0
   m_Name: '[Player2]'
   m_TagString: Untagged
@@ -200,8 +201,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1307769828014238}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00005571544}
-  m_LocalPosition: {x: -3.22, y: 0, z: 14.64}
+  m_LocalRotation: {x: -0, y: 0.9103237, z: -0, w: -0.4138972}
+  m_LocalPosition: {x: 4.445415, y: 0, z: 2.692002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4382852633394084}
@@ -209,7 +210,7 @@ Transform:
   - {fileID: 4061208518533768}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 179.994, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 228.9, z: 0}
 --- !u!4 &4382852633394084
 Transform:
   m_ObjectHideFlags: 1
@@ -609,11 +610,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -722,11 +723,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -823,6 +824,27 @@ CapsuleCollider:
   m_Height: 2.8
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
+--- !u!195 &195027037709195020
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1307769828014238}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 0
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 17
+  m_ObstacleAvoidanceType: 4
 --- !u!222 &222050741737457846
 CanvasRenderer:
   m_ObjectHideFlags: 1

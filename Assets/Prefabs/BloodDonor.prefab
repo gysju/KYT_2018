@@ -311,13 +311,13 @@ MonoBehaviour:
     type: 1
     family: 1
     rhesus: 1
-  _data: {fileID: 11400000, guid: b8e99c7fc86d35748a9f4a0dfdb772c6, type: 2}
   _waitingBar: {fileID: 114815103653452862}
   onProcess: 0
   progressionStat: 0
   _state: 0
   _navMeshAgent: {fileID: 0}
   animator: {fileID: 95878453862357170}
+  desableKinematic: 1
 --- !u!114 &114815103653452862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,7 +377,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 305
   m_ObstacleAvoidanceType: 4
 --- !u!222 &222694751190933198
 CanvasRenderer:

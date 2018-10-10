@@ -101,9 +101,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AttachObj(DragableObj obj)
+    private void AttachObj(DragableObj obj, Transform anchor)
     {
-        obj.Attach(_attrachAnchor);
+        obj.Attach(anchor);
 
         _currentObjAttached = obj;
         Source.clip = AttachedSound;
@@ -129,12 +129,12 @@ public class Player : MonoBehaviour
             {
                 BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
                 if (donor.CurrentState != BloodDonor.State.taking && donor.CurrentState != BloodDonor.State.rageQuit)
-                    AttachObj(donor);
+                    AttachObj(donor, _attrachAnchor);
             }
             else if (cols[0].CompareTag("Bloodbag"))
             {
                 BloodBag bloodbag = (cols[0].GetComponent<BloodBag>());
-                AttachObj(bloodbag);
+                AttachObj(bloodbag, _grabCenter);
             }
         }
         else
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
                     {
                         BloodBag b = shelf.TakeOut();
                         if (b != null)
-                            AttachObj(b);
+                            AttachObj(b, _grabCenter);
                     }
                 }
             }

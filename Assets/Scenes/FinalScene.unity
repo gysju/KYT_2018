@@ -3668,8 +3668,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 183218702}
   m_LocalRotation: {x: -0, y: 0.0000014603136, z: -0, w: 1}
-  m_LocalPosition: {x: 8.189938, y: 0, z: -15.799009}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 9, y: 0, z: -16}
+  m_LocalScale: {x: 0.6666, y: 0.6666, z: 0.6666}
   m_Children: []
   m_Father: {fileID: 1857299036}
   m_RootOrder: 6
@@ -9572,12 +9572,6 @@ MonoBehaviour:
   family:
   - {fileID: 1575738300}
   - {fileID: 1400939624}
-  rhesus1:
-  - {fileID: 23601009}
-  - {fileID: 237244674}
-  rhesus2:
-  - {fileID: 1461527168}
-  - {fileID: 1116499539}
 --- !u!65 &470939974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9888,12 +9882,6 @@ MonoBehaviour:
   family:
   - {fileID: 1726469957}
   - {fileID: 821895694}
-  rhesus1:
-  - {fileID: 1892828439}
-  - {fileID: 1811952898}
-  rhesus2:
-  - {fileID: 694615929}
-  - {fileID: 504473403}
 --- !u!65 &490231032
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11073,12 +11061,6 @@ MonoBehaviour:
   family:
   - {fileID: 422304702}
   - {fileID: 594916938}
-  rhesus1:
-  - {fileID: 1772203281}
-  - {fileID: 1105433470}
-  rhesus2:
-  - {fileID: 1734905950}
-  - {fileID: 154033609}
 --- !u!65 &540908272
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13912,12 +13894,6 @@ MonoBehaviour:
   family:
   - {fileID: 1585164169}
   - {fileID: 49292960}
-  rhesus1:
-  - {fileID: 1905735272}
-  - {fileID: 1981673939}
-  rhesus2:
-  - {fileID: 1917856358}
-  - {fileID: 600776099}
 --- !u!65 &683809001
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14441,12 +14417,6 @@ MonoBehaviour:
   family:
   - {fileID: 522375255}
   - {fileID: 534150150}
-  rhesus1:
-  - {fileID: 952503665}
-  - {fileID: 965494876}
-  rhesus2:
-  - {fileID: 341603774}
-  - {fileID: 1866380395}
 --- !u!65 &726239603
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14672,12 +14642,6 @@ MonoBehaviour:
   family:
   - {fileID: 991073198}
   - {fileID: 493778178}
-  rhesus1:
-  - {fileID: 73783387}
-  - {fileID: 255439299}
-  rhesus2:
-  - {fileID: 1783457383}
-  - {fileID: 444791960}
 --- !u!65 &749595149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21996,12 +21960,6 @@ MonoBehaviour:
   family:
   - {fileID: 1862647085}
   - {fileID: 1171620435}
-  rhesus1:
-  - {fileID: 2058642546}
-  - {fileID: 1772166805}
-  rhesus2:
-  - {fileID: 320518986}
-  - {fileID: 234806020}
 --- !u!65 &1144970238
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25155,12 +25113,6 @@ MonoBehaviour:
   family:
   - {fileID: 547096384}
   - {fileID: 1898760048}
-  rhesus1:
-  - {fileID: 869683562}
-  - {fileID: 272002360}
-  rhesus2:
-  - {fileID: 609678653}
-  - {fileID: 357599079}
 --- !u!65 &1400054827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27503,12 +27455,6 @@ MonoBehaviour:
   family:
   - {fileID: 2073148945}
   - {fileID: 226357875}
-  rhesus1:
-  - {fileID: 313841025}
-  - {fileID: 1160513225}
-  rhesus2:
-  - {fileID: 1891127141}
-  - {fileID: 843185000}
 --- !u!65 &1531419535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36001,12 +35947,6 @@ MonoBehaviour:
   family:
   - {fileID: 1894914622}
   - {fileID: 1741258955}
-  rhesus1:
-  - {fileID: 120933665}
-  - {fileID: 1771615478}
-  rhesus2:
-  - {fileID: 751914886}
-  - {fileID: 1841997626}
 --- !u!65 &1891597957
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39207,12 +39147,6 @@ MonoBehaviour:
   family:
   - {fileID: 542166184}
   - {fileID: 153501089}
-  rhesus1:
-  - {fileID: 1260700924}
-  - {fileID: 918860357}
-  rhesus2:
-  - {fileID: 1935070668}
-  - {fileID: 859387863}
 --- !u!65 &2037604948
 BoxCollider:
   m_ObjectHideFlags: 0

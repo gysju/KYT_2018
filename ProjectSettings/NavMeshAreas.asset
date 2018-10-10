@@ -12,17 +12,17 @@ NavMeshProjectSettings:
   - name: Jump
     cost: 2
   - name: 
+    cost: 2
+  - name: Grass
+    cost: 5
+  - name: SideWalk
     cost: 1
   - name: 
     cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
+  - name: Road
+    cost: 6
+  - name: CrossRoad
+    cost: 2
   - name: 
     cost: 1
   - name: 

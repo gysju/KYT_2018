@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 54547694796792294}
   - component: {fileID: 114903078089160692}
   - component: {fileID: 82378013523922976}
+  - component: {fileID: 195489480428295250}
   m_Layer: 0
   m_Name: '[Player]'
   m_TagString: Player
@@ -187,7 +188,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855961399977396}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00005571544}
-  m_LocalPosition: {x: -12.929998, y: 0, z: 10.75}
+  m_LocalPosition: {x: 1.8, y: 0, z: 6.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4735684047001788}
@@ -808,6 +809,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7d9ef3a48a0913446b51ba2f0448212e, type: 3}
   - {fileID: 21300000, guid: 6687fae8c3c0e1a46a03115da78e3466, type: 3}
   - {fileID: 21300000, guid: 67a0f2928778fd24f97b32bedc80de58, type: 3}
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!136 &136177310604780266
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -821,6 +824,27 @@ CapsuleCollider:
   m_Height: 2.8
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
+--- !u!195 &195489480428295250
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855961399977396}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 0
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!222 &222314444409472186
 CanvasRenderer:
   m_ObjectHideFlags: 1
