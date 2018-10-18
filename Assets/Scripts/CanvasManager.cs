@@ -7,7 +7,7 @@ using TMPro;
 public class CanvasManager : MonoBehaviour {
 
     public static CanvasManager Instance;
-    [SerializeField] private GameData _data;
+    private GameData _data;
     [Header("HUD")]
 
     [SerializeField] private TextMeshProUGUI TimeText;
@@ -49,6 +49,7 @@ public class CanvasManager : MonoBehaviour {
 
     private void Start()
     {
+        _data = GameManager.Instance.RequestData();
         if ( Fade == FadeState.Black)
         {
             FadeImage.color = Color.black;

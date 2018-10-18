@@ -608,7 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038e8e56f08523645848d31547645d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: b8e99c7fc86d35748a9f4a0dfdb772c6, type: 2}
   TimeText: {fileID: 114991214286714446}
   ScoreText: {fileID: 114135842531143880}
   _mainMenu: {fileID: 224671450729082626}
