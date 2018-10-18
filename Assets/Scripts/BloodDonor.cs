@@ -103,7 +103,8 @@ public class BloodDonor : DragableObj
                 _currentPath = PathManager.Instance.PathsHomeToDoc;
                 SetDestination(_currentPath[0].position);
                 break;
-            case State.medic:               
+            case State.medic:
+                _waitingBar.color = _data.TakingBloodColor;
                 break;
             case State.taking:
                 break;
@@ -130,7 +131,6 @@ public class BloodDonor : DragableObj
                 CheckRageQuit();
                 break;
             case State.home:
-                
                 break;
             case State.medic:
                 break;
@@ -154,8 +154,7 @@ public class BloodDonor : DragableObj
                 progressionStat = (int)CurrentState;
                 break;
             case State.medic:
-                progressionStat = (int)CurrentState;
-                _waitingBar.color = _data.TakingBloodColor;
+                progressionStat = (int)CurrentState;               
                 break;
             case State.taking:
                 progressionStat = (int)CurrentState;
