@@ -11,17 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3ccf1c9fab7aa44b8d0f3cfbd0c73d, type: 3}
   m_Name: Data_Level1
   m_EditorClassIdentifier: 
-  GameDuration: 100
+  GameDuration: 25
   ScoreByCommandComplete: 25
   ScoreByCommandPartiallyComplete: 5
   ScoreByBloodStocked: 2
   bloodTypes: 01000000
   bloodFamilies: 01000000020000000300000004000000
-  IdleColor: {r: 0.122774996, g: 0.82600194, b: 0.8396226, a: 1}
+  IdleColor: {r: 0.20989601, g: 0.9716981, b: 0.114587024, a: 1}
   MaxIdleTime: 10
   MedicColor: {r: 0.14017442, g: 0.3931481, b: 0.8490566, a: 1}
   MaxMedicTime: 7
-  rejectChance: 0.1
+  rejectChance: 0
   TakingBloodColor: {r: 0.7169812, g: 0.23335709, b: 0.23335709, a: 1}
   MaxTakingBloodTime: 7
   TakingPlasmaColor: {r: 0.9528302, g: 0.93697584, b: 0.46293166, a: 1}
