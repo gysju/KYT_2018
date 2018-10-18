@@ -53,6 +53,8 @@ public class BloodDonor : DragableObj
         {
             SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
             bloodInfo = GameManager.Instance.BloodInfoGetRand();
+
+            _waitingBar.color = _data.MedicColor;
         }
     }
 	
@@ -108,7 +110,7 @@ public class BloodDonor : DragableObj
             case State.leave:
                 _currentPath = PathManager.Instance.PathsBedToExit;
                 SetDestination(_currentPath[0].position);
-                _waitingBar.color = _data.RageQuitColor;
+                _waitingBar.color = _data.IdleColor;
                 break;
             case State.rageQuit:
                 _currentPath = PathManager.Instance.PathsBedToExit;
@@ -150,7 +152,6 @@ public class BloodDonor : DragableObj
                 break;
             case State.home:
                 progressionStat = (int)CurrentState;
-                _waitingBar.color = _data.MedicColor;
                 break;
             case State.medic:
                 progressionStat = (int)CurrentState;
@@ -158,7 +159,6 @@ public class BloodDonor : DragableObj
                 break;
             case State.taking:
                 progressionStat = (int)CurrentState;
-                _waitingBar.color = _data.RageQuitColor;
                 break;
             case State.leave:
                 progressionStat = (int)CurrentState;
