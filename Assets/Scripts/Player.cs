@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if (bd.progressionStat == (int)BloodDonor.State.home || bd._state == BloodDonor.State.home)
+                        if (bd.progressionStat == (int)BloodDonor.State.home || bd.CurrentState == BloodDonor.State.home)
                         {
                             if (!doc.occupied)
                                 doc.SetDonor((BloodDonor)_currentObjAttached);
@@ -193,7 +193,7 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if ((bd.progressionStat == (int)BloodDonor.State.medic || bd._state == BloodDonor.State.medic) /*&& bed.type == bd.Blood.type*/)
+                        if ((bd.progressionStat == (int)BloodDonor.State.medic || bd.CurrentState == BloodDonor.State.medic) /*&& bed.type == bd.Blood.type*/)
                         {
                             if (!bed.occupied)
                                 bed.SetDonor(bd);
@@ -287,7 +287,7 @@ public class Player : MonoBehaviour
             if (_currentObjAttached != null && _currentObjAttached is BloodDonor)
             {
                 BloodDonor donor = (BloodDonor)_currentObjAttached;
-                if (/*donor._state != BloodDonor.State.taking &&*/ donor._state != BloodDonor.State.leave && donor._state != BloodDonor.State.rageQuit)
+                if (/*donor._state != BloodDonor.State.taking &&*/ donor.CurrentState != BloodDonor.State.leave && donor.CurrentState != BloodDonor.State.rageQuit)
                     _lastHighlightObj.SetData(col, col.GetComponentInChildren<MeshRenderer>().material, false);
             }
         }

@@ -25,7 +25,7 @@ public class BloodDonor : DragableObj
             else Destroy(gameObject);
         }
     }
-    public State _state = State.idle;
+    private State _state = State.idle;
 
     private Rigidbody _rgd;
     [HideInInspector] public NavMeshAgent _navMeshAgent;
@@ -95,20 +95,20 @@ public class BloodDonor : DragableObj
             case State.idle:
                 _currentPath = null;
                 _navMeshAgent.isStopped = true;
-                _waitingBar.color = _data.IdleColor;
+                //_waitingBar.color = _data.IdleColor;
                 break;
             case State.home:
                 _currentPath = PathManager.Instance.PathsHomeToDoc;
                 SetDestination(_currentPath[0].position);
                 break;
-            case State.medic:
-                _waitingBar.color = _data.MedicColor;
+            case State.medic:               
                 break;
             case State.taking:
                 break;
             case State.leave:
                 _currentPath = PathManager.Instance.PathsBedToExit;
                 SetDestination(_currentPath[0].position);
+                _waitingBar.color = _data.RageQuitColor;
                 break;
             case State.rageQuit:
                 _currentPath = PathManager.Instance.PathsBedToExit;
@@ -128,6 +128,7 @@ public class BloodDonor : DragableObj
                 CheckRageQuit();
                 break;
             case State.home:
+                
                 break;
             case State.medic:
                 break;
@@ -149,12 +150,15 @@ public class BloodDonor : DragableObj
                 break;
             case State.home:
                 progressionStat = (int)CurrentState;
+                _waitingBar.color = _data.MedicColor;
                 break;
             case State.medic:
                 progressionStat = (int)CurrentState;
+                _waitingBar.color = _data.TakingBloodColor;
                 break;
             case State.taking:
                 progressionStat = (int)CurrentState;
+                _waitingBar.color = _data.RageQuitColor;
                 break;
             case State.leave:
                 progressionStat = (int)CurrentState;
