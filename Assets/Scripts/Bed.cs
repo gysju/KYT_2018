@@ -37,7 +37,7 @@ public class Bed : InteractableWihDonor {
         if (_donor != null)
         {
             BloodBag b = Instantiate(bloodbag, _bloodbagSpawn.position, _bloodbagSpawn.rotation).GetComponent<BloodBag>();
-            b.bloodInfo = _donor.Blood;
+            b.bloodInfo = _donor.bloodInfo;
 
             GameManager.Instance.AddBag(b);
 

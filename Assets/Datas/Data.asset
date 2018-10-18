@@ -15,6 +15,8 @@ MonoBehaviour:
   ScoreByCommandComplete: 25
   ScoreByCommandPartiallyComplete: 5
   ScoreByBloodStocked: 2
+  bloodTypes: 
+  bloodFamilies: 
   IdleColor: {r: 1, g: 0, b: 0, a: 1}
   MaxIdleTime: 10
   MedicColor: {r: 0, g: 0.35876274, b: 1, a: 1}
@@ -29,10 +31,10 @@ MonoBehaviour:
   RageQuitColor: {r: 0, g: 0, b: 0, a: 1}
   HumansDatas:
   - Model: {fileID: 4300000, guid: b3a1c5a34c30a5549aeb1bfd4f96126f, type: 3}
-    Mat: {fileID: 2100000, guid: b3a1c5a34c30a5549aeb1bfd4f96126f, type: 3}
+    Mat: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
   - Model: {fileID: 4300000, guid: ec6d1868c3627e24da08244ee43dbb3f, type: 3}
-    Mat: {fileID: 2100000, guid: ec6d1868c3627e24da08244ee43dbb3f, type: 3}
+    Mat: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
   - Model: {fileID: 4300000, guid: 3e31862fee85e67499362cdb5eb3a8c9, type: 3}
-    Mat: {fileID: 2100000, guid: 3e31862fee85e67499362cdb5eb3a8c9, type: 3}
+    Mat: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
   SpawnSpeed: 10
   MaxHumanCount: 1

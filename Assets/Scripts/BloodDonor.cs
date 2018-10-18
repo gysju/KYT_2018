@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class BloodDonor : DragableObj
 {
-    public BloodInfo Blood;
+    public BloodInfo bloodInfo;
     private GameData _data;
     [SerializeField] private Image _waitingBar;
 
@@ -22,8 +22,7 @@ public class BloodDonor : DragableObj
             _state = value;
             if (gameObject.activeSelf)
                 OnStateEnter();
-            else
-                Destroy(gameObject);
+            else Destroy(gameObject);
         }
     }
     public State _state = State.idle;
@@ -36,7 +35,7 @@ public class BloodDonor : DragableObj
     private int _currentPathIndex = 0;
     public Animator animator;
 
-    public bool desableKinematic = true;   
+    [HideInInspector] public bool desableKinematic = true;   
 
     private void Awake()
     {
@@ -53,7 +52,7 @@ public class BloodDonor : DragableObj
         if (_data.HumansDatas != null)
         {
             SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
-            Blood = GameManager.Instance.BloodInfoGetRand();
+            bloodInfo = GameManager.Instance.BloodInfoGetRand();
         }
     }
 	

@@ -34,7 +34,7 @@
 		void surf (Input IN, inout SurfaceOutputStandard o) 
 		{
 			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			o.Albedo = _Highlight > 0 ? c.rgb * lerp(1.0f, _HighlightIntensity, (cos(_Time.y * _HighlightSpeed) * 0.5f + 0.5f)) : c.rgb;
+			o.Albedo = _Highlight > 0 ? c.rgb * lerp(2.0f, _HighlightIntensity + 1, (cos(_Time.y * _HighlightSpeed) * 0.5f + 0.5f)) : c.rgb;
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
 			o.Alpha = c.a;

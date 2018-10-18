@@ -280,7 +280,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1baa6ebed9964e34989fabbd5dfc0526, type: 3}
+  - {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -315,7 +315,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ab314c1f59e61124f841b2a9ef8d5272, type: 3}
+  - {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
