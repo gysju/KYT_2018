@@ -22,7 +22,10 @@ public class BloodDonor : DragableObj
             _state = value;
             if (gameObject.activeSelf)
                 OnStateEnter();
-            else Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
     private State _state = State.idle;
@@ -112,11 +115,15 @@ public class BloodDonor : DragableObj
                 _currentPath = PathManager.Instance.PathsBedToExit;
                 SetDestination(_currentPath[0].position);
                 _waitingBar.color = _data.IdleColor;
+                _waitingBar.fillAmount = 1.0f;
                 break;
             case State.rageQuit:
+                onProcess = false;
                 _currentPath = PathManager.Instance.PathsBedToExit;
                 SetDestination(_currentPath[0].position);
                 _waitingBar.color = _data.RageQuitColor;
+                _currentIdle = .5f;
+                _waitingBar.fillAmount = 1.0f;
                 break;
             default:
                 break;

@@ -46,5 +46,10 @@ public class InteractableWihDonor : Timer {
         _donor.Detach();
         _donor = null;
     }
+    public void ResetObj()
+    {
+        base.End();
+        _donor = null;
+    }
     #endregion
 }

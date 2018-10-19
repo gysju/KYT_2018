@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public Player _playerTwo;
 
     public BloodShelf[] shelves;
+    public InteractableWihDonor[] interactableWihDonors;
 
     private List<BloodBag> bloodBags = new List<BloodBag>();
 
@@ -93,9 +94,13 @@ public class GameManager : MonoBehaviour
 
     public void ClearAllInstance()
     {
-        for (int i = 0; i < _bloodDonors.Count; i++)
+        for (int i = 0; i < interactableWihDonors.Length; i++)
+            interactableWihDonors[i].ResetObj();
+
+        foreach (BloodDonor donor in _bloodDonors)
         {
-            Destroy(_bloodDonors[i].gameObject);
+            Destroy(donor);
+            Destroy(donor.gameObject);
         }
 
         _bloodDonors.Clear();

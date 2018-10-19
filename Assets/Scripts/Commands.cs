@@ -7,18 +7,24 @@ public class Commands : MonoBehaviour {
     #region Var
     public Command command;
 
-    public Bord[] bords;
+    public Bord[] bordsNeeds, bordsGiven;
     public Sprite[] sprites;
-    public GameData _data;
+    private GameData _data;
+
+    public static int maxQuantity = 4;
 
     #endregion
     #region MonoFunction
     private void Start()
     {
-        for (int i = 4; i < 4; i++)
-            bords[i].SetData(false, null, null);
+        /*for (int i = 0; i < maxQuantity; i++)
+        {
+            bordsNeeds[i].SetData(false, null, null);
+            bordsGiven[i].SetData(false, null, null);
+        }*/
 
-        command = new Command(bords, sprites, _data);
+        _data = GameManager.Instance.RequestData();
+        command = new Command(bordsNeeds, bordsGiven, sprites, _data);
     }
     #endregion
     #region Function
@@ -44,13 +50,14 @@ public class Command
 
     public BloodInfo.Compatibilities[] compts, givenCompts;
 
-    public Bord[] bords;
+    public Bord[] bordsNeeds, bordsGiven;
     public Sprite[] sprites;
     public GameData data;
 
-    public Command(Bord[] bords, Sprite[] sprites, GameData gameData)
+    public Command(Bord[] bordsNeeds, Bord[] bordsGiven, Sprite[] sprites, GameData gameData)
     {
-        this.bords = bords;
+        this.bordsNeeds = bordsNeeds;
+        this.bordsGiven = bordsGiven;
         this.sprites = sprites;
         this.data = gameData;
         Init();
@@ -64,11 +71,10 @@ public class Command
 
     public void Generate()
     {
-        int nBag = 4;
+        int nBag = Commands.maxQuantity;
         if (nBagnextCommands.Count > 0)
         {
-            nBag = nBagnextCommands[0];
-            nBagnextCommands.RemoveAt(0);
+            nBag = nBagnextCommands[0];            
         }
 
         ask = new List<BloodInfo>();
@@ -90,11 +96,14 @@ public class Command
             compts[(int)info.type - 1].Increase(info.Compatibility());
             ask.Add(info);
 
-            bords[i].SetData(true, sprites[(int)info.type - 1], "" + info.family);
+            bordsNeeds[i].SetData(true, sprites[(int)info.type - 1], "" + info.family);
         }
 
-        for (int i = nBag; i < 4; i++)
-            bords[i].SetData(false, null, null);
+        for (int i = nBag; i < Commands.maxQuantity; i++)
+            bordsNeeds[i].SetData(false, null, null);
+
+        for (int i = 0; i < Commands.maxQuantity; i++)
+            bordsGiven[i].SetData(false, null, null);
 
         remaining = nBag;
     }
@@ -109,11 +118,13 @@ public class Command
         else
         {
             given.Add(answer);
+            bordsGiven[given.Count - 1].SetData(true, sprites[(int)answer.type - 1], "" + answer.family);
             CanvasManager.Instance.AddScore(data.ScoreByCommandPartiallyComplete);
             compts[(int)answer.type - 1].ababo[(int)answer.family - 1]++;
             remaining--;
             if (remaining <= 0)
             {
+                nBagnextCommands.RemoveAt(0);
                 Debug.Log("command completed");
                 CanvasManager.Instance.AddScore(data.ScoreByCommandComplete);
                 Generate();
@@ -133,8 +144,5 @@ public class Command
         nBagnextCommands.Add(3);
         nBagnextCommands.Add(3);
         nBagnextCommands.Add(3);
-        nBagnextCommands.Add(4);
-        nBagnextCommands.Add(4);
-        nBagnextCommands.Add(4);
     }
 }
