@@ -17,7 +17,7 @@ public class CanvasManager : MonoBehaviour {
     private int _score = 0;
 
     [Header("MainMenu")]
-    [SerializeField] Transform _mainMenu;
+    [SerializeField] UIAnimation _mainMenu;
     [SerializeField] Button _startButton;
 
     [Header("PauseMenu")]
@@ -97,6 +97,7 @@ public class CanvasManager : MonoBehaviour {
         _pauseMenu.gameObject.SetActive(false);
         _gameOverMenu.gameObject.SetActive(false);
 
+        _mainMenu.EnterAnim();
         _mainMenu.gameObject.SetActive(true);
 
         _startButton.Select();
