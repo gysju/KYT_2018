@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3ccf1c9fab7aa44b8d0f3cfbd0c73d, type: 3}
   m_Name: Data_Level1
   m_EditorClassIdentifier: 
-  GameDuration: 120
+  GameDuration: 20
   ScoreByCommandComplete: 25
   ScoreByCommandPartiallyComplete: 5
   ScoreByBloodStocked: 2

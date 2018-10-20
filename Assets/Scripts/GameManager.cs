@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private const int numberOfLevel = 2;
+
     public static GameManager Instance;
     public enum GameState { Paused, Menu, InGame}
     public GameState State
@@ -142,5 +144,12 @@ public class GameManager : MonoBehaviour
         BloodInfo.BloodRhesus rhe = (BloodInfo.BloodRhesus)Random.Range(1, 3);
 
         return new BloodInfo(type, fam, rhe);
+    }
+
+    public void LoadNextLevel()
+    {
+        int index = SceneManager.GetActiveScene().buildIndex + 1;
+        if (index < numberOfLevel)
+            SceneManager.LoadScene(index);
     }
 }
