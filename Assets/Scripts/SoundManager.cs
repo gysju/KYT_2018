@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
         if (soundSettings.Clip != null)
         {
             Source.clip = soundSettings.Clip;
-            Source.volume = soundSettings.Volume;
+            Source.volume = soundSettings.Volume * Source.volume;
             Source.pitch = soundSettings.Pitch;
             Source.loop = soundSettings.Loop;
 
