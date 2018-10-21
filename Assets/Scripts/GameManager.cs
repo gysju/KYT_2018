@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private const int numberOfLevel = 2;
+    public const int numberOfLevel = 2;
 
     public static GameManager Instance;
     public enum GameState { Paused, Menu, InGame}
@@ -50,11 +50,12 @@ public class GameManager : MonoBehaviour
     void Start ()
     {
         StartCoroutine( SpawnBloodDonor());
+        State = GameState.Menu;
     }
 
 	void Update ()
     {
-        if (Input.GetButtonDown("Start0") || Input.GetButtonDown("Start1"))
+        if ((Input.GetButtonDown("Start0") || Input.GetButtonDown("Start1")) && State != GameState.Menu)
         {
             if (State == GameState.InGame)
             {
@@ -107,8 +108,8 @@ public class GameManager : MonoBehaviour
 
         _bloodDonors.Clear();
 
-        _playerOne.ResetPosition();
-        _playerTwo.ResetPosition();
+        _playerOne.Clear();
+        _playerTwo.Clear();
 
         for (int i = 0; i < shelves.Length; i++)
             shelves[i].ResetStock();
@@ -144,12 +145,5 @@ public class GameManager : MonoBehaviour
         BloodInfo.BloodRhesus rhe = (BloodInfo.BloodRhesus)Random.Range(1, 3);
 
         return new BloodInfo(type, fam, rhe);
-    }
-
-    public void LoadNextLevel()
-    {
-        int index = SceneManager.GetActiveScene().buildIndex + 1;
-        if (index < numberOfLevel)
-            SceneManager.LoadScene(index);
     }
 }

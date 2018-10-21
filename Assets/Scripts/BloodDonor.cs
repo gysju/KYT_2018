@@ -63,6 +63,17 @@ public class BloodDonor : DragableObj
 	
 	void Update ()
     {
+        if (_navMeshAgent.isOnNavMesh)
+        {
+            if (TimeManager.paused && !_navMeshAgent.isStopped)
+            {
+                animator.SetFloat("Speed", 0.0f);
+                _navMeshAgent.isStopped = true;
+            }
+            else if (!TimeManager.paused && _navMeshAgent.isStopped)
+                _navMeshAgent.isStopped = false;
+        }
+
         if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
@@ -186,7 +197,7 @@ public class BloodDonor : DragableObj
         {
             CurrentState = State.rageQuit;
         }
-        _currentIdle += Time.deltaTime;
+        _currentIdle += TimeManager.deltaTime;
         SetHudBar();
     }
 
@@ -196,7 +207,7 @@ public class BloodDonor : DragableObj
         {
             CurrentState = State.idle;
         }
-        _currentIdle += Time.deltaTime;
+        _currentIdle += TimeManager.deltaTime;
         SetHudBar();
     }
 

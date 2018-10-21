@@ -1,5 +1,0 @@
-
-
-Add 
-	v- can grab donor when giving blood (donor stat)
-	- Do not do a to do at 5am

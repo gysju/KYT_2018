@@ -59,4 +59,15 @@ public class SoundManager : MonoBehaviour
     {
         Source.Pause();
     }
+
+    public void Restart()
+    {
+        Source.time = 0;
+        Source.Play();
+    }
+
+    public void SetVolume(UnityEngine.UI.Slider slider)
+    {
+        Source.volume = slider.value *.1f;
+    }
 }

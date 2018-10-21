@@ -61,7 +61,6 @@ public class Player : MonoBehaviour
             {
                 CheckOnDrop();
                 DetachObj();
-
             }
         }
         else if (Input.GetKeyDown("joystick " + (_playerID+1) + " button 0"))
@@ -93,7 +92,7 @@ public class Player : MonoBehaviour
             float angle = Mathf.Atan2(vAxis, -hAxis) * Mathf.Rad2Deg - 90.0f;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 
-            _rgd.AddForce(transform.forward * _speed * Time.deltaTime, ForceMode.VelocityChange);
+            _rgd.AddForce(transform.forward * _speed * TimeManager.deltaTime, ForceMode.VelocityChange);
 
             _animator.SetFloat("Speed", Mathf.Clamp01( Mathf.Abs( hAxis ) + Mathf.Abs(vAxis)));
         }
@@ -376,9 +375,11 @@ public class Player : MonoBehaviour
             _bulText.text = "";
         }
     }
-    public void ResetPosition()
+    public void Clear()
     {
         transform.position = startPosition;
         transform.rotation = startRotation;
+        _currentObjAttached = null;
+        _hasBeenAttachedCheck = false;
     }
 }

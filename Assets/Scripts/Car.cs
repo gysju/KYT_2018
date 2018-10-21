@@ -27,7 +27,7 @@ public class Car : MonoBehaviour {
         if (!_breaked)
         {
             if (_crtSpeed < maxSpeed)
-                _crtSpeed += acceleration * Time.deltaTime;
+                _crtSpeed += acceleration * Time.deltaTime; //do not replace by TimeManager -> animated pause scene
             transform.Translate(Vector3.forward * _crtSpeed * Time.deltaTime, Space.Self);
 
             if (Vector3.Distance(_transform.position, _end.position) < 1f)

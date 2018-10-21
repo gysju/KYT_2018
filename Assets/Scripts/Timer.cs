@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour {
     }
     private void Update ()
     {
-		if (_time < Time.time && running)
+		if (_time < TimeManager.time && running)
         {
             End();
         }
@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour {
     public virtual void Begin()
     {
         running = true;
-        _time = Time.time + duration;
+        _time = TimeManager.time + duration;
     }
     protected virtual void End()
     {
