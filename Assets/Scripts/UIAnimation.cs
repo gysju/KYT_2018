@@ -12,22 +12,29 @@ public class UIAnimation : MonoBehaviour {
     private float _openTime = .7f, _fadeOutTime = .3f, _increaseOpenTime = .1f, _openDelay = .2f;
     private Sequence _inTweenOpen;
 
+    public void SetActive(bool active)
+    {
+        _inTweenOpen.Kill();
+        if (!active)
+            ResetOpen(_objects);
+        gameObject.SetActive(active);
+    }
+
     public void OpenMainMenu(bool firstTime = false)
     {
         OpenMainMenu(null, firstTime);
     }
     public void OpenMainMenu(TweenCallback callback, bool firstTime = false)
     {
-        ResetOpen(_objects);
-        _inTweenOpen = DOTween.Sequence();
+        //ResetOpen(_objects);
+        Sequence seq = DOTween.Sequence();
 
         if (firstTime) _background.DOFade(1, 0);
-        else _inTweenOpen.Append(_background.DOFade(1, _fadeOutTime));
+        else seq.Append(_background.DOFade(1, _fadeOutTime));
 
-        _inTweenOpen.AppendCallback(callback);
-        _inTweenOpen.Append(_background.DOFade(0, _fadeOutTime));
-
-        OpenMenu(_inTweenOpen, _objects).Play();
+        seq.AppendCallback(callback);
+        seq.Append(_background.DOFade(0, _fadeOutTime));
+        seq.AppendCallback(() => OpenMenu(_inTweenOpen, _objects));
     }
     public void Open()
     {

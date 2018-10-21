@@ -46,11 +46,18 @@ public class CanvasManager : MonoBehaviour {
 
     private void Start()
     {
-        _data = GameManager.Instance.RequestData();
+        //_data = GameManager.Instance.RequestData();
+
+        GameManager.Instance.State = GameManager.GameState.Menu;
 
         _fade.gameObject.SetActive(true);
         _mainMenu.gameObject.SetActive(true);
         _mainMenu.OpenMainMenu(true);
+    }
+
+    public void RequestData()
+    {
+        _data = GameManager.Instance.RequestData();
     }
 
     private void Update()
@@ -72,7 +79,7 @@ public class CanvasManager : MonoBehaviour {
 
     public void DisplayPauseMenu()
     {
-        _pauseMenu.gameObject.SetActive(true);
+        _pauseMenu.SetActive(true);
         _pauseMenu.Open();
         _pauseButton.FindSelectableOnDown().Select();
         _pauseButton.Select();
@@ -84,7 +91,7 @@ public class CanvasManager : MonoBehaviour {
 
     public void HidePauseMenu()
     {
-        _pauseMenu.gameObject.SetActive(false);
+        _pauseMenu.SetActive(false);
         GameManager.Instance.State = GameManager.GameState.InGame;
 
         TimeManager.timeScale = 1.0f;
@@ -97,9 +104,9 @@ public class CanvasManager : MonoBehaviour {
     }
     private void DisplayMainMenuCallBack()
     {
-        _pauseMenu.gameObject.SetActive(false);
-        _gameOverMenu.gameObject.SetActive(false);
-        _mainMenu.gameObject.SetActive(true);
+        _pauseMenu.SetActive(false);
+        _gameOverMenu.SetActive(false);
+        _mainMenu.SetActive(true);
         _hud.gameObject.SetActive(false);
 
         _startButton.Select();
@@ -110,7 +117,7 @@ public class CanvasManager : MonoBehaviour {
 
     public void DisplayGameOverMenu()
     {
-        _gameOverMenu.gameObject.SetActive(true);
+        _gameOverMenu.SetActive(true);
         _gameOverMenu.Open();
 
         _pauseButton.FindSelectableOnDown().Select();
@@ -123,7 +130,7 @@ public class CanvasManager : MonoBehaviour {
 
     public void StartGame(bool resetHUD = true)
     {
-        _mainMenu.gameObject.SetActive(false);
+        _mainMenu.SetActive(false);
         _hud.gameObject.SetActive(true);
 
         GameManager.Instance.State = GameManager.GameState.InGame;
@@ -149,8 +156,8 @@ public class CanvasManager : MonoBehaviour {
         sequence.AppendCallback( () => {
             GameManager.Instance.ClearAllInstance();
             ResetHUD();
-            _pauseMenu.gameObject.SetActive(false);
-            _gameOverMenu.gameObject.SetActive(false);
+            _pauseMenu.SetActive(false);
+            _gameOverMenu.SetActive(false);
         });
         sequence.Append(_fade.DOFade(0, .3f));
         sequence.AppendCallback(() => {
@@ -173,5 +180,50 @@ public class CanvasManager : MonoBehaviour {
     {
         if (index < GameManager.numberOfLevel)
             SceneManager.LoadScene(index);
+    }
+
+
+
+    //Conservations
+    public void GameManagerClearAllInstance()
+    {
+        GameManager.Instance.ClearAllInstance();
+    }
+    public void SoundManagerPlayMusic(string title)
+    {
+        SoundManager.Instance.PlayMusic(title);
+    }
+    public void SoundManagerResumeSoud()
+    {
+        SoundManager.Instance.ResumeSound();
+    }
+    public void SoundManagerRestart()
+    {
+        SoundManager.Instance.Restart();
+    }
+    public void SoundManagerSetVolume(Slider slider)
+    {
+        SoundManager.Instance.SetVolume(slider.value * .1f);
+    }
+    private bool _transitioning = false;
+    public void LoadLevelTransition(int index)
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(_fade.DOFade(1, .3f));
+        sequence.AppendCallback(() => {
+            _mainMenu.SetActive(false);
+            LoadLevel(index);
+        });
+        _transitioning = true;
+    }
+    public void LevelLoaded()
+    {
+        RequestData();
+        if (!_transitioning) return;
+
+        SoundManagerPlayMusic("GameMusic");
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(_fade.DOFade(0, .3f));
+        sequence.AppendCallback(() => { StartGame(); });
     }
 }

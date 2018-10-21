@@ -49,8 +49,9 @@ public class GameManager : MonoBehaviour
 
     void Start ()
     {
+        CanvasManager.Instance.LevelLoaded();
         StartCoroutine( SpawnBloodDonor());
-        State = GameState.Menu;
+        //State = GameState.Menu;
     }
 
 	void Update ()

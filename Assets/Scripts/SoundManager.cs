@@ -66,8 +66,8 @@ public class SoundManager : MonoBehaviour
         Source.Play();
     }
 
-    public void SetVolume(UnityEngine.UI.Slider slider)
+    public void SetVolume(float vol)
     {
-        Source.volume = slider.value *.1f;
+        Source.volume = vol;
     }
 }
