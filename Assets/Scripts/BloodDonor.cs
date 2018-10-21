@@ -38,10 +38,14 @@ public class BloodDonor : DragableObj
     private int _currentPathIndex = 0;
     public Animator animator;
 
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _rageQuit;
+
     [HideInInspector] public bool desableKinematic = true;   
 
     private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
         _rgd = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         if (animator == null)
@@ -135,6 +139,10 @@ public class BloodDonor : DragableObj
                 _waitingBar.color = _data.RageQuitColor;
                 _currentIdle = .5f;
                 _waitingBar.fillAmount = 1.0f;
+                _audioSource.clip = _rageQuit;
+                _audioSource.loop = false;
+                _audioSource.pitch = Random.Range(0.7f, 1.0f);
+                _audioSource.Play();
                 break;
             default:
                 break;

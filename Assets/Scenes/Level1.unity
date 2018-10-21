@@ -14161,8 +14161,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -22605,6 +22605,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4907490121417004, guid: 872b6bdcb8550db4888e9961c2740447, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114391994233928052, guid: 872b6bdcb8550db4888e9961c2740447,
+        type: 2}
+      propertyPath: antialiasingMode
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
