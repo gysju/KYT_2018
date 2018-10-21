@@ -5,13 +5,20 @@ using UnityEngine;
 public class Commands : MonoBehaviour {
 
     #region Var
-    public Command command;
-
     public Bord[] bordsNeeds, bordsGiven;
     public Sprite[] sprites;
     private GameData _data;
 
     public static int maxQuantity = 4;
+
+    [SerializeField] private Truck _truck;
+
+    private List<BloodInfo> ask, given;
+    private int _remaining;
+
+    private List<int> _nBagnextCommands = new List<int>();
+
+    private BloodInfo.Compatibilities[] _compts, _givenCompts;
 
     #endregion
     #region MonoFunction
@@ -24,42 +31,18 @@ public class Commands : MonoBehaviour {
         }*/
 
         _data = GameManager.Instance.RequestData();
-        command = new Command(bordsNeeds, bordsGiven, sprites, _data);
+        Init();
     }
     #endregion
     #region Function
     public void AddBag(BloodBag bag)
     {
-        command.AddAnswer(bag.bloodInfo);
+        AddAnswer(bag.bloodInfo);
         //Destroy(bag.gameObject);
         bag.gameObject.SetActive(false);
     }
     public void ResetCommand()
     {
-        command.Init();
-    }
-    #endregion
-}
-
-public class Command
-{
-    public List<BloodInfo> ask, given;
-    public int remaining;
-
-    private List<int> nBagnextCommands = new List<int>();
-
-    public BloodInfo.Compatibilities[] compts, givenCompts;
-
-    public Bord[] bordsNeeds, bordsGiven;
-    public Sprite[] sprites;
-    public GameData data;
-
-    public Command(Bord[] bordsNeeds, Bord[] bordsGiven, Sprite[] sprites, GameData gameData)
-    {
-        this.bordsNeeds = bordsNeeds;
-        this.bordsGiven = bordsGiven;
-        this.sprites = sprites;
-        this.data = gameData;
         Init();
     }
 
@@ -72,19 +55,19 @@ public class Command
     public void Generate()
     {
         int nBag = Commands.maxQuantity;
-        if (nBagnextCommands.Count > 0)
+        if (_nBagnextCommands.Count > 0)
         {
-            nBag = nBagnextCommands[0];            
+            nBag = _nBagnextCommands[0];
         }
 
         ask = new List<BloodInfo>();
         given = new List<BloodInfo>();
-        compts = new BloodInfo.Compatibilities[] {
+        _compts = new BloodInfo.Compatibilities[] {
             new BloodInfo.Compatibilities(BloodInfo.BloodType.Blood),
             new BloodInfo.Compatibilities(BloodInfo.BloodType.Platelet),
             new BloodInfo.Compatibilities(BloodInfo.BloodType.Plasma)
         };
-        givenCompts = new BloodInfo.Compatibilities[] {
+        _givenCompts = new BloodInfo.Compatibilities[] {
             new BloodInfo.Compatibilities(BloodInfo.BloodType.Blood),
             new BloodInfo.Compatibilities(BloodInfo.BloodType.Platelet),
             new BloodInfo.Compatibilities(BloodInfo.BloodType.Plasma)
@@ -93,7 +76,7 @@ public class Command
         for (int i = 0; i < nBag; i++)
         {
             BloodInfo info = GameManager.Instance.BloodInfoGetRand();
-            compts[(int)info.type - 1].Increase(info.Compatibility());
+            _compts[(int)info.type - 1].Increase(info.Compatibility());
             ask.Add(info);
 
             bordsNeeds[i].SetData(true, sprites[(int)info.type - 1], "" + info.family);
@@ -105,12 +88,12 @@ public class Command
         for (int i = 0; i < Commands.maxQuantity; i++)
             bordsGiven[i].SetData(false, null, null);
 
-        remaining = nBag;
+        _remaining = nBag;
     }
 
     public void AddAnswer(BloodInfo answer)
     {
-        if (compts[(int)answer.type - 1].ababo[(int)answer.family - 1] <= givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1])
+        if (_compts[(int)answer.type - 1].ababo[(int)answer.family - 1] <= _givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1])
         {
             Debug.Log("lose command");
             Generate();
@@ -119,14 +102,15 @@ public class Command
         {
             given.Add(answer);
             bordsGiven[given.Count - 1].SetData(true, sprites[(int)answer.type - 1], "" + answer.family);
-            CanvasManager.Instance.AddScore(data.ScoreByCommandPartiallyComplete);
-            compts[(int)answer.type - 1].ababo[(int)answer.family - 1]++;
-            remaining--;
-            if (remaining <= 0)
+            CanvasManager.Instance.AddScore(_data.ScoreByCommandPartiallyComplete);
+            _compts[(int)answer.type - 1].ababo[(int)answer.family - 1]++;
+            _remaining--;
+            if (_remaining <= 0)
             {
-                nBagnextCommands.RemoveAt(0);
+                _nBagnextCommands.RemoveAt(0);
                 Debug.Log("command completed");
-                CanvasManager.Instance.AddScore(data.ScoreByCommandComplete);
+                _truck.SetNeedGo();
+                CanvasManager.Instance.AddScore(_data.ScoreByCommandComplete);
                 Generate();
             }
         }
@@ -134,15 +118,16 @@ public class Command
 
     private void InitListCommands()
     {
-        nBagnextCommands = new List<int>();
+        _nBagnextCommands = new List<int>();
 
-        nBagnextCommands.Add(2);
-        nBagnextCommands.Add(2);
-        nBagnextCommands.Add(2);
-        nBagnextCommands.Add(3);
-        nBagnextCommands.Add(3);
-        nBagnextCommands.Add(3);
-        nBagnextCommands.Add(3);
-        nBagnextCommands.Add(3);
+        _nBagnextCommands.Add(2);
+        _nBagnextCommands.Add(2);
+        _nBagnextCommands.Add(2);
+        _nBagnextCommands.Add(3);
+        _nBagnextCommands.Add(3);
+        _nBagnextCommands.Add(3);
+        _nBagnextCommands.Add(3);
+        _nBagnextCommands.Add(3);
     }
+    #endregion
 }

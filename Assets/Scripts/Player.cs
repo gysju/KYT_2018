@@ -381,5 +381,6 @@ public class Player : MonoBehaviour
         transform.rotation = startRotation;
         _currentObjAttached = null;
         _hasBeenAttachedCheck = false;
+        _bul.SetActive(false);
     }
 }
