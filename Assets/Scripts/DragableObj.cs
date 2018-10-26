@@ -5,6 +5,7 @@ using UnityEngine;
 public class DragableObj : MonoBehaviour {
 
     #region Var
+    private Player _attachBy;
     #endregion
     #region MonoFunction
     #endregion
@@ -14,6 +15,14 @@ public class DragableObj : MonoBehaviour {
         transform.parent = parent;
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+    }
+    public virtual void Attach(Transform parent, Player player)
+    {
+        Attach(parent);
+
+        if (_attachBy != null)
+            _attachBy.ForceDrop();
+        _attachBy = player;
     }
     public virtual void Detach()
     {

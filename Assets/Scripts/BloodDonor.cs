@@ -8,12 +8,14 @@ public class BloodDonor : DragableObj
 {
     public BloodInfo bloodInfo;
     private GameData _data;
-    [SerializeField] private Image _waitingBar;
+    [SerializeField] private FillIcon _waitingFill;
+
+    private Player _grabBy;
 
     [HideInInspector] public bool onProcess;
     [HideInInspector] public int progressionStat;
     public enum State { idle, home, medic, taking, leave, rageQuit }
-    public State CurrentState {
+    public State state {
         get {
             return _state;
         }
@@ -54,14 +56,14 @@ public class BloodDonor : DragableObj
 
     void Start ()
     {
-        CurrentState = State.home;
+        state = State.home;
 
         if (_data.HumansDatas != null)
         {
             SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
             bloodInfo = GameManager.Instance.BloodInfoGetRand();
 
-            _waitingBar.color = _data.MedicColor;
+            _waitingFill.SetProgressionColor(_data.MedicColor);
         }
     }
 	
@@ -81,7 +83,7 @@ public class BloodDonor : DragableObj
         if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
-        if (CurrentState == State.idle)
+        if (state == State.idle)
         {
             animator.SetFloat("Speed", 0.0f);
         }
@@ -110,11 +112,11 @@ public class BloodDonor : DragableObj
 
     private void OnStateEnter()
     {
-        switch (CurrentState)
+        switch (state)
         {
             case State.idle:
                 _currentPath = null;
-                _navMeshAgent.isStopped = true;
+                //_navMeshAgent.isStopped = true;
                 //_waitingBar.color = _data.IdleColor;
                 break;
             case State.home:
@@ -122,23 +124,24 @@ public class BloodDonor : DragableObj
                 SetDestination(_currentPath[0].position);
                 break;
             case State.medic:
-                _waitingBar.color = _data.TakingBloodColor;
+                _waitingFill.SetProgressionColor(_data.TakingBloodColor);
                 break;
             case State.taking:
                 break;
             case State.leave:
                 _currentPath = PathManager.Instance.PathsBedToExit;
                 SetDestination(_currentPath[0].position);
-                _waitingBar.color = _data.IdleColor;
-                _waitingBar.fillAmount = 1.0f;
+                _waitingFill.SetProgressionColor(_data.IdleColor);
+                _waitingFill.Fill(1.0f);
                 break;
             case State.rageQuit:
                 onProcess = false;
                 _currentPath = PathManager.Instance.PathsBedToExit;
                 SetDestination(_currentPath[0].position);
-                _waitingBar.color = _data.RageQuitColor;
+                _waitingFill.SetProgressionColor(_data.RageQuitColor);
                 _currentIdle = .5f;
-                _waitingBar.fillAmount = 1.0f;
+                _waitingFill.Fill(1.0f);
+
                 _audioSource.clip = _rageQuit;
                 _audioSource.loop = false;
                 _audioSource.pitch = Random.Range(0.7f, 1.0f);
@@ -151,7 +154,7 @@ public class BloodDonor : DragableObj
 
     private void OnStateUpdate()
     {
-        switch (CurrentState)
+        switch (state)
         {
             case State.idle:
                 CheckRageQuit();
@@ -171,22 +174,22 @@ public class BloodDonor : DragableObj
 
     private void OnStateExit()
     {
-        switch (CurrentState)
+        switch (state)
         {
             case State.idle:
                 _currentIdle = 0.0f;
                 break;
             case State.home:
-                progressionStat = (int)CurrentState;
+                progressionStat = (int)state;
                 break;
             case State.medic:
-                progressionStat = (int)CurrentState;               
+                progressionStat = (int)state;               
                 break;
             case State.taking:
-                progressionStat = (int)CurrentState;
+                progressionStat = (int)state;
                 break;
             case State.leave:
-                progressionStat = (int)CurrentState;
+                progressionStat = (int)state;
                 GameManager.Instance.Removedonor(this);
                 gameObject.SetActive(false);
                 break;
@@ -203,17 +206,7 @@ public class BloodDonor : DragableObj
     {
         if ( _currentIdle > _data.MaxIdleTime)
         {
-            CurrentState = State.rageQuit;
-        }
-        _currentIdle += TimeManager.deltaTime;
-        SetHudBar();
-    }
-
-    private void CheckMedicTime()
-    {
-        if (_currentIdle > _data.MaxMedicTime)
-        {
-            CurrentState = State.idle;
+            state = State.rageQuit;
         }
         _currentIdle += TimeManager.deltaTime;
         SetHudBar();
@@ -221,20 +214,19 @@ public class BloodDonor : DragableObj
 
     private void SetHudBar()
     {
-        switch (CurrentState)
+        switch (state)
         {
-            case State.medic:
-                _waitingBar.fillAmount = _currentIdle / _data.MaxMedicTime;
-                break;
             case State.idle:
+                _waitingFill.Fill(_currentIdle / _data.MaxIdleTime);
+                break;
             case State.home:
-                _waitingBar.fillAmount = _currentIdle / _data.MaxIdleTime;
+                Debug.Log("fill home");
                 break;
             case State.rageQuit:
-                _waitingBar.fillAmount = 1.0f;
+                _waitingFill.Fill(1.0f);
                 break;
             default:
-                _waitingBar.fillAmount = 0.0f;
+                _waitingFill.SetActive(false);
                 break;
         }
     }
@@ -253,7 +245,7 @@ public class BloodDonor : DragableObj
             if (_currentPathIndex >= _currentPath.Count)
             {
                 _currentPathIndex = 0;
-                CurrentState = State.idle;
+                state = State.idle;
             }
             else
             {
@@ -304,5 +296,10 @@ public class BloodDonor : DragableObj
             _rgd.isKinematic = false;
             _navMeshAgent.enabled = true;
         }
+    }
+
+    public void DesableWaintingFill()
+    {
+        _waitingFill.SetActive(false);
     }
 }

@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     public Vector3 startPosition;
     public Quaternion startRotation;
 
-    private void Awake()
+    private void Start()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
@@ -52,20 +52,20 @@ public class Player : MonoBehaviour
 
         if (_currentObjAttached != null)
         {
-            if (Input.GetKeyUp("joystick " + (_playerID+1) + " button 0"))
+            if (Input.GetButtonUp("A"+_playerID)/*Input.GetKeyUp("joystick " + (_playerID+1) + " button 0")*/)
             {
                 _hasBeenAttachedCheck = true;
 
             }
-            else if (Input.GetKeyDown("joystick " + (_playerID+1) + " button 0") && _hasBeenAttachedCheck)
+            else if (Input.GetButtonDown("A" + _playerID)/*Input.GetKeyDown("joystick " + (_playerID+1) + " button 0")*/ && _hasBeenAttachedCheck)
             {
                 CheckOnDrop();
                 DetachObj();
             }
         }
-        else if (Input.GetKeyDown("joystick " + (_playerID+1) + " button 0"))
+        else if (Input.GetButtonDown("A" + _playerID)/*Input.GetKeyDown("joystick " + (_playerID+1) + " button 0")*/)
         {
-            CheckOnDrop();
+            //CheckOnDrop();
             TryGrab();
         }
     }
@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
-        //HighlightTargetObj();
         HighlightManagement();
 
         Move();
@@ -104,7 +103,7 @@ public class Player : MonoBehaviour
 
     private void AttachObj(DragableObj obj, Transform anchor)
     {
-        obj.Attach(anchor);
+        obj.Attach(anchor, this);
 
         _currentObjAttached = obj;
         Source.clip = AttachedSound;
@@ -129,7 +128,7 @@ public class Player : MonoBehaviour
             if (cols[0].CompareTag("Donor"))
             {
                 BloodDonor donor = (cols[0].GetComponent<BloodDonor>());
-                if (donor.CurrentState != BloodDonor.State.taking && donor.CurrentState != BloodDonor.State.leave && donor.CurrentState != BloodDonor.State.rageQuit)
+                if (donor.state != BloodDonor.State.taking && donor.state != BloodDonor.State.leave && donor.state != BloodDonor.State.rageQuit)
                 {
                     AttachObj(donor, _attrachAnchor);
                     SetBul(true, sprites[(int)donor.bloodInfo.type - 1], "" + donor.bloodInfo.family);
@@ -175,12 +174,12 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if (bd.progressionStat == (int)BloodDonor.State.home || bd.CurrentState == BloodDonor.State.home)
+                        if (bd.progressionStat == (int)BloodDonor.State.home || bd.state == BloodDonor.State.home)
                         {
                             if (!doc.occupied)
-                                doc.SetDonor((BloodDonor)_currentObjAttached);
+                                doc.SetDonor(bd);
                         }
-                        else bd.CurrentState = BloodDonor.State.rageQuit;
+                        else bd.state = BloodDonor.State.rageQuit;
                     }
                 }                
             }
@@ -192,12 +191,12 @@ public class Player : MonoBehaviour
                     BloodDonor bd = (BloodDonor)_currentObjAttached;
                     if (bd != null)
                     {
-                        if ((bd.progressionStat == (int)BloodDonor.State.medic || bd.CurrentState == BloodDonor.State.medic) /*&& bed.type == bd.Blood.type*/)
+                        if ((bd.progressionStat == (int)BloodDonor.State.medic || bd.state == BloodDonor.State.medic) /*&& bed.type == bd.Blood.type*/)
                         {
                             if (!bed.occupied)
                                 bed.SetDonor(bd);
                         }
-                        else bd.CurrentState = BloodDonor.State.rageQuit;
+                        else bd.state = BloodDonor.State.rageQuit;
                     }
                 }
             }
@@ -230,7 +229,7 @@ public class Player : MonoBehaviour
         } else if (_currentObjAttached is BloodDonor)
             ((BloodDonor)_currentObjAttached).onProcess = false;
 
-        ResetHighlightAndBul();
+        ResetHighlightAndBul(true);
     }
 
     private void HighlightManagement()
@@ -239,12 +238,12 @@ public class Player : MonoBehaviour
 
         if (cols.Length <= 0)
         {
-            ResetHighlightAndBul();
+            ResetHighlightAndBul(true);
             return;
         }
 
         Collider col = cols[0];
-        if (_currentObjAttached  != null && col.transform == _currentObjAttached.transform && cols.Length > 1)
+        if (_currentObjAttached != null && col.transform == _currentObjAttached.transform && cols.Length > 1)
             col = cols[1];
 
         if (col.CompareTag("Donor"))
@@ -256,6 +255,8 @@ public class Player : MonoBehaviour
                     SetBul(true, sprites[(int)donor.bloodInfo.type - 1], "" + donor.bloodInfo.family);
                 _lastHighlightObj.SetData(col, col.GetComponentInChildren<MeshRenderer>().material, true);
             }
+            else if (_lastHighlightObj.col != null && _lastHighlightObj.col.transform != col.transform)
+                ResetHighlightAndBul(false);
         }
         else if (col.CompareTag("Bloodbag"))
         {
@@ -266,6 +267,8 @@ public class Player : MonoBehaviour
                     SetBul(true, sprites[(int)bloodbag.bloodInfo.type - 1], "" + bloodbag.bloodInfo.family);
                 _lastHighlightObj.SetData(col, col.GetComponent<MeshRenderer>().material, false);
             }
+            else if (_lastHighlightObj.col != null && _lastHighlightObj.col.transform != col.transform)
+                ResetHighlightAndBul(false);
         }
         else if (col.CompareTag("BloodShelf"))
         {
@@ -286,7 +289,7 @@ public class Player : MonoBehaviour
             if (_currentObjAttached != null && _currentObjAttached is BloodDonor)
             {
                 BloodDonor donor = (BloodDonor)_currentObjAttached;
-                if (/*donor._state != BloodDonor.State.taking &&*/ donor.CurrentState != BloodDonor.State.leave && donor.CurrentState != BloodDonor.State.rageQuit)
+                if (/*donor._state != BloodDonor.State.taking &&*/ donor.state != BloodDonor.State.leave && donor.state != BloodDonor.State.rageQuit)
                     _lastHighlightObj.SetData(col, col.GetComponentInChildren<MeshRenderer>().material, false);
             }
         }
@@ -295,13 +298,19 @@ public class Player : MonoBehaviour
             if (_currentObjAttached != null && _currentObjAttached is BloodDonor)
                 _lastHighlightObj.SetData(col, col.GetComponentsInChildren<MeshRenderer>(), false);
         }
+        else if (col.CompareTag("commands"))
+        {
+            if (_currentObjAttached != null && _currentObjAttached is BloodBag)
+                _lastHighlightObj.SetData(col, col.GetComponentsInChildren<MeshRenderer>(), false);
+        }
     }
 
-    public void ResetHighlightAndBul()
+    public void ResetHighlightAndBul(bool bulTo)
     {
         _lastHighlightObj.SetHighLight(0);
         _lastHighlightObj.col = null;
-        SetBul(false, null);
+        if (bulTo)
+            SetBul(false, null);
     }
 
     private struct HighlightObj
@@ -379,8 +388,12 @@ public class Player : MonoBehaviour
     {
         transform.position = startPosition;
         transform.rotation = startRotation;
-        _currentObjAttached = null;
+        
         _hasBeenAttachedCheck = false;
         _bul.SetActive(false);
+    }
+    public void ForceDrop()
+    {
+        _currentObjAttached = null;
     }
 }

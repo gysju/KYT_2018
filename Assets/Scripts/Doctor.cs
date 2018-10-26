@@ -12,16 +12,20 @@ public class Doctor : InteractableWihDonor {
     protected override void Start()
     {
         base.Start();
-        duration = _data.MaxMedicTime;
+        _duration = _data.MaxMedicTime;
     }
     public override void Begin()
     {
+        _donor.state = BloodDonor.State.medic;
         base.Begin();
     }
     protected override void End()
     {
-        _donor.CurrentState = Random.Range(0f, 1) < _data.rejectChance ? BloodDonor.State.leave : BloodDonor.State.medic;
+        _fillIcon.SetActive(false);
+
+        BloodDonor tempDonor = _donor;
         base.End();
+        tempDonor.state = Random.Range(0f, 1) < _data.rejectChance ? BloodDonor.State.leave : BloodDonor.State.idle;
     }
     #endregion
 }

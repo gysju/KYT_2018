@@ -6,16 +6,16 @@ public class Timer : MonoBehaviour {
 
     #region Var
     protected GameData _data;
-    protected float duration = 5;
+    protected float _duration = 5;
     private bool running;
-    private float _time;
+    protected float _time;
     #endregion
     #region MonoFunction
     protected virtual void Start()
     {
         _data = GameManager.Instance.RequestData();
     }
-    private void Update ()
+    protected virtual void Update ()
     {
 		if (_time < TimeManager.time && running)
         {
@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour {
     public virtual void Begin()
     {
         running = true;
-        _time = TimeManager.time + duration;
+        _time = TimeManager.time + _duration;
     }
     protected virtual void End()
     {

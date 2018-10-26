@@ -9,14 +9,28 @@ public class InteractableWihDonor : Timer {
     [SerializeField] protected Transform _inside, _outside;
     private float _enterYPos;
 
+    [SerializeField] protected FillIcon _fillIcon;
+
     public bool occupied { get { return _donor != null; } }
     #endregion
     #region MonoFunction
+    protected override void Start()
+    {
+        base.Start();
+        _fillIcon.SetActive(false);
+    }
+    protected override void Update()
+    {
+        base.Update();
+        if (_donor != null)
+            _fillIcon.Fill(Mathf.Clamp01(1 - (_time - TimeManager.time) / _duration));
+    }
     #endregion
     #region Function
     public void SetDonor(BloodDonor donor)
     {
         _donor = donor;
+        _donor.DesableWaintingFill();
         Begin();
     }
     public override void Begin()
@@ -50,6 +64,11 @@ public class InteractableWihDonor : Timer {
     {
         base.End();
         _donor = null;
+        _fillIcon.SetActive(false);
+    }
+    public void TempEnd()
+    {
+        _fillIcon.SetActive(false);
     }
     #endregion
 }
