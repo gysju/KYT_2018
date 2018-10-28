@@ -25,7 +25,7 @@ public class Doctor : InteractableWihDonor {
 
         BloodDonor tempDonor = _donor;
         base.End();
-        tempDonor.state = Random.Range(0f, 1) < _data.rejectChance ? BloodDonor.State.leave : BloodDonor.State.idle;
+        tempDonor.state = Random.Range(0f, 1) < _data.RejectChance ? BloodDonor.State.leave : BloodDonor.State.idle;
     }
     #endregion
 }

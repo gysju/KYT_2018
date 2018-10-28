@@ -13,7 +13,7 @@ public class BloodBag : DragableObj {
 
         if (_bed != null)
         {
-            _bed.TempEnd();
+            _bed.AlternativeEnd();
             _bed = null;
         }
     }

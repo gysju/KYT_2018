@@ -29073,6 +29073,12 @@ Prefab:
       propertyPath: interactableWihDonors.Array.data[5]
       value: 
       objectReference: {fileID: 1383500565}
+    - target: {fileID: 114364059875267220, guid: 678dfdefd3dfa734580d3697fadb2bd8,
+        type: 2}
+      propertyPath: _levelData
+      value: 
+      objectReference: {fileID: 11400000, guid: 5d4e042fc6c3e1e42836d37aed876eea,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 678dfdefd3dfa734580d3697fadb2bd8, type: 2}
   m_IsPrefabAsset: 0

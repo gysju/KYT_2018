@@ -65,7 +65,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4799289583687106}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PathPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4176842857672132}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: PathPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138580851448028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.38, y: 0, z: 13.05}
+  m_LocalPosition: {x: 4, y: 0, z: -5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4138612409994442}
@@ -182,7 +182,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1483069973990540}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.7, y: 0, z: 13.5}
+  m_LocalPosition: {x: 18, y: 0, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4805322018388928}
@@ -225,7 +225,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1475214475449054}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: 12.75, y: -1.19, z: 14.3}
+  m_LocalPosition: {x: -3.61, y: -1.19, z: -22.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4316722065760390}
@@ -238,7 +238,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1440983577936776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.19, z: 0.425}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203278920037160}
@@ -253,7 +253,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418538155765668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: 6.7}
+  m_LocalPosition: {x: -5.35, y: 0, z: -5.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4229124671045478}
@@ -301,11 +301,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca2a76985b3ba64d944f31c38b47b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: b8e99c7fc86d35748a9f4a0dfdb772c6, type: 2}
+  _constData: {fileID: 11400000, guid: c12bfbe20980d414c94fac55285c9fe8, type: 2}
+  _levelData: {fileID: 11400000, guid: b39819b518b83874fb5e5644b621283c, type: 2}
   _bloodDonor: {fileID: 114477364778100916, guid: 41452cd741deeaf41ad3bae3dbdb194d,
     type: 2}
   _bdSpawn: {fileID: 4286128577463206}
   _playerOne: {fileID: 0}
   _playerTwo: {fileID: 0}
-  shelves: []
+  shelves:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  interactableWihDonors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   command: {fileID: 0}

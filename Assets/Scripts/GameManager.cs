@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
     private GameState _state;
 
     [Header("GameSettings")]
-    [SerializeField] private GameData _data;
+    [SerializeField] private ConstGameData _constData;
+    [SerializeField] private LevelData _levelData;
+    private GameData _data;
 
     [Header("Blood donor settings")]
     [SerializeField] private BloodDonor _bloodDonor;
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            _data = new GameData(_constData, _levelData);
         }
         else
         {
@@ -141,8 +144,8 @@ public class GameManager : MonoBehaviour
 
     public BloodInfo BloodInfoGetRand()
     {
-        BloodInfo.BloodType type = _data.bloodTypes[Random.Range(0, _data.bloodTypes.Length)];
-        BloodInfo.BloodFamily fam = _data.bloodFamilies[Random.Range(0, _data.bloodFamilies.Length)];
+        BloodInfo.BloodType type = _data.BloodTypes[Random.Range(0, _data.BloodTypes.Length)];
+        BloodInfo.BloodFamily fam = _data.BloodFamilies[Random.Range(0, _data.BloodFamilies.Length)];
         BloodInfo.BloodRhesus rhe = (BloodInfo.BloodRhesus)Random.Range(1, 3);
 
         return new BloodInfo(type, fam, rhe);

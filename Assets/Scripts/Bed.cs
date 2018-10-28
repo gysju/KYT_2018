@@ -50,7 +50,14 @@ public class Bed : InteractableWihDonor {
             b.SetBed(this);
 
             GameManager.Instance.AddBag(b);
+        }
 
+        _running = false;
+    }
+    public override void AlternativeEnd()
+    {
+        if (_donor != null)
+        {
             //_donor.desableKinematic = true;
             //_donor.GetRigidbody().isKinematic = false;
             //_donor._navMeshAgent.enabled = true;
@@ -59,6 +66,7 @@ public class Bed : InteractableWihDonor {
             _donor.animator.SetBool("sleep", false);
         }
         base.End();
+        base.AlternativeEnd();
     }
     #endregion
 }

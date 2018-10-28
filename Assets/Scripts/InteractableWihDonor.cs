@@ -66,7 +66,7 @@ public class InteractableWihDonor : Timer {
         _donor = null;
         _fillIcon.SetActive(false);
     }
-    public void TempEnd()
+    public virtual void AlternativeEnd()
     {
         _fillIcon.SetActive(false);
     }
