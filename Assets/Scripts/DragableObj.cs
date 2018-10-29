@@ -6,8 +6,15 @@ public class DragableObj : MonoBehaviour {
 
     #region Var
     private Player _attachBy;
+
+    private MeshRenderer[] _meshRenderers;
+    public MeshRenderer[] meshRenderers { get { return _meshRenderers; } }
     #endregion
     #region MonoFunction
+    protected virtual void Start()
+    {
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
+    }
     #endregion
     #region Function
     public virtual void Attach(Transform parent)

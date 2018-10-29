@@ -8,6 +8,7 @@ public class Bed : InteractableWihDonor {
     public BloodInfo.BloodType type;
     public GameObject bloodbag;
 
+    private bool _hasAlrBeFeed;
     [SerializeField] private Transform _bloodbagSpawn;
     #endregion
     #region MonoFunction
@@ -64,9 +65,19 @@ public class Bed : InteractableWihDonor {
 
             _donor.state = BloodDonor.State.leave;
             _donor.animator.SetBool("sleep", false);
+            _hasAlrBeFeed = false;
         }
         base.End();
         base.AlternativeEnd();
+    }
+    public void TryFeed(DragableObj food)
+    {
+        if (!_hasAlrBeFeed)
+        {
+            _hasAlrBeFeed = true;
+            CanvasManager.Instance.AddScore(_data.ScoreByFoodGiven);
+        }
+        Destroy(food.gameObject);
     }
     #endregion
 }

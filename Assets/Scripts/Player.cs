@@ -132,6 +132,7 @@ public class Player : MonoBehaviour
                 {
                     AttachObj(donor, _attrachAnchor);
                     SetBul(true, sprites[(int)donor.bloodInfo.type - 1], "" + donor.bloodInfo.family);
+                    ResetHighlightAndBul(false);
                 }
             }
             else if (cols[0].CompareTag("Bloodbag"))
@@ -139,6 +140,13 @@ public class Player : MonoBehaviour
                 BloodBag bloodbag = (cols[0].GetComponent<BloodBag>());
                 AttachObj(bloodbag, _grabCenter);
                 SetBul(true, sprites[(int)bloodbag.bloodInfo.type - 1], "" + bloodbag.bloodInfo.family);
+                ResetHighlightAndBul(false);
+            }
+            else if (cols[0].CompareTag("FoodBag"))
+            {
+                FoodBag bloodbag = (cols[0].GetComponent<FoodBag>());
+                AttachObj(bloodbag, _grabCenter);
+                ResetHighlightAndBul(true);
             }
         }
         else
@@ -146,14 +154,21 @@ public class Player : MonoBehaviour
             cols = Physics.OverlapSphere(_grabCenter.position, .75f, _interactPlace);
             if (cols != null && cols.Length > 0)
             {
-                if (cols[0].CompareTag("BloodShelf"))
+                if (cols[0].CompareTag("BloodShelf") || cols[0].CompareTag("FoodShelf"))
                 {
-                    BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
+                    Shelf shelf = cols[0].GetComponent<Shelf>();
                     if (shelf != null)
                     {
-                        BloodBag b = shelf.TakeOut();
+                        DragableObj b = shelf.TakeOut();
                         if (b != null)
+                        {
                             AttachObj(b, _grabCenter);
+                            if (b is BloodBag)
+                            {
+                                BloodBag bloodBag = ((BloodBag)b);
+                                SetBul(true, sprites[(int)bloodBag.bloodInfo.type - 1], "" + bloodBag.bloodInfo.family);
+                            }
+                        }
                     }
                 }
             }
@@ -199,18 +214,19 @@ public class Player : MonoBehaviour
                         else bd.state = BloodDonor.State.rageQuit;
                     }
                 }
-            }
-            else if (cols[0].CompareTag("BloodShelf"))
-            {
-                BloodShelf shelf = cols[0].GetComponent<BloodShelf>();
-                if (shelf != null && _currentObjAttached is BloodBag)
+                if (_currentObjAttached is FoodBag)
                 {
-                    BloodBag bb = (BloodBag)_currentObjAttached;
-                    if (bb != null)
+                    if (bed.occupied)
                     {
-                        shelf.FillIn(bb);
+                        bed.TryFeed(_currentObjAttached);
                     }
                 }
+            }
+            else if (cols[0].CompareTag("BloodShelf") || cols[0].CompareTag("FoodShelf"))
+            {
+                Shelf shelf = cols[0].GetComponent<Shelf>();
+                if (shelf != null)
+                    shelf.FillIn(_currentObjAttached);
             }
             else if (cols[0].CompareTag("commands"))
             {
@@ -253,7 +269,7 @@ public class Player : MonoBehaviour
                 BloodDonor donor = (col.GetComponent<BloodDonor>());
                 if (donor != null)
                     SetBul(true, sprites[(int)donor.bloodInfo.type - 1], "" + donor.bloodInfo.family);
-                _lastHighlightObj.SetData(col, col.GetComponentInChildren<MeshRenderer>().material, true);
+                _lastHighlightObj.SetData(col, donor.meshRenderers, true);
             }
             else if (_lastHighlightObj.col != null && _lastHighlightObj.col.transform != col.transform)
                 ResetHighlightAndBul(false);
@@ -265,44 +281,57 @@ public class Player : MonoBehaviour
                 BloodBag bloodbag = (col.GetComponent<BloodBag>());
                 if (bloodbag != null)
                     SetBul(true, sprites[(int)bloodbag.bloodInfo.type - 1], "" + bloodbag.bloodInfo.family);
-                _lastHighlightObj.SetData(col, col.GetComponent<MeshRenderer>().material, false);
+                _lastHighlightObj.SetData(col, bloodbag.meshRenderers, false);
             }
             else if (_lastHighlightObj.col != null && _lastHighlightObj.col.transform != col.transform)
                 ResetHighlightAndBul(false);
         }
         else if (col.CompareTag("BloodShelf"))
         {
-            if (_currentObjAttached == null)
+            BloodShelf shelf = col.GetComponent<BloodShelf>();
+            if (_currentObjAttached == null || _currentObjAttached is BloodBag)
             {
-                BloodShelf shelf = col.GetComponent<BloodShelf>();
-                if (shelf != null && _currentObjAttached == null)
+                if (_currentObjAttached == null)
                     SetBul(true, "" + shelf.GetNumber());
-                _lastHighlightObj.SetData(col, col.GetComponentInChildren<MeshRenderer>().material, false);
-            }
-            else if (_currentObjAttached is BloodBag)
-            {
-                _lastHighlightObj.SetData(col, col.GetComponentInChildren<MeshRenderer>().material, false);
-            }
+                _lastHighlightObj.SetData(col, shelf.meshRenderers, false);
+            } else ResetHighlightAndBul(false);
         }
-        else if (col.CompareTag("Doctor_Door"))
+        else if (col.CompareTag("FoodBag"))
         {
+            if (_currentObjAttached == null)
+                _lastHighlightObj.SetData(col, col.GetComponent<MeshRenderer>().material, false);
+            else if (_lastHighlightObj.col != null && _lastHighlightObj.col.transform != col.transform)
+                ResetHighlightAndBul(true);
+        }
+        else if (col.CompareTag("FoodShelf"))
+        {
+            FoodShelf shelf = col.GetComponent<FoodShelf>();
+            if (_currentObjAttached == null || _currentObjAttached is FoodBag)
+                _lastHighlightObj.SetData(col, shelf.meshRenderers, false);
+            else ResetHighlightAndBul(false);
+        }
+        else if (col.CompareTag("Doctor_Door") || col.CompareTag("Bed"))
+        {
+            InteractableWihDonor interactableWihDonor = col.GetComponent<InteractableWihDonor>();
             if (_currentObjAttached != null && _currentObjAttached is BloodDonor)
             {
                 BloodDonor donor = (BloodDonor)_currentObjAttached;
-                if (/*donor._state != BloodDonor.State.taking &&*/ donor.state != BloodDonor.State.leave && donor.state != BloodDonor.State.rageQuit)
-                    _lastHighlightObj.SetData(col, col.GetComponentInChildren<MeshRenderer>().material, false);
+                if (/*donor.state != BloodDonor.State.taking &&*/ donor.state != BloodDonor.State.leave && donor.state != BloodDonor.State.rageQuit)
+                    _lastHighlightObj.SetData(col, interactableWihDonor.meshRenderers, false);
+            } 
+            else if (_currentObjAttached != null && _currentObjAttached is FoodBag)
+            {
+                if (interactableWihDonor.occupied)
+                    _lastHighlightObj.SetData(col, interactableWihDonor.meshRenderers, false);
             }
-        }
-        else if (col.CompareTag("Bed"))
-        {
-            if (_currentObjAttached != null && _currentObjAttached is BloodDonor)
-                _lastHighlightObj.SetData(col, col.GetComponentsInChildren<MeshRenderer>(), false);
+            else ResetHighlightAndBul(false);
         }
         else if (col.CompareTag("commands"))
         {
+            Commands commands = col.GetComponent<Commands>();
             if (_currentObjAttached != null && _currentObjAttached is BloodBag)
-                _lastHighlightObj.SetData(col, col.GetComponentsInChildren<MeshRenderer>(), false);
-        }
+                _lastHighlightObj.SetData(col, commands.meshRenderers, false);
+        } else ResetHighlightAndBul(false);
     }
 
     public void ResetHighlightAndBul(bool bulTo)
@@ -342,6 +371,8 @@ public class Player : MonoBehaviour
         {
             if (this.col != null)
                 SetHighLight(0);
+
+            if (renderers == null) return;
 
             this.mats = new Material[renderers.Length];
             for (int i = 0; i < renderers.Length; i++)

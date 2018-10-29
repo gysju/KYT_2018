@@ -12,6 +12,8 @@ TagManager:
   - commands
   - Car
   - RedLight
+  - FoodShelf
+  - FoodBag
   layers:
   - Default
   - TransparentFX

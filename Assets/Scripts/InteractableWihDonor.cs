@@ -12,12 +12,17 @@ public class InteractableWihDonor : Timer {
     [SerializeField] protected FillIcon _fillIcon;
 
     public bool occupied { get { return _donor != null; } }
+
+    private MeshRenderer[] _meshRenderers;
+    public MeshRenderer[] meshRenderers { get { return _meshRenderers; } }
     #endregion
     #region MonoFunction
     protected override void Start()
     {
         base.Start();
         _fillIcon.SetActive(false);
+
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
     }
     protected override void Update()
     {

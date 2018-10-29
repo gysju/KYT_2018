@@ -28,8 +28,8 @@ MonoBehaviour:
   RageQuitColor: {r: 0.22745098, g: 0.22745098, b: 0.22745098, a: 1}
   HumansDatas:
   - Model: {fileID: 4300000, guid: b3a1c5a34c30a5549aeb1bfd4f96126f, type: 3}
-    Mat: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
+    Mat: {fileID: 2100000, guid: a0067144a86c4094faac4eef6d3a9343, type: 2}
   - Model: {fileID: 4300000, guid: ec6d1868c3627e24da08244ee43dbb3f, type: 3}
-    Mat: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
+    Mat: {fileID: 2100000, guid: a0067144a86c4094faac4eef6d3a9343, type: 2}
   - Model: {fileID: 4300000, guid: 3e31862fee85e67499362cdb5eb3a8c9, type: 3}
-    Mat: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
+    Mat: {fileID: 2100000, guid: a0067144a86c4094faac4eef6d3a9343, type: 2}

@@ -3,68 +3,52 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BloodShelf : MonoBehaviour {
+public class BloodShelf : Shelf {
 
     #region Var
     public BloodInfo info;
-    [SerializeField] private GameData _data;
-    [HideInInspector] public List<BloodBag> bloodBags;
-
-    [SerializeField] private Transform stock;
-    [SerializeField] private TextMeshProUGUI[] family;
+    private GameData _data;
+    [SerializeField] private TextMeshProUGUI[] _family;
     #endregion
     #region MonoFunction
-    private void Start()
+    protected override void Start()
     {
+        _data = GameManager.Instance.RequestData();
         SetBloodInfoText();
+
+        base.Start();
     }
     #endregion
     #region Function
-    public void FillIn(BloodBag bag)
+    public override void FillIn(DragableObj bag)
     {
-        if (bag.bloodInfo.Equals(info, true, true, false))
+        if (bag.CompareTag("Bloodbag"))
         {
-            bag.transform.position = stock.position;
-            bag.gameObject.SetActive(false);
-
-            bloodBags.Add(bag);
-            CanvasManager.Instance.AddScore(_data.ScoreByBloodStocked);
-        }
-        else
-        {
-            Debug.Log("Your are bad: wrong shelf for this blood bag");
-            Destroy(bag.gameObject);
+            if (((BloodBag)bag).bloodInfo.Equals(info, true, true, false))
+            {
+                base.FillIn(bag);
+                CanvasManager.Instance.AddScore(_data.ScoreByBloodStocked);
+            }
+            else
+            {
+                Debug.Log("Your are bad: wrong shelf for this blood bag");
+                Destroy(bag.gameObject);
+            }
         }
     }
-    public BloodBag TakeOut()
+    public override DragableObj TakeOut()
     {
-        if (bloodBags.Count > 0)
-        {
-            BloodBag b = bloodBags[0];
-            b.gameObject.SetActive(true);
-            bloodBags.RemoveAt(0);
+        if (_bags.Count > 0)
             CanvasManager.Instance.AddScore(-_data.ScoreByBloodStocked);
-            return b;
-        }
         else Debug.Log("Empthy");
 
-        return null;
+        return base.TakeOut();
     }
-
     private void SetBloodInfoText()
     {
         string f = info.family.ToString();
-        for (int i = 0; i < family.Length; i++)
-            family[i].text = f;
-    }
-    public int GetNumber()
-    {
-        return bloodBags.Count;
-    }
-
-    public void ResetStock()
-    {
-        bloodBags.Clear();
+        for (int i = 0; i < _family.Length; i++)
+            _family[i].text = f;
     }
     #endregion
 }

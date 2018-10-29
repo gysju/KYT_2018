@@ -20,18 +20,16 @@ public class Commands : MonoBehaviour {
 
     private BloodInfo.Compatibilities[] _compts, _givenCompts;
 
+    private MeshRenderer[] _meshRenderers;
+    public MeshRenderer[] meshRenderers { get { return _meshRenderers; } }
     #endregion
     #region MonoFunction
     private void Start()
     {
-        /*for (int i = 0; i < maxQuantity; i++)
-        {
-            bordsNeeds[i].SetData(false, null, null);
-            bordsGiven[i].SetData(false, null, null);
-        }*/
-
         _data = GameManager.Instance.RequestData();
         Init();
+
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
     }
     #endregion
     #region Function
