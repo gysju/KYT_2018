@@ -49,13 +49,14 @@ public class UIAnimation : MonoBehaviour {
     }
     public void OpenSubMenu()
     {
+        bool interval = _inTweenOpen != null && _inTweenOpen.IsPlaying();
         _inTweenOpen.Kill();
         _inTweenOpen = DOTween.Sequence();
-        _inTweenOpen.AppendInterval((_openTime + _increaseOpenTime) * .6f + .1f);
+        if (!interval)
+            _inTweenOpen.AppendInterval((_openTime + _increaseOpenTime) * .6f + .1f);
         _inTweenOpen.AppendCallback(() => { _firstSelectable.Select(); });
         OpenMenu(_inTweenOpen, _objects);
     }
-
     private void ResetOpen(RectTransform[] rects)
     {
         _inTweenOpen.Kill();
@@ -64,18 +65,19 @@ public class UIAnimation : MonoBehaviour {
     }
     private Sequence OpenMenu(Sequence sequence, RectTransform[] rects)
     {
-        for (int i = 0; i < rects.Length;  i++)
-            sequence.Join(rects[i].DOAnchorPos(new Vector2(0, rects[i].anchoredPosition.y), _openTime + _increaseOpenTime * i));
+        for (int i = 0; i < rects.Length; i++)
+        {
+            Debug.Log(Mathf.Abs(rects[i].anchoredPosition.x) / 250);
+            sequence.Join(rects[i].DOAnchorPos(new Vector2(0, rects[i].anchoredPosition.y), (_openTime + _increaseOpenTime * i) * (Mathf.Abs(rects[i].anchoredPosition.x) / 250)));
+        }
         return sequence;
     }
-
     private Sequence CloseMenu(Sequence sequence, RectTransform[] rects)
     {
         for (int i = 0; i < rects.Length; i++)
-            sequence.Join(rects[i].DOAnchorPos(new Vector2(-250, rects[i].anchoredPosition.y), (_openTime + _increaseOpenTime * i) * .6f));
+            sequence.Join(rects[i].DOAnchorPos(new Vector2(-250, rects[i].anchoredPosition.y), ((_openTime + _increaseOpenTime * i) * .6f) * (1 - Mathf.Abs(rects[i].anchoredPosition.x) / 250)));
         return sequence;
     }
-
     private void ButtonSetInteractable(Button[] buttons, bool value)
     {
         for (int i = 0; i < buttons.Length; i++)

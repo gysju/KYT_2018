@@ -32,6 +32,10 @@ public class CanvasManager : MonoBehaviour {
 
     public Image _fade;
 
+    private Button _crtReturnButton;
+
+    [SerializeField] private ButtonPosition buttonPositionGameOver;
+
     private void Awake()
     {
         if (Instance == null)
@@ -68,6 +72,27 @@ public class CanvasManager : MonoBehaviour {
         if (_time <= 0.0F && GameManager.Instance.State == GameManager.GameState.InGame)
         {
             DisplayGameOverMenu();
+        }
+        else if (Input.GetButtonDown("Start") && GameManager.Instance.State != GameManager.GameState.Menu)
+        {
+            if (GameManager.Instance.State == GameManager.GameState.InGame)
+            {
+                DisplayPauseMenu();
+            }
+            else if (GameManager.Instance.State == GameManager.GameState.Paused)
+            {
+                HidePauseMenu();
+            }
+        }
+        else if (Input.GetButtonDown("B"))
+        {
+            if (GameManager.Instance.State == GameManager.GameState.Paused)
+                HidePauseMenu();
+            else if (_crtReturnButton != null) //is in submenu
+            {
+                _crtReturnButton.onClick.Invoke();
+                _crtReturnButton = null;
+            }
         }
     }
 
@@ -122,7 +147,7 @@ public class CanvasManager : MonoBehaviour {
 
         _pauseButton.FindSelectableOnDown().Select();
         _gameOverButton.Select();
-        GameManager.Instance.State = GameManager.GameState.Paused;
+        GameManager.Instance.State = GameManager.GameState.GameOver;
 
         TimeManager.timeScale = 0.0f;
         SoundManager.Instance.PauseSound();
@@ -178,6 +203,10 @@ public class CanvasManager : MonoBehaviour {
     }
     public void LoadLevel(int index)
     {
+        if (index == GameManager.numberOfLevel - 1)
+            buttonPositionGameOver.HideNextLevel();
+        else buttonPositionGameOver.DisplayNextLevel();
+
         if (index < GameManager.numberOfLevel)
             SceneManager.LoadScene(index);
     }
@@ -225,5 +254,9 @@ public class CanvasManager : MonoBehaviour {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_fade.DOFade(0, .3f));
         sequence.AppendCallback(() => { StartGame(); });
+    }
+    public void SetCrtReturnButton(Button button)
+    {
+        _crtReturnButton = button;
     }
 }

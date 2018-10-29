@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public const int numberOfLevel = 2;
+    public const int numberOfLevel = 5;
 
     public static GameManager Instance;
-    public enum GameState { Paused, Menu, InGame}
+    public enum GameState { Paused, Menu, InGame, GameOver }
     public GameState State
     {
         get { return _state;}
@@ -56,21 +56,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine( SpawnBloodDonor());
         //State = GameState.Menu;
     }
-
-	void Update ()
-    {
-        if ((Input.GetButtonDown("Start0") || Input.GetButtonDown("Start1")) && State != GameState.Menu)
-        {
-            if (State == GameState.InGame)
-            {
-                CanvasManager.Instance.DisplayPauseMenu();
-            }
-            else if (State == GameState.Paused)
-            {
-                CanvasManager.Instance.HidePauseMenu();
-            }
-        }
-	}
 
     IEnumerator SpawnBloodDonor()
     {
