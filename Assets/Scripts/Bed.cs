@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bed : InteractableWihDonor {
 
     #region Var
-    public BloodInfo.BloodType type;
+    [SerializeField] private BloodInfo.BloodType _type;
     public GameObject bloodbag;
 
     private bool _hasAlrBeFeed;
@@ -15,21 +15,7 @@ public class Bed : InteractableWihDonor {
     protected override void Start()
     {
         base.Start();
-        if (type == BloodInfo.BloodType.Blood)
-        {
-            _duration = _data.MaxTakingBloodTime;
-            _fillIcon.SetProgressionColor(_data.TakingBloodColor);
-        }
-        else if (type == BloodInfo.BloodType.Plasma)
-        {
-            _duration = _data.MaxTakingPlasmaTime;
-            _fillIcon.SetProgressionColor(_data.TakingPlasmaColor);
-        }
-        else if (type == BloodInfo.BloodType.Platelet)
-        {
-            _duration = _data.MaxTakingPlateletTime;
-            _fillIcon.SetProgressionColor(_data.TakingPlateletColor);
-        }
+
     }
     #endregion
     #region Function
@@ -39,6 +25,7 @@ public class Bed : InteractableWihDonor {
         _donor.state = BloodDonor.State.taking;
         _donor.animator.SetBool("sleep", true);
 
+        SetBloodBagUIolor(_donor.bloodInfo.type);
         //_donor.desableKinematic = false;
         //_donor._navMeshAgent.enabled = false;
     }
@@ -78,6 +65,25 @@ public class Bed : InteractableWihDonor {
             CanvasManager.Instance.AddScore(_data.ScoreByFoodGiven);
         }
         Destroy(food.gameObject);
+    }
+
+    private void SetBloodBagUIolor(BloodInfo.BloodType type)
+    {
+        if (type == BloodInfo.BloodType.Blood)
+        {
+            _duration = _data.MaxTakingBloodTime;
+            _fillIcon.SetProgressionColor(_data.TakingBloodColor);
+        }
+        else if (type == BloodInfo.BloodType.Plasma)
+        {
+            _duration = _data.MaxTakingPlasmaTime;
+            _fillIcon.SetProgressionColor(_data.TakingPlasmaColor);
+        }
+        else if (type == BloodInfo.BloodType.Platelet)
+        {
+            _duration = _data.MaxTakingPlateletTime;
+            _fillIcon.SetProgressionColor(_data.TakingPlateletColor);
+        }
     }
     #endregion
 }
