@@ -199,7 +199,7 @@ public class CanvasManager : MonoBehaviour {
     public void LoadNextLevel()
     {
         int index = SceneManager.GetActiveScene().buildIndex + 1;
-        LoadLevel(index);
+        LoadLevelTransition(index);
     }
     public void LoadLevel(int index)
     {
@@ -240,6 +240,7 @@ public class CanvasManager : MonoBehaviour {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_fade.DOFade(1, .3f));
         sequence.AppendCallback(() => {
+            _gameOverMenu.SetActive(false);
             _mainMenu.SetActive(false);
             LoadLevel(index);
         });
