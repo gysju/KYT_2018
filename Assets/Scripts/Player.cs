@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _grabCenter;
     [SerializeField] private float _speed;
 
+    private float _hAxis, _vAxis;
+
     [SerializeField] private LayerMask _interactObj;
     [SerializeField] private LayerMask _interactPlace;
 
@@ -50,6 +52,9 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.State != GameManager.GameState.InGame)
             return;
 
+        _hAxis = Input.GetAxis("Horizontal" + _playerID);
+        _vAxis = Input.GetAxis("Vertical" + _playerID);
+
         if (_currentObjAttached != null)
         {
             if (Input.GetButtonUp("A"+_playerID)/*Input.GetKeyUp("joystick " + (_playerID+1) + " button 0")*/)
@@ -83,22 +88,16 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float hAxis = Input.GetAxis("Horizontal" + _playerID);
-        float vAxis = Input.GetAxis("Vertical" + _playerID);
-
-        if (hAxis != 0.0f || vAxis != 0.0f)
+        if (_hAxis != 0.0f || _vAxis != 0.0f)
         {
-            float angle = Mathf.Atan2(vAxis, -hAxis) * Mathf.Rad2Deg - 90.0f;
+            float angle = Mathf.Atan2(_vAxis, -_hAxis) * Mathf.Rad2Deg - 90.0f;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 
             _rgd.AddForce(transform.forward * _speed * TimeManager.deltaTime, ForceMode.VelocityChange);
 
-            _animator.SetFloat("Speed", Mathf.Clamp01( Mathf.Abs( hAxis ) + Mathf.Abs(vAxis)));
+            _animator.SetFloat("Speed", Mathf.Clamp01(Mathf.Abs(_hAxis) + Mathf.Abs(_vAxis)));
         }
-        else
-        {
-            _animator.SetFloat("Speed", 0.0f);
-        }
+        else  _animator.SetFloat("Speed", 0.0f);
     }
 
     private void AttachObj(DragableObj obj, Transform anchor)
