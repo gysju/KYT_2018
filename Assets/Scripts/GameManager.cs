@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public const int numberOfLevel = 5;
+    public const int numberOfLevel = 4;
 
     public static GameManager Instance;
     public enum GameState { Paused, Menu, InGame, GameOver }
