@@ -66,10 +66,7 @@ public class UIAnimation : MonoBehaviour {
     private Sequence OpenMenu(Sequence sequence, RectTransform[] rects)
     {
         for (int i = 0; i < rects.Length; i++)
-        {
-            Debug.Log(Mathf.Abs(rects[i].anchoredPosition.x) / 250);
             sequence.Join(rects[i].DOAnchorPos(new Vector2(0, rects[i].anchoredPosition.y), (_openTime + _increaseOpenTime * i) * (Mathf.Abs(rects[i].anchoredPosition.x) / 250)));
-        }
         return sequence;
     }
     private Sequence CloseMenu(Sequence sequence, RectTransform[] rects)
