@@ -30,6 +30,8 @@ public class CanvasManager : MonoBehaviour {
     [SerializeField] UIAnimation _gameOverMenu;
     [SerializeField] Button _gameOverButton;
 
+    [SerializeField] Compatibility _compatibility;
+
     public Image _fade;
 
     private Button _crtReturnButton;
@@ -56,7 +58,7 @@ public class CanvasManager : MonoBehaviour {
 
         _fade.gameObject.SetActive(true);
         _mainMenu.gameObject.SetActive(true);
-        _mainMenu.OpenMainMenu(true);
+        _mainMenu.OpenMainMenu(true);        
     }
 
     public void RequestData()
@@ -112,6 +114,9 @@ public class CanvasManager : MonoBehaviour {
 
         TimeManager.timeScale = 0.0f;
         SoundManager.Instance.PauseSound();
+
+        _compatibility.gameObject.SetActive(true);
+        _compatibility.Open();
     }
 
     public void HidePauseMenu()
@@ -121,6 +126,8 @@ public class CanvasManager : MonoBehaviour {
 
         TimeManager.timeScale = 1.0f;
         SoundManager.Instance.ResumeSound();
+
+        _compatibility.gameObject.SetActive(false);
     }
 
     public void DisplayMainMenu()
@@ -133,6 +140,7 @@ public class CanvasManager : MonoBehaviour {
         _gameOverMenu.SetActive(false);
         _mainMenu.SetActive(true);
         _hud.gameObject.SetActive(false);
+        _compatibility.gameObject.SetActive(false);
 
         _startButton.Select();
         GameManager.Instance.State = GameManager.GameState.Menu;
@@ -151,6 +159,9 @@ public class CanvasManager : MonoBehaviour {
 
         TimeManager.timeScale = 0.0f;
         SoundManager.Instance.PauseSound();
+
+        _compatibility.gameObject.SetActive(true);
+        _compatibility.Open();
     }
 
     public void StartGame(bool resetHUD = true)
@@ -183,6 +194,7 @@ public class CanvasManager : MonoBehaviour {
             ResetHUD();
             _pauseMenu.SetActive(false);
             _gameOverMenu.SetActive(false);
+            _compatibility.gameObject.SetActive(false);
         });
         sequence.Append(_fade.DOFade(0, .3f));
         sequence.AppendCallback(() => {
@@ -249,6 +261,9 @@ public class CanvasManager : MonoBehaviour {
     public void LevelLoaded()
     {
         RequestData();
+
+        _compatibility.SetCompatibility(_data.BloodTypes[0]);
+
         if (!_transitioning) return;
 
         SoundManagerPlayMusic("GameMusic");
