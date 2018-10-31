@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class CanvasManager : MonoBehaviour {
 
@@ -215,10 +216,6 @@ public class CanvasManager : MonoBehaviour {
     }
     public void LoadLevel(int index)
     {
-        if (index == GameManager.numberOfLevel - 1)
-            buttonPositionGameOver.HideNextLevel();
-        else buttonPositionGameOver.DisplayNextLevel();
-
         if (index < GameManager.numberOfLevel)
             SceneManager.LoadScene(index);
     }
@@ -246,9 +243,18 @@ public class CanvasManager : MonoBehaviour {
     {
         SoundManager.Instance.SetVolume(slider.value * .1f);
     }
+    [SerializeField] private AudioMixer _audioMixer;
+    public void SFXSetVolume(Slider slider)
+    {
+        _audioMixer.SetFloat("VomueMasterSFX", slider.value <= 0 ? -80 : slider.value * 5f - 30f);
+    }
     private bool _transitioning = false;
     public void LoadLevelTransition(int index)
     {
+        if (index == GameManager.numberOfLevel - 1)
+            buttonPositionGameOver.HideNextLevel();
+        else buttonPositionGameOver.DisplayNextLevel();
+
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_fade.DOFade(1, .3f));
         sequence.AppendCallback(() => {

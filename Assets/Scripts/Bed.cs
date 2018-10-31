@@ -61,14 +61,17 @@ public class Bed : InteractableWihDonor {
         base.End();
         base.AlternativeEnd();
     }
-    public void TryFeed(DragableObj food)
+    public int TryFeed(DragableObj food)
     {
+        int score = -1;
         if (!_hasAlrBeFeed)
         {
             _hasAlrBeFeed = true;
-            CanvasManager.Instance.AddScore(_data.ScoreByFoodGiven);
+            score = _data.ScoreByFoodGiven;
+            CanvasManager.Instance.AddScore(score);
         }
         Destroy(food.gameObject);
+        return score;
     }
 
     private void SetBloodBagUIolor(BloodInfo.BloodType type)

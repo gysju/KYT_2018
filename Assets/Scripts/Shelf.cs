@@ -16,10 +16,11 @@ public class Shelf : MonoBehaviour {
     }
     #endregion
     #region Function
-    public virtual void FillIn(DragableObj bag)
+    public virtual int FillIn(DragableObj bag)
     {
         bag.gameObject.SetActive(false);
         _bags.Add(bag);
+        return -1;
     }
     public virtual DragableObj TakeOut()
     {

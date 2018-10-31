@@ -9,12 +9,13 @@ public class FoodShelf : Shelf {
     #region MonoFunction
     #endregion
     #region Function
-    public override void FillIn(DragableObj bag)
+    public override int FillIn(DragableObj bag)
     {
         if (bag.CompareTag("FoodBag"))
         {
             base.FillIn(bag);
         }
+        return -1;
     }
     public override DragableObj TakeOut()
     {

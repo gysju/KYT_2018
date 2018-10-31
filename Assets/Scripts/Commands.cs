@@ -35,11 +35,13 @@ public class Commands : MonoBehaviour {
     }
     #endregion
     #region Function
-    public void AddBag(BloodBag bag)
+    public int[] AddBag(BloodBag bag)
     {
-        AddAnswer(bag.bloodInfo);
+        int[] score = AddAnswer(bag.bloodInfo);
         //Destroy(bag.gameObject);
         bag.gameObject.SetActive(false);
+
+        return score;
     }
     public void ResetCommand()
     {
@@ -91,31 +93,37 @@ public class Commands : MonoBehaviour {
         _remaining = nBag;
     }
 
-    public void AddAnswer(BloodInfo answer)
+    public int[] AddAnswer(BloodInfo answer)
     {
+        int[] score = { -1, -1 };
         if (_compts[(int)answer.type - 1].ababo[(int)answer.family - 1] <= _givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1])
         {
             Debug.Log("lose command");
             PlaySound(_soundLose);
             Generate();
+            score[0] = -1;
         }
         else
         {
             given.Add(answer);
             bordsGiven[given.Count - 1].SetData(true, sprites[(int)answer.type - 1], "" + answer.family);
-            CanvasManager.Instance.AddScore(_data.ScoreByCommandPartiallyComplete);
+            score[0] = _data.ScoreByCommandPartiallyComplete;
+            CanvasManager.Instance.AddScore(score[0]);
             _compts[(int)answer.type - 1].ababo[(int)answer.family - 1]++;
             _remaining--;
+
             if (_remaining <= 0)
             {
                 _nBagnextCommands.RemoveAt(0);
                 Debug.Log("command completed");
                 PlaySound(_soundSuccess);
                 _truck.SetNeedGo();
-                CanvasManager.Instance.AddScore(_data.ScoreByCommandComplete);
+                score[1] = _data.ScoreByCommandComplete;
+                CanvasManager.Instance.AddScore(score[1]);
                 Generate();
             }
         }
+        return score;
     }
 
     private void InitListCommands()

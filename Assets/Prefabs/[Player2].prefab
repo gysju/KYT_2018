@@ -201,8 +201,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1307769828014238}
-  m_LocalRotation: {x: 0, y: 0.9843498, z: 0, w: 0.17622587}
-  m_LocalPosition: {x: -1.8, y: 0, z: 4.32}
+  m_LocalRotation: {x: -0, y: 0.9103237, z: -0, w: -0.4138972}
+  m_LocalPosition: {x: 4.445415, y: 0, z: 2.692002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4382852633394084}
@@ -232,7 +232,7 @@ Transform:
   m_GameObject: {fileID: 1468489566921260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2.76, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1.1000015, y: 1.1, z: 1.1000015}
   m_Children:
   - {fileID: 4646424775645468}
   - {fileID: 224639415399926624}
@@ -372,7 +372,8 @@ AudioSource:
   m_GameObject: {fileID: 1307769828014238}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 0c285c9ebabf23e46a7841a67c3c66ef,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -762,8 +763,9 @@ MonoBehaviour:
   _interactPlace:
     serializedVersion: 2
     m_Bits: 4096
-  AttachedSound: {fileID: 8300000, guid: a2dd04c55fe8b644f9f5370205111a93, type: 3}
-  DetachedSound: {fileID: 8300000, guid: 0bfb2bd9d2b225646868843a6a3ac81e, type: 3}
+  _attachedSound: {fileID: 8300000, guid: a2dd04c55fe8b644f9f5370205111a93, type: 3}
+  _detachedSound: {fileID: 8300000, guid: 0bfb2bd9d2b225646868843a6a3ac81e, type: 3}
+  _increaseScore: {fileID: 8300000, guid: d81fc234b71a47b4383ed2d8b8552f97, type: 3}
   _bul: {fileID: 1468489566921260}
   _bulImg: {fileID: 114178086504041736}
   _bulText: {fileID: 114486816200960882}

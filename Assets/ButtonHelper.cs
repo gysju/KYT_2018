@@ -9,10 +9,15 @@ public class ButtonHelper : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
+        OnSelect();
+    }
+
+    public void OnSelect()
+    {
         if (_source == null)
             _source = GetComponentInParent<AudioSource>();
 
-        _source.pitch = Random.Range( 0.7f, 1);
+        _source.pitch = Random.Range(0.7f, 1);
         _source.loop = false;
         _source.Play();
     }

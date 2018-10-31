@@ -9,6 +9,8 @@ public class BloodShelf : Shelf {
     public BloodInfo info;
     private GameData _data;
     [SerializeField] private TextMeshProUGUI[] _family;
+
+    [SerializeField] private AudioSource _audioSource;
     #endregion
     #region MonoFunction
     protected override void Start()
@@ -20,21 +22,25 @@ public class BloodShelf : Shelf {
     }
     #endregion
     #region Function
-    public override void FillIn(DragableObj bag)
+    public override int FillIn(DragableObj bag)
     {
+        int score = -1;
         if (bag.CompareTag("Bloodbag"))
         {
             if (((BloodBag)bag).bloodInfo.Equals(info, true, true, false))
             {
                 base.FillIn(bag);
-                CanvasManager.Instance.AddScore(_data.ScoreByBloodStocked);
+                score = _data.ScoreByBloodStocked;
+                CanvasManager.Instance.AddScore(score);
             }
             else
             {
                 Debug.Log("Your are bad: wrong shelf for this blood bag");
                 Destroy(bag.gameObject);
+                _audioSource.Play();
             }
         }
+        return score;
     }
     public override DragableObj TakeOut()
     {

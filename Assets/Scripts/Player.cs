@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask _interactObj;
     [SerializeField] private LayerMask _interactPlace;
 
-    [SerializeField] private AudioClip AttachedSound;
-    [SerializeField] private AudioClip DetachedSound;
+    [SerializeField] private float _volume = 1;
+    [SerializeField] private AudioClip _attachedSound, _detachedSound;
 
     [SerializeField] private GameObject _bul;
     [SerializeField] private UnityEngine.UI.Image _bulImg;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Sprite[] sprites;
 
-    private AudioSource Source;
+    private AudioSource _audioSource;
     private Rigidbody _rgd;
     private DragableObj _currentObjAttached = null;
     private bool _hasBeenAttachedCheck = false;
@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     public Vector3 startPosition;
     public Quaternion startRotation;
 
+    [SerializeField] private UIAddScore _addScore;
+
     private void Start()
     {
         startPosition = transform.position;
@@ -44,7 +46,7 @@ public class Player : MonoBehaviour
 
         _rgd = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
-        Source = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -60,7 +62,6 @@ public class Player : MonoBehaviour
             if (Input.GetButtonUp("A"+_playerID)/*Input.GetKeyUp("joystick " + (_playerID+1) + " button 0")*/)
             {
                 _hasBeenAttachedCheck = true;
-
             }
             else if (Input.GetButtonDown("A" + _playerID)/*Input.GetKeyDown("joystick " + (_playerID+1) + " button 0")*/ && _hasBeenAttachedCheck)
             {
@@ -105,8 +106,9 @@ public class Player : MonoBehaviour
         obj.Attach(anchor, this);
 
         _currentObjAttached = obj;
-        Source.clip = AttachedSound;
-        Source.Play();
+        _audioSource.clip = _attachedSound;
+        _audioSource.volume = _volume;
+        _audioSource.Play();
     }
 
     private void DetachObj()
@@ -115,8 +117,9 @@ public class Player : MonoBehaviour
 
         _currentObjAttached = null;
         _hasBeenAttachedCheck = false;
-        Source.clip = DetachedSound;
-        Source.Play();
+        _audioSource.clip = _detachedSound;
+        _audioSource.volume = _volume;
+        _audioSource.Play();
     }
 
     private void TryGrab()
@@ -217,7 +220,8 @@ public class Player : MonoBehaviour
                 {
                     if (bed.occupied)
                     {
-                        bed.TryFeed(_currentObjAttached);
+                        int score = bed.TryFeed(_currentObjAttached);
+                        NewScore(score);
                     }
                 }
             }
@@ -225,7 +229,10 @@ public class Player : MonoBehaviour
             {
                 Shelf shelf = cols[0].GetComponent<Shelf>();
                 if (shelf != null)
-                    shelf.FillIn(_currentObjAttached);
+                {
+                    int score = shelf.FillIn(_currentObjAttached);
+                    NewScore(score);
+                }
             }
             else if (cols[0].CompareTag("commands"))
             {
@@ -235,7 +242,8 @@ public class Player : MonoBehaviour
                     BloodBag bb = (BloodBag)_currentObjAttached;
                     if (bb != null)
                     {
-                        commands.AddBag(bb);
+                        int[] score = commands.AddBag(bb);
+                        NewScore(score);
                     }
                 }
             }
@@ -425,5 +433,15 @@ public class Player : MonoBehaviour
     public void ForceDrop()
     {
         _currentObjAttached = null;
+    }
+    public void NewScore(int score)
+    {
+        if (score <= 0) return;
+        _addScore.NewScore(score);
+    }
+    public void NewScore(int[] score)
+    {
+        if (score[0] <= 0) return;
+        _addScore.NewScore(score);
     }
 }
