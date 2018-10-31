@@ -12,6 +12,8 @@ public class Commands : MonoBehaviour {
     public static int maxQuantity = 4;
 
     [SerializeField] private Truck _truck;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _soundSuccess, _soundLose;
 
     private List<BloodInfo> ask, given;
     private int _remaining;
@@ -94,6 +96,7 @@ public class Commands : MonoBehaviour {
         if (_compts[(int)answer.type - 1].ababo[(int)answer.family - 1] <= _givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1])
         {
             Debug.Log("lose command");
+            PlaySound(_soundLose);
             Generate();
         }
         else
@@ -107,6 +110,7 @@ public class Commands : MonoBehaviour {
             {
                 _nBagnextCommands.RemoveAt(0);
                 Debug.Log("command completed");
+                PlaySound(_soundSuccess);
                 _truck.SetNeedGo();
                 CanvasManager.Instance.AddScore(_data.ScoreByCommandComplete);
                 Generate();
@@ -126,6 +130,12 @@ public class Commands : MonoBehaviour {
         _nBagnextCommands.Add(3);
         _nBagnextCommands.Add(3);
         _nBagnextCommands.Add(3);
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        _audioSource.clip = clip;
+        _audioSource.Play();
     }
     #endregion
 }
