@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: LevelData3
   m_EditorClassIdentifier: 
   GameDuration: 240
-  BloodTypes: 0100000002000000
+  BloodTypes: 0200000001000000
   BloodFamilies: 01000000020000000300000004000000
   RejectChance: 0.02
   SpawnSpeed: 9

@@ -5,11 +5,13 @@ using UnityEngine;
 public class Bed : InteractableWihDonor {
 
     #region Var
-    [SerializeField] private BloodInfo.BloodType _type;
+    private BloodInfo.BloodType _type;
     public GameObject bloodbag;
 
     private bool _hasAlrBeFeed;
     [SerializeField] private Transform _bloodbagSpawn;
+
+    [SerializeField] private Material[] _materialsBloodBags;
     #endregion
     #region MonoFunction
     protected override void Start()
@@ -21,11 +23,12 @@ public class Bed : InteractableWihDonor {
     #region Function
     public override void Begin()
     {
+        SetBloodBagUIolor(_donor.bloodInfo.type);
+
         base.Begin();
         _donor.state = BloodDonor.State.taking;
         _donor.animator.SetBool("sleep", true);
 
-        SetBloodBagUIolor(_donor.bloodInfo.type);
         //_donor.desableKinematic = false;
         //_donor._navMeshAgent.enabled = false;
     }
@@ -36,6 +39,7 @@ public class Bed : InteractableWihDonor {
             BloodBag b = Instantiate(bloodbag, _bloodbagSpawn.position, _bloodbagSpawn.rotation).GetComponent<BloodBag>();
             b.bloodInfo = _donor.bloodInfo;
             b.SetBed(this);
+            b.GetComponent<MeshRenderer>().material = _materialsBloodBags[((int)_type) - 1];
 
             GameManager.Instance.AddBag(b);
         }
@@ -69,6 +73,7 @@ public class Bed : InteractableWihDonor {
 
     private void SetBloodBagUIolor(BloodInfo.BloodType type)
     {
+        _type = type;
         if (type == BloodInfo.BloodType.Blood)
         {
             _duration = _data.MaxTakingBloodTime;

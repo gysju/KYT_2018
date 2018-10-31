@@ -362,7 +362,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1152718502632408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.499997, y: 0, z: -17.71}
+  m_LocalPosition: {x: -3.23, y: 0, z: -17.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4483982855769136}
@@ -616,9 +616,12 @@ MonoBehaviour:
   _inside: {fileID: 4424160274983064}
   _outside: {fileID: 4472026828412990}
   _fillIcon: {fileID: 114331434744856412}
-  type: 3
   bloodbag: {fileID: 1916548953173262, guid: 8a75932dd1bc4394da94c3fdccfb23ff, type: 2}
   _bloodbagSpawn: {fileID: 4632861823180104}
+  _materialsBloodBags:
+  - {fileID: 2100000, guid: a0067144a86c4094faac4eef6d3a9343, type: 2}
+  - {fileID: 2100000, guid: 3f359ce3812bbba4e95be76654f7cdec, type: 2}
+  - {fileID: 2100000, guid: 3cf15966c012ff34ea949d3e412914e1, type: 2}
 --- !u!114 &114314633860226352
 MonoBehaviour:
   m_ObjectHideFlags: 1
