@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 public class CanvasManager : MonoBehaviour {
 
@@ -38,6 +39,9 @@ public class CanvasManager : MonoBehaviour {
     private Button _crtReturnButton;
 
     [SerializeField] private ButtonPosition buttonPositionGameOver;
+
+    private bool _isTransitionningGameOver = false;
+    [SerializeField] private UnityEvent _gameOverReplay, _gameOverNextLevel, _gameOverQuit;
 
     private void Awake()
     {
@@ -151,6 +155,8 @@ public class CanvasManager : MonoBehaviour {
 
     public void DisplayGameOverMenu()
     {
+        _isTransitionningGameOver = true;
+
         _gameOverMenu.SetActive(true);
         _gameOverMenu.Open();
 
@@ -163,6 +169,13 @@ public class CanvasManager : MonoBehaviour {
 
         _compatibility.gameObject.SetActive(true);
         _compatibility.Open();
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendInterval(.5f);
+        sequence.AppendCallback(() => {
+            _isTransitionningGameOver = false;
+        });
+        sequence.Play();
     }
 
     public void StartGame(bool resetHUD = true)
@@ -280,5 +293,21 @@ public class CanvasManager : MonoBehaviour {
     public void SetCrtReturnButton(Button button)
     {
         _crtReturnButton = button;
+    }
+
+    public void GameOverReplay()
+    {
+        if (!_isTransitionningGameOver)
+            _gameOverReplay.Invoke();
+    }
+    public void GameOverNextLevel()
+    {
+        if (!_isTransitionningGameOver)
+            _gameOverNextLevel.Invoke();
+    }
+    public void GameOverQuit()
+    {
+        if (!_isTransitionningGameOver)
+            _gameOverQuit.Invoke();
     }
 }
