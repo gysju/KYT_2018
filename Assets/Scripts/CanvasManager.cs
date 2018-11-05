@@ -96,16 +96,12 @@ public class CanvasManager : MonoBehaviour {
 
             DisplayGameOverMenu();
         }
-        else if (Input.GetButtonDown("Start") && GameManager.Instance.State != GameManager.GameState.Menu)
+        else if ((Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape)) && GameManager.Instance.State != GameManager.GameState.Menu)
         {
             if (GameManager.Instance.State == GameManager.GameState.InGame)
-            {
                 DisplayPauseMenu();
-            }
             else if (GameManager.Instance.State == GameManager.GameState.Paused)
-            {
                 HidePauseMenu();
-            }
         }
         else if (Input.GetButtonDown("B"))
         {
