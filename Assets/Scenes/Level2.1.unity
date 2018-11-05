@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.30588236, g: 0.2509804, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 847207177}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -9868,11 +9868,11 @@ Transform:
   - {fileID: 1910658293}
   - {fileID: 1730408619}
   - {fileID: 433073272}
+  - {fileID: 593931949}
   - {fileID: 253057392}
   - {fileID: 276600900}
-  - {fileID: 381080591}
-  - {fileID: 593931949}
   - {fileID: 1072701757}
+  - {fileID: 381080591}
   m_Father: {fileID: 101380006}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20807,20 +20807,20 @@ Transform:
   - {fileID: 1896281247}
   - {fileID: 1742357533}
   - {fileID: 196095402}
+  - {fileID: 290562254}
   - {fileID: 246517857}
   - {fileID: 231435701}
   - {fileID: 414406844}
   - {fileID: 385376692}
   - {fileID: 2078618284}
-  - {fileID: 1848171653}
-  - {fileID: 1587234521}
-  - {fileID: 290562254}
+  - {fileID: 261793813}
   - {fileID: 1747887886}
   - {fileID: 257424030}
   - {fileID: 2137087288}
   - {fileID: 1957622251}
-  - {fileID: 261793813}
+  - {fileID: 1848171653}
   - {fileID: 340393018}
+  - {fileID: 1587234521}
   - {fileID: 859186733}
   - {fileID: 885514658}
   - {fileID: 467015162}
@@ -20868,18 +20868,18 @@ Transform:
   - {fileID: 2044474826}
   - {fileID: 170695549}
   - {fileID: 1930098316}
+  - {fileID: 1507235654}
   - {fileID: 1315797548}
   - {fileID: 2111953997}
+  - {fileID: 1681558198}
   - {fileID: 247393323}
-  - {fileID: 1507235654}
+  - {fileID: 250818303}
   - {fileID: 1094999175}
   - {fileID: 600035672}
   - {fileID: 1641293875}
   - {fileID: 550307479}
   - {fileID: 915799392}
   - {fileID: 251434555}
-  - {fileID: 1681558198}
-  - {fileID: 250818303}
   m_Father: {fileID: 289714714}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
