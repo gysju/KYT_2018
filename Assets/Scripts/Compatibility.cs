@@ -39,12 +39,7 @@ public class Compatibility : MonoBehaviour {
 
     private float _openTime = .7f, _fadeOutTime = .3f, _increaseOpenTime = .1f, _openDelay = .2f;
     private Sequence _inTweenOpen;
-    private RectTransform _rect;
-
-    private void Start()
-    {
-        _rect = GetComponent<RectTransform>();
-    }
+    [SerializeField] private RectTransform _rect;
 
     public void Open()
     {

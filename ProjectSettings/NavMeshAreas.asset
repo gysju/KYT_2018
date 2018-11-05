@@ -25,8 +25,8 @@ NavMeshProjectSettings:
     cost: 2
   - name: 
     cost: 1
-  - name: 
-    cost: 1
+  - name: PlayerOnly
+    cost: 5
   - name: 
     cost: 1
   - name: 

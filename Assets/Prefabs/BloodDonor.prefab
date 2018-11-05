@@ -619,7 +619,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 305
+  m_WalkableMask: 1329
   m_ObstacleAvoidanceType: 4
 --- !u!222 &222008823173800730
 CanvasRenderer:

@@ -10,6 +10,8 @@ using UnityEngine.Events;
 
 public class CanvasManager : MonoBehaviour {
 
+    //old plaquelet color : E5CB00
+
     public static CanvasManager Instance;
     private GameData _data;
     [Header("HUD")]
@@ -43,8 +45,15 @@ public class CanvasManager : MonoBehaviour {
     private bool _isTransitionningGameOver = false;
     [SerializeField] private UnityEvent _gameOverReplay, _gameOverNextLevel, _gameOverQuit;
 
+    private int[] _bestScores = { 0, 0, 0, 0, 0 };
+
+    [SerializeField] private TextMeshProUGUI _bestScore_Score;
+    [SerializeField] private TextMeshProUGUI _yourScore_Score;
+
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+
         if (Instance == null)
         {
             Instance = this;
@@ -78,6 +87,13 @@ public class CanvasManager : MonoBehaviour {
 
         if (_time <= 0.0F && GameManager.Instance.State == GameManager.GameState.InGame)
         {
+            int index = SceneManager.GetActiveScene().buildIndex;
+            if (_bestScores[index] < _score)
+                _bestScores[index] = _score;
+            _bestScore_Score.text = "" + _bestScores[index];
+            _yourScore_Score.text = "" + _score;
+            _hud.gameObject.SetActive(false);
+
             DisplayGameOverMenu();
         }
         else if (Input.GetButtonDown("Start") && GameManager.Instance.State != GameManager.GameState.Menu)
@@ -231,6 +247,7 @@ public class CanvasManager : MonoBehaviour {
     {
         if (index < GameManager.numberOfLevel)
             SceneManager.LoadScene(index);
+        else DisplayMainMenu();
     }
 
 
