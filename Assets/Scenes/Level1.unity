@@ -1764,6 +1764,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 283350567d0d60f4e8216e31e9fcc96a, type: 2}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
   m_IsPrefabAsset: 0
@@ -3233,6 +3237,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
   m_IsPrefabAsset: 0
@@ -9311,6 +9319,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 283350567d0d60f4e8216e31e9fcc96a, type: 2}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
   m_IsPrefabAsset: 0
@@ -10559,6 +10571,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
   m_IsPrefabAsset: 0
@@ -10907,6 +10923,10 @@ Prefab:
     - target: {fileID: 4414656956734582, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
       propertyPath: m_LocalScale.z
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
@@ -22492,6 +22512,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 283350567d0d60f4e8216e31e9fcc96a, type: 2}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
   m_IsPrefabAsset: 0
@@ -24497,6 +24521,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 068decee2e705c34e99e165df99fcc92, type: 2}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
   m_IsPrefabAsset: 0
@@ -34661,6 +34689,10 @@ Prefab:
     - target: {fileID: 4414656956734582, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1418921057169976, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967255
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef620b83bc49ce4ba23d8708f17d82b, type: 2}
