@@ -24,6 +24,9 @@ public class Commands : MonoBehaviour {
 
     private MeshRenderer[] _meshRenderers;
     public MeshRenderer[] meshRenderers { get { return _meshRenderers; } }
+
+    [SerializeField] private GameObject _given;
+
     #endregion
     #region MonoFunction
     private void Start()
@@ -91,10 +94,14 @@ public class Commands : MonoBehaviour {
             bordsGiven[i].SetData(false, null, null);
 
         _remaining = nBag;
+
+        _given.SetActive(false);
     }
 
     public int[] AddAnswer(BloodInfo answer)
     {
+        _given.SetActive(true);
+
         int[] score = { -1, -1 };
         if (_compts[(int)answer.type - 1].ababo[(int)answer.family - 1] <= _givenCompts[(int)answer.type - 1].ababo[(int)answer.family - 1])
         {
