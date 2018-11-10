@@ -286,6 +286,7 @@ public class CanvasManager : MonoBehaviour {
         sequence.AppendCallback(() => {
             _gameOverMenu.SetActive(false);
             _mainMenu.SetActive(false);
+            _compatibility.gameObject.SetActive(false);
             LoadLevel(index);
         });
         _transitioning = true;
