@@ -15,7 +15,7 @@ public class BloodShelf : Shelf {
     #region MonoFunction
     protected override void Start()
     {
-        _data = GameManager.Instance.RequestData();
+        _data = GameManager.inst.RequestData();
         SetBloodInfoText();
 
         base.Start();
@@ -31,7 +31,7 @@ public class BloodShelf : Shelf {
             {
                 base.FillIn(bag);
                 score = _data.ScoreByBloodStocked;
-                CanvasManager.Instance.AddScore(score);
+                CanvasManager.inst.AddScore(score);
             }
             else
             {
@@ -45,7 +45,7 @@ public class BloodShelf : Shelf {
     public override DragableObj TakeOut()
     {
         if (_bags.Count > 0)
-            CanvasManager.Instance.AddScore(-_data.ScoreByBloodStocked);
+            CanvasManager.inst.AddScore(-_data.ScoreByBloodStocked);
         else Debug.Log("Empthy");
 
         return base.TakeOut();

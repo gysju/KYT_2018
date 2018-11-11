@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public int levelIndex = -1;
     public const int numberOfLevel = 5;
+    public const string buildVersion = "0.9.1";
 
-    public static GameManager Instance;
+    public static GameManager inst;
     public enum GameState { Paused, Menu, InGame, GameOver }
     public GameState State
     {
@@ -39,9 +41,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (inst == null)
         {
-            Instance = this;
+            inst = this;
             _data = new GameData(_constData, _levelData);
         }
         else
@@ -52,9 +54,12 @@ public class GameManager : MonoBehaviour
 
     void Start ()
     {
-        CanvasManager.Instance.LevelLoaded();
+        CanvasManager.inst.LevelLoaded();
         StartCoroutine( SpawnBloodDonor());
         //State = GameState.Menu;
+
+        if (levelIndex < 0)
+            Debug.LogError("levelIndex have to be set");
     }
 
     IEnumerator SpawnBloodDonor()
@@ -134,5 +139,10 @@ public class GameManager : MonoBehaviour
         BloodInfo.BloodRhesus rhe = (BloodInfo.BloodRhesus)Random.Range(1, 3);
 
         return new BloodInfo(type, fam, rhe);
+    }
+
+    public int GetLevelIndex()
+    {
+        return levelIndex;
     }
 }

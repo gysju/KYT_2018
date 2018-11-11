@@ -41,7 +41,7 @@ public class Bed : InteractableWihDonor {
             b.SetBed(this);
             b.GetComponent<MeshRenderer>().material = _materialsBloodBags[((int)_type) - 1];
 
-            GameManager.Instance.AddBag(b);
+            GameManager.inst.AddBag(b);
         }
 
         _running = false;
@@ -68,7 +68,7 @@ public class Bed : InteractableWihDonor {
         {
             _hasAlrBeFeed = true;
             score = _data.ScoreByFoodGiven;
-            CanvasManager.Instance.AddScore(score);
+            CanvasManager.inst.AddScore(score);
         }
         Destroy(food.gameObject);
         return score;

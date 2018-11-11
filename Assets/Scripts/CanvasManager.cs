@@ -12,7 +12,7 @@ public class CanvasManager : MonoBehaviour {
 
     //old plaquelet color : E5CB00
 
-    public static CanvasManager Instance;
+    public static CanvasManager inst;
     private GameData _data;
     [Header("HUD")]
     [SerializeField] private RectTransform _hud;
@@ -47,16 +47,20 @@ public class CanvasManager : MonoBehaviour {
 
     private int[] _bestScores = { 0, 0, 0, 0, 0 };
 
-    [SerializeField] private TextMeshProUGUI _bestScore_Score;
     [SerializeField] private TextMeshProUGUI _yourScore_Score;
+
+    [SerializeField] private TextMeshProUGUI[] _bestScore_Scores;
+    [SerializeField] private TextMeshProUGUI[] _bestScore_Names;
+
+    [SerializeField] private TMP_InputField tMP_InputField;
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
 
-        if (Instance == null)
+        if (inst == null)
         {
-            Instance = this;
+            inst = this;
         }
         else
         {
@@ -68,16 +72,20 @@ public class CanvasManager : MonoBehaviour {
     {
         //_data = GameManager.Instance.RequestData();
 
-        GameManager.Instance.State = GameManager.GameState.Menu;
+        GameManager.inst.State = GameManager.GameState.Menu;
+
+        AskHighscore();
 
         _fade.gameObject.SetActive(true);
         _mainMenu.gameObject.SetActive(true);
-        _mainMenu.OpenMainMenu(true);        
+        _mainMenu.OpenMainMenu(true);
+
+        tMP_InputField.contentType = TMP_InputField.ContentType.Alphanumeric;
     }
 
     public void RequestData()
     {
-        _data = GameManager.Instance.RequestData();
+        _data = GameManager.inst.RequestData();
     }
 
     private void Update()
@@ -85,27 +93,30 @@ public class CanvasManager : MonoBehaviour {
         _time = Mathf.Max(0.0f, _time - TimeManager.deltaTime);
         TimeText.text = _time.ToString("0.0");
 
-        if (_time <= 0.0F && GameManager.Instance.State == GameManager.GameState.InGame)
+        if (_time <= 0.0F && GameManager.inst.State == GameManager.GameState.InGame)
         {
             int index = SceneManager.GetActiveScene().buildIndex;
             if (_bestScores[index] < _score)
                 _bestScores[index] = _score;
-            _bestScore_Score.text = "" + _bestScores[index];
+
             _yourScore_Score.text = "" + _score;
+            if (_score > 0)
+                HSController.inst.PostScores("anonymous", _score);
+
             _hud.gameObject.SetActive(false);
 
             DisplayGameOverMenu();
         }
-        else if ((Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape)) && GameManager.Instance.State != GameManager.GameState.Menu)
+        else if ((Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape)) && GameManager.inst.State != GameManager.GameState.Menu)
         {
-            if (GameManager.Instance.State == GameManager.GameState.InGame)
+            if (GameManager.inst.State == GameManager.GameState.InGame)
                 DisplayPauseMenu();
-            else if (GameManager.Instance.State == GameManager.GameState.Paused)
+            else if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
         }
         else if (Input.GetButtonDown("B"))
         {
-            if (GameManager.Instance.State == GameManager.GameState.Paused)
+            if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
             else if (_crtReturnButton != null) //is in submenu
             {
@@ -127,7 +138,7 @@ public class CanvasManager : MonoBehaviour {
         _pauseMenu.Open();
         _pauseButton.FindSelectableOnDown().Select();
         _pauseButton.Select();
-        GameManager.Instance.State = GameManager.GameState.Paused;
+        GameManager.inst.State = GameManager.GameState.Paused;
 
         TimeManager.timeScale = 0.0f;
         SoundManager.Instance.PauseSound();
@@ -139,7 +150,7 @@ public class CanvasManager : MonoBehaviour {
     public void HidePauseMenu()
     {
         _pauseMenu.SetActive(false);
-        GameManager.Instance.State = GameManager.GameState.InGame;
+        GameManager.inst.State = GameManager.GameState.InGame;
 
         TimeManager.timeScale = 1.0f;
         SoundManager.Instance.ResumeSound();
@@ -160,7 +171,7 @@ public class CanvasManager : MonoBehaviour {
         _compatibility.gameObject.SetActive(false);
 
         _startButton.Select();
-        GameManager.Instance.State = GameManager.GameState.Menu;
+        GameManager.inst.State = GameManager.GameState.Menu;
 
         TimeManager.timeScale = 0.0f;
     }
@@ -174,7 +185,7 @@ public class CanvasManager : MonoBehaviour {
 
         _pauseButton.FindSelectableOnDown().Select();
         _gameOverButton.Select();
-        GameManager.Instance.State = GameManager.GameState.GameOver;
+        GameManager.inst.State = GameManager.GameState.GameOver;
 
         TimeManager.timeScale = 0.0f;
         SoundManager.Instance.PauseSound();
@@ -195,7 +206,7 @@ public class CanvasManager : MonoBehaviour {
         _mainMenu.SetActive(false);
         _hud.gameObject.SetActive(true);
 
-        GameManager.Instance.State = GameManager.GameState.InGame;
+        GameManager.inst.State = GameManager.GameState.InGame;
 
         TimeManager.timeScale = 1.0f;
 
@@ -216,7 +227,7 @@ public class CanvasManager : MonoBehaviour {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_fade.DOFade(1, .3f));
         sequence.AppendCallback( () => {
-            GameManager.Instance.ClearAllInstance();
+            GameManager.inst.ClearAllInstance();
             ResetHUD();
             _pauseMenu.SetActive(false);
             _gameOverMenu.SetActive(false);
@@ -246,12 +257,31 @@ public class CanvasManager : MonoBehaviour {
         else DisplayMainMenu();
     }
 
-
+    private void AskHighscore()
+    {
+        HSController.inst.GetScores(new System.Action<HSController.Highscore[]>((highscores) => { SetHighscore(highscores); }));
+    }
+    private void SetHighscore(HSController.Highscore[] highscores)
+    {
+        for (int i = 0; i < _bestScore_Scores.Length; i++)
+        {
+            if (highscores.Length > i)
+            {
+                _bestScore_Scores[i].text = "" + highscores[i].score;
+                _bestScore_Names[i].text = highscores[i].name;
+            }
+            else
+            {
+                _bestScore_Scores[i].text = "";
+                _bestScore_Names[i].text = "";
+            }
+        }
+    }
 
     //Conservations
     public void GameManagerClearAllInstance()
     {
-        GameManager.Instance.ClearAllInstance();
+        GameManager.inst.ClearAllInstance();
     }
     public void SoundManagerPlayMusic(string title)
     {
@@ -302,7 +332,7 @@ public class CanvasManager : MonoBehaviour {
         SoundManagerPlayMusic("GameMusic");
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_fade.DOFade(0, .3f));
-        sequence.AppendCallback(() => { StartGame(); });
+        sequence.AppendCallback(() => { AskHighscore(); StartGame(); });
     }
     public void SetCrtReturnButton(Button button)
     {

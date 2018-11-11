@@ -61,7 +61,7 @@ public class BloodDonor : DragableObj
         if (_data.HumansDatas != null)
         {
             SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
-            bloodInfo = GameManager.Instance.BloodInfoGetRand();
+            bloodInfo = GameManager.inst.BloodInfoGetRand();
 
             _waitingFill.SetProgressionColor(_data.MedicColor);
         }
@@ -80,7 +80,7 @@ public class BloodDonor : DragableObj
                 _navMeshAgent.isStopped = false;
         }
 
-        if (GameManager.Instance.State != GameManager.GameState.InGame)
+        if (GameManager.inst.State != GameManager.GameState.InGame)
             return;
 
         if (state == State.idle)
@@ -190,11 +190,11 @@ public class BloodDonor : DragableObj
                 break;
             case State.leave:
                 progressionStat = (int)state;
-                GameManager.Instance.Removedonor(this);
+                GameManager.inst.Removedonor(this);
                 gameObject.SetActive(false);
                 break;
             case State.rageQuit:
-                GameManager.Instance.Removedonor(this);
+                GameManager.inst.Removedonor(this);
                 gameObject.SetActive(false);
                 break;
             default:

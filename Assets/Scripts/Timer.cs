@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour {
     #region MonoFunction
     protected virtual void Start()
     {
-        _data = GameManager.Instance.RequestData();
+        _data = GameManager.inst.RequestData();
     }
     protected virtual void Update ()
     {

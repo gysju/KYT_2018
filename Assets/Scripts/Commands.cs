@@ -31,7 +31,7 @@ public class Commands : MonoBehaviour {
     #region MonoFunction
     private void Start()
     {
-        _data = GameManager.Instance.RequestData();
+        _data = GameManager.inst.RequestData();
         Init();
 
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();
@@ -80,7 +80,7 @@ public class Commands : MonoBehaviour {
 
         for (int i = 0; i < nBag; i++)
         {
-            BloodInfo info = GameManager.Instance.BloodInfoGetRand();
+            BloodInfo info = GameManager.inst.BloodInfoGetRand();
             _compts[(int)info.type - 1].Increase(info.Compatibility());
             ask.Add(info);
 
@@ -115,7 +115,7 @@ public class Commands : MonoBehaviour {
             given.Add(answer);
             bordsGiven[given.Count - 1].SetData(true, sprites[(int)answer.type - 1], "" + answer.family);
             score[0] = _data.ScoreByCommandPartiallyComplete;
-            CanvasManager.Instance.AddScore(score[0]);
+            CanvasManager.inst.AddScore(score[0]);
             _compts[(int)answer.type - 1].ababo[(int)answer.family - 1]++;
             _remaining--;
 
@@ -126,7 +126,7 @@ public class Commands : MonoBehaviour {
                 PlaySound(_soundSuccess);
                 _truck.SetNeedGo();
                 score[1] = _data.ScoreByCommandComplete;
-                CanvasManager.Instance.AddScore(score[1]);
+                CanvasManager.inst.AddScore(score[1]);
                 Generate();
             }
         }

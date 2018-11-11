@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.State != GameManager.GameState.InGame)
+        if (GameManager.inst.State != GameManager.GameState.InGame)
             return;
 
         _hAxis = Input.GetAxis("Horizontal" + _playerID);
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
     void FixedUpdate ()
     {
 
-        if (GameManager.Instance.State != GameManager.GameState.InGame)
+        if (GameManager.inst.State != GameManager.GameState.InGame)
             return;
 
         HighlightManagement();
