@@ -75,8 +75,14 @@ public class HSController : MonoBehaviour
 
     private static Highscore[] ConvertStringToHighscores(string data)
     {
+        /*if (data.Length == 0)
+        {
+            Debug.Log("no data");
+            return null;
+        }*/
+
         string[] entries = data.Split('\n');
-        Highscore[] highscores = new Highscore[entries.Length];
+        Highscore[] highscores = new Highscore[entries.Length-1];
         for (int i = 0; i < entries.Length; i++)
         {
             string[] entry = entries[i].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);

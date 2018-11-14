@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b27aff16fd28884b93f912be4f7fc93, type: 3}
   m_Name: LevelData1
   m_EditorClassIdentifier: 
-  GameDuration: 1
+  GameDuration: 120
   BloodTypes: 01000000
   BloodFamilies: 01000000020000000300000004000000
   RejectChance: 0

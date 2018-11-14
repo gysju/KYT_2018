@@ -54,6 +54,8 @@ public class CanvasManager : MonoBehaviour {
 
     [SerializeField] private TMP_InputField tMP_InputField;
 
+    [SerializeField] private GameObject _keyBoard;
+
     private void Awake()
     {
         Application.targetFrameRate = 60;
@@ -79,8 +81,6 @@ public class CanvasManager : MonoBehaviour {
         _fade.gameObject.SetActive(true);
         _mainMenu.gameObject.SetActive(true);
         _mainMenu.OpenMainMenu(true);
-
-        tMP_InputField.contentType = TMP_InputField.ContentType.Alphanumeric;
     }
 
     public void RequestData()
@@ -101,7 +101,11 @@ public class CanvasManager : MonoBehaviour {
 
             _yourScore_Score.text = "" + _score;
             if (_score > 0)
-                HSController.inst.PostScores("anonymous", _score);
+            {
+                tMP_InputField.gameObject.SetActive(true);
+                _keyBoard.SetActive(true);
+                //HSController.inst.PostScores("anonymous", _score);
+            } else tMP_InputField.gameObject.SetActive(false);
 
             _hud.gameObject.SetActive(false);
 
@@ -124,6 +128,11 @@ public class CanvasManager : MonoBehaviour {
                 _crtReturnButton = null;
             }
         }
+
+        #if UNITY_EDITOR
+            if (Input.GetKeyDown("x"))
+                _score += 2;
+        #endif
     }
 
     public void AddScore(int value)
@@ -165,7 +174,7 @@ public class CanvasManager : MonoBehaviour {
     private void DisplayMainMenuCallBack()
     {
         _pauseMenu.SetActive(false);
-        _gameOverMenu.SetActive(false);
+        HideGameOverMenu();
         _mainMenu.SetActive(true);
         _hud.gameObject.SetActive(false);
         _compatibility.gameObject.SetActive(false);
@@ -181,7 +190,7 @@ public class CanvasManager : MonoBehaviour {
         _isTransitionningGameOver = true;
 
         _gameOverMenu.SetActive(true);
-        _gameOverMenu.Open();
+        _gameOverMenu.Open();        
 
         _pauseButton.FindSelectableOnDown().Select();
         _gameOverButton.Select();
@@ -190,8 +199,8 @@ public class CanvasManager : MonoBehaviour {
         TimeManager.timeScale = 0.0f;
         SoundManager.Instance.PauseSound();
 
-        _compatibility.gameObject.SetActive(true);
-        _compatibility.Open();
+        //_compatibility.gameObject.SetActive(true);
+        //_compatibility.Open();
 
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(.5f);
@@ -199,6 +208,13 @@ public class CanvasManager : MonoBehaviour {
             _isTransitionningGameOver = false;
         });
         sequence.Play();
+    }
+
+    public void HideGameOverMenu()
+    {
+        _gameOverMenu.SetActive(false);
+        tMP_InputField.gameObject.SetActive(true);
+        _keyBoard.SetActive(false);
     }
 
     public void StartGame(bool resetHUD = true)
@@ -224,13 +240,14 @@ public class CanvasManager : MonoBehaviour {
 
     public void ReplayGame()
     {
+
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_fade.DOFade(1, .3f));
         sequence.AppendCallback( () => {
             GameManager.inst.ClearAllInstance();
             ResetHUD();
             _pauseMenu.SetActive(false);
-            _gameOverMenu.SetActive(false);
+            HideGameOverMenu();
             _compatibility.gameObject.SetActive(false);
         });
         sequence.Append(_fade.DOFade(0, .3f));
@@ -263,6 +280,17 @@ public class CanvasManager : MonoBehaviour {
     }
     private void SetHighscore(HSController.Highscore[] highscores)
     {
+        /*if (highscores == null)
+        {
+            for (int i = 0; i < _bestScore_Scores.Length; i++)
+            {
+                _bestScore_Scores[i].text = "";
+                _bestScore_Names[i].text = "";
+            }
+            _bestScore_Scores[0].text = "...";
+            return;
+        }*/
+
         for (int i = 0; i < _bestScore_Scores.Length; i++)
         {
             if (highscores.Length > i)
@@ -276,6 +304,13 @@ public class CanvasManager : MonoBehaviour {
                 _bestScore_Names[i].text = "";
             }
         }
+    }
+    public void PostHighScore()
+    {
+        HSController.inst.PostScores(tMP_InputField.text, _score);
+        _keyBoard.SetActive(false);
+        tMP_InputField.interactable = false;
+        _gameOverButton.Select();
     }
 
     //Conservations
@@ -314,7 +349,7 @@ public class CanvasManager : MonoBehaviour {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_fade.DOFade(1, .3f));
         sequence.AppendCallback(() => {
-            _gameOverMenu.SetActive(false);
+            HideGameOverMenu();
             _mainMenu.SetActive(false);
             _compatibility.gameObject.SetActive(false);
             LoadLevel(index);
