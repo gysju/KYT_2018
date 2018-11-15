@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3546855f9f7780d49b961f37770e2f39, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: fc46dd39e3e0c0546bedcb44837c4c41, type: 2}
 --- !u!1001 &3740837
 Prefab:
   m_ObjectHideFlags: 0
@@ -1446,7 +1446,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135289270600585244, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
@@ -1971,7 +1975,7 @@ Transform:
   - {fileID: 1790556673}
   - {fileID: 1916670063}
   m_Father: {fileID: 564441195}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &90143857
 MonoBehaviour:
@@ -8760,7 +8764,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135289270600585244, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
@@ -9166,7 +9174,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135289270600585244, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
@@ -9895,11 +9907,11 @@ Transform:
   - {fileID: 1379808187}
   - {fileID: 1722728859}
   - {fileID: 641969622}
-  - {fileID: 259069846}
   - {fileID: 1108144629}
-  - {fileID: 191426519}
+  - {fileID: 259069846}
   - {fileID: 1750471608}
   - {fileID: 385629003}
+  - {fileID: 191426519}
   - {fileID: 1685716339}
   - {fileID: 2118070317}
   - {fileID: 1046410271}
@@ -9922,30 +9934,30 @@ Transform:
   - {fileID: 1803354661}
   - {fileID: 1519300847}
   - {fileID: 129834953}
+  - {fileID: 1191238236}
   - {fileID: 68297325}
   - {fileID: 472146642}
   - {fileID: 1039921840}
   - {fileID: 853142244}
   - {fileID: 1766866471}
-  - {fileID: 1191238236}
+  - {fileID: 1707469844}
+  - {fileID: 1333310444}
   - {fileID: 217559459}
   - {fileID: 1569724538}
-  - {fileID: 1333310444}
+  - {fileID: 433073272}
   - {fileID: 2065873889}
-  - {fileID: 1707469844}
   - {fileID: 1787724208}
   - {fileID: 1730408619}
-  - {fileID: 433073272}
-  - {fileID: 593931949}
-  - {fileID: 253057392}
-  - {fileID: 276600900}
-  - {fileID: 1072701757}
-  - {fileID: 381080591}
-  - {fileID: 1974386468}
-  - {fileID: 1978604084}
   - {fileID: 871902164}
+  - {fileID: 381080591}
   - {fileID: 751260047}
+  - {fileID: 593931949}
+  - {fileID: 1974386468}
+  - {fileID: 253057392}
   - {fileID: 1143058123}
+  - {fileID: 276600900}
+  - {fileID: 1978604084}
+  - {fileID: 1072701757}
   m_Father: {fileID: 101380006}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11330,12 +11342,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1925546012}
   - {fileID: 90143856}
   - {fileID: 2047918359}
+  - {fileID: 1925546012}
   - {fileID: 1559356494}
-  - {fileID: 1615021235}
   - {fileID: 1184165922}
+  - {fileID: 1615021235}
   - {fileID: 708020503}
   m_Father: {fileID: 785695014}
   m_RootOrder: 7
@@ -16197,7 +16209,11 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 283350567d0d60f4e8216e31e9fcc96a, type: 2}
     - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135289270600585244, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
@@ -18122,8 +18138,8 @@ Transform:
   - {fileID: 1878818322}
   - {fileID: 591960679}
   - {fileID: 390244464}
-  - {fileID: 1001770216}
   - {fileID: 2044263358}
+  - {fileID: 1001770216}
   m_Father: {fileID: 1938541847}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -20727,46 +20743,46 @@ Transform:
   - {fileID: 1326190522}
   - {fileID: 1731082945}
   - {fileID: 307710896}
-  - {fileID: 418762819}
   - {fileID: 224855831}
+  - {fileID: 1219296464}
+  - {fileID: 418762819}
+  - {fileID: 1506995024}
   - {fileID: 255890890}
+  - {fileID: 1599849069}
   - {fileID: 1467123560}
+  - {fileID: 1825743982}
   - {fileID: 1100461224}
   - {fileID: 125559347}
-  - {fileID: 1506995024}
-  - {fileID: 1599849069}
-  - {fileID: 1219296464}
-  - {fileID: 1825743982}
-  - {fileID: 1939045577}
   - {fileID: 1289362669}
-  - {fileID: 1421024269}
   - {fileID: 978086735}
-  - {fileID: 2045944864}
   - {fileID: 1743238964}
+  - {fileID: 1939045577}
+  - {fileID: 1548068092}
+  - {fileID: 1507235654}
+  - {fileID: 1421024269}
+  - {fileID: 2045944864}
   - {fileID: 451450647}
   - {fileID: 2027929431}
-  - {fileID: 1548068092}
   - {fileID: 2044474826}
+  - {fileID: 550307479}
+  - {fileID: 805770511}
+  - {fileID: 915799392}
   - {fileID: 170695549}
   - {fileID: 1930098316}
-  - {fileID: 1507235654}
+  - {fileID: 1681558198}
+  - {fileID: 1094999175}
   - {fileID: 1315797548}
   - {fileID: 2111953997}
-  - {fileID: 1681558198}
-  - {fileID: 247393323}
-  - {fileID: 250818303}
-  - {fileID: 1094999175}
-  - {fileID: 1641293875}
-  - {fileID: 550307479}
-  - {fileID: 915799392}
-  - {fileID: 251434555}
   - {fileID: 1819592041}
+  - {fileID: 1641293875}
   - {fileID: 115927012}
   - {fileID: 1885841345}
-  - {fileID: 805770511}
-  - {fileID: 178256738}
+  - {fileID: 247393323}
   - {fileID: 1881186373}
+  - {fileID: 250818303}
+  - {fileID: 178256738}
   - {fileID: 710712796}
+  - {fileID: 251434555}
   m_Father: {fileID: 289714714}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22908,7 +22924,7 @@ Transform:
   - {fileID: 1851520573}
   - {fileID: 65192076}
   m_Father: {fileID: 564441195}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 137.446, z: 0}
 --- !u!1001 &1184291881
 Prefab:
@@ -34997,7 +35013,11 @@ Prefab:
       objectReference: {fileID: 2100000, guid: ff73ee05d07017749bf441c0fbe6c666, type: 2}
     - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751947532435760, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135289270600585244, guid: 487eed08971b0e24ca73bc03372d0847, type: 2}
@@ -39124,7 +39144,7 @@ Transform:
   - {fileID: 1735320219}
   - {fileID: 1080799918}
   m_Father: {fileID: 564441195}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2050013858
 Prefab:
@@ -40970,12 +40990,12 @@ Transform:
   - {fileID: 1410634880}
   - {fileID: 718853906}
   - {fileID: 1559294814}
+  - {fileID: 680221438}
+  - {fileID: 97861237}
+  - {fileID: 1246145060}
   - {fileID: 973409959}
   - {fileID: 672750159}
   - {fileID: 1682536327}
-  - {fileID: 97861237}
-  - {fileID: 1246145060}
-  - {fileID: 680221438}
   - {fileID: 543424677}
   - {fileID: 1035570170}
   m_Father: {fileID: 289714714}
