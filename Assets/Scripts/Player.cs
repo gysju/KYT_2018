@@ -52,7 +52,10 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (GameManager.inst.State != GameManager.GameState.InGame)
+        {
+            _animator.SetFloat("Speed", 0.0f);
             return;
+        }
 
         _hAxis = Input.GetAxis("Horizontal" + _playerID);
         _vAxis = Input.GetAxis("Vertical" + _playerID);
@@ -89,7 +92,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        if (_hAxis != 0.0f || _vAxis != 0.0f)
+        if (Mathf.Abs(_hAxis) > .1f || Mathf.Abs(_vAxis) > .1f)
         {
             float angle = Mathf.Atan2(_vAxis, -_hAxis) * Mathf.Rad2Deg - 90.0f;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
@@ -98,7 +101,7 @@ public class Player : MonoBehaviour
 
             _animator.SetFloat("Speed", Mathf.Clamp01(Mathf.Abs(_hAxis) + Mathf.Abs(_vAxis)));
         }
-        else  _animator.SetFloat("Speed", 0.0f);
+        else _animator.SetFloat("Speed", 0.0f);
     }
 
     private void AttachObj(DragableObj obj, Transform anchor)
@@ -429,6 +432,8 @@ public class Player : MonoBehaviour
         
         _hasBeenAttachedCheck = false;
         _bul.SetActive(false);
+
+        _animator.SetFloat("Speed", 0.0f);
     }
     public void ForceDrop()
     {
