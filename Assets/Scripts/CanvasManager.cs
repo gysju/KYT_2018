@@ -14,10 +14,10 @@ public class CanvasManager : MonoBehaviour {
 
     public static CanvasManager inst;
     private GameData _data;
-    [Header("HUD")]
-    [SerializeField] private RectTransform _hud;
-    [SerializeField] private TextMeshProUGUI TimeText;
-    [SerializeField] private TextMeshProUGUI ScoreText;
+
+    //HUD
+    private TextMeshProUGUI _timerText;
+    private TextMeshProUGUI _scoreText;
 
     private float _time = 0.0f;
     private int _score = 0;
@@ -90,11 +90,11 @@ public class CanvasManager : MonoBehaviour {
 
     private void Update()
     {
-        _time = Mathf.Max(0.0f, _time - TimeManager.deltaTime);
-        TimeText.text = _time.ToString("0.0");
-
         if (GameManager.inst.State == GameManager.GameState.InGame)
         {
+            _time = Mathf.Max(0.0f, _time - TimeManager.deltaTime);
+            _timerText.text = _time.ToString("0.0");
+
             if (_time <= .0f)
             {
                 int index = SceneManager.GetActiveScene().buildIndex;
@@ -109,8 +109,6 @@ public class CanvasManager : MonoBehaviour {
                     //HSController.inst.PostScores("anonymous", _score);
                 }
                 else tMP_InputField.gameObject.SetActive(false);
-
-                _hud.gameObject.SetActive(false);
 
                 DisplayGameOverMenu();
             }
@@ -150,7 +148,7 @@ public class CanvasManager : MonoBehaviour {
     public void AddScore(int value)
     {
         _score += value;
-        ScoreText.text = _score.ToString();
+        _scoreText.text = _score.ToString();
     }
 
     public void DisplayPauseMenu()
@@ -188,7 +186,6 @@ public class CanvasManager : MonoBehaviour {
         _pauseMenu.SetActive(false);
         HideGameOverMenu();
         _mainMenu.SetActive(true);
-        _hud.gameObject.SetActive(false);
         _compatibility.gameObject.SetActive(false);
 
         _startButton.Select();
@@ -232,7 +229,6 @@ public class CanvasManager : MonoBehaviour {
     public void StartGame(bool resetHUD = true)
     {
         _mainMenu.SetActive(false);
-        _hud.gameObject.SetActive(true);
 
         GameManager.inst.State = GameManager.GameState.InGame;
 
@@ -242,12 +238,12 @@ public class CanvasManager : MonoBehaviour {
             ResetHUD();
     }
 
-    private void ResetHUD()
+    public void ResetHUD()
     {
         _time = _data.GameDuration;
-        TimeText.text = _time.ToString("0.0");
+        _timerText.text = _time.ToString("0.0");
         _score = 0;
-        ScoreText.text = "0";
+        _scoreText.text = "0";
     }
 
     public void ReplayGame()
@@ -371,6 +367,7 @@ public class CanvasManager : MonoBehaviour {
     public void LevelLoaded()
     {
         RequestData();
+        GetHUDText();
 
         _compatibility.SetCompatibility(_data.BloodTypes[0]);
 
@@ -400,5 +397,15 @@ public class CanvasManager : MonoBehaviour {
     {
         if (!_isTransitionningGameOver)
             _gameOverQuit.Invoke();
+    }
+
+    private void GetHUDText()
+    {
+        TextMeshProUGUI[] texts = GameManager.inst.GetHUDText();
+        _timerText = texts[0];
+        Debug.Log(" _data.GameDuration " + _data.GameDuration);
+        _timerText.text = _data.GameDuration.ToString("0.0");
+        _scoreText = texts[1];
+        _scoreText.text = "0";
     }
 }

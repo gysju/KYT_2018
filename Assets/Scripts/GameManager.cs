@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     private List<BloodBag> bloodBags = new List<BloodBag>();
 
     public Commands command;
+
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _timerText;
 
     private void Awake()
     {
@@ -144,5 +147,10 @@ public class GameManager : MonoBehaviour
     public int GetLevelIndex()
     {
         return levelIndex;
+    }
+
+    public TextMeshProUGUI[] GetHUDText()
+    {
+        return new TextMeshProUGUI[] { _timerText, _scoreText };
     }
 }
