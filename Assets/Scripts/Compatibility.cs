@@ -43,6 +43,7 @@ public class Compatibility : MonoBehaviour {
 
     public void Open()
     {
+        SetAlpha(1);
         _inTweenOpen.Kill();
         _rect.DOAnchorPos(new Vector2(250, _rect.anchoredPosition.y), 0);
         _inTweenOpen = DOTween.Sequence();
@@ -53,5 +54,35 @@ public class Compatibility : MonoBehaviour {
         _inTweenOpen.Kill();
         _inTweenOpen = DOTween.Sequence();
         _inTweenOpen.Append(_rect.DOAnchorPos(new Vector2(250, _rect.anchoredPosition.y), _openTime * .6f));
+    }
+
+    private TextMeshProUGUI[] _texts;
+    public void SetVisibleInGame()
+    {
+        SetAlpha(.6f);
+
+        _rect.DOAnchorPos(new Vector2(-54, _rect.anchoredPosition.y), 0);
+        gameObject.SetActive(true);
+    }
+    public void Hide()
+    {
+        _rect.DOAnchorPos(new Vector2(250, _rect.anchoredPosition.y), 0);
+        gameObject.SetActive(false);
+    }
+    private void SetAlpha(float alpha)
+    {
+        if (_texts == null)
+            _texts = GetComponentsInChildren<TextMeshProUGUI>();
+
+        for (int i = 0; i < _texts.Length; i++)
+        {
+            Color color = _texts[i].color;
+            color.a = alpha;
+            _texts[i].color = color;
+        }
+        for (int i = 0; i < _images.Length; i++)
+        {
+            _images[i].DOFade(alpha, 0);
+        }
     }
 }

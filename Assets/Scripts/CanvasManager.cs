@@ -93,32 +93,44 @@ public class CanvasManager : MonoBehaviour {
         _time = Mathf.Max(0.0f, _time - TimeManager.deltaTime);
         TimeText.text = _time.ToString("0.0");
 
-        if (_time <= 0.0F && GameManager.inst.State == GameManager.GameState.InGame)
+        if (GameManager.inst.State == GameManager.GameState.InGame)
         {
-            int index = SceneManager.GetActiveScene().buildIndex;
-            if (_bestScores[index] < _score)
-                _bestScores[index] = _score;
-
-            _yourScore_Score.text = "" + _score;
-            if (_score > 0)
+            if (_time <= .0f)
             {
-                tMP_InputField.gameObject.SetActive(true);
-                _keyBoard.SetActive(true);
-                //HSController.inst.PostScores("anonymous", _score);
-            } else tMP_InputField.gameObject.SetActive(false);
+                int index = SceneManager.GetActiveScene().buildIndex;
+                if (_bestScores[index] < _score)
+                    _bestScores[index] = _score;
 
-            _hud.gameObject.SetActive(false);
+                _yourScore_Score.text = "" + _score;
+                if (_score > 0)
+                {
+                    tMP_InputField.gameObject.SetActive(true);
+                    _keyBoard.SetActive(true);
+                    //HSController.inst.PostScores("anonymous", _score);
+                }
+                else tMP_InputField.gameObject.SetActive(false);
 
-            DisplayGameOverMenu();
+                _hud.gameObject.SetActive(false);
+
+                DisplayGameOverMenu();
+            }
+            else if ((Input.GetButtonDown("Back0") && !Input.GetButton("Back1")) || (Input.GetButtonDown("Back1") && !Input.GetButton("Back0")))
+            {
+                _compatibility.SetVisibleInGame();
+            }
+            else if ((Input.GetButtonUp("Back0") && !Input.GetButton("Back1")) || (Input.GetButtonUp("Back1") && !Input.GetButton("Back0")))
+            {
+                _compatibility.Hide();
+            }
         }
-        else if ((Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape)) && GameManager.inst.State != GameManager.GameState.Menu)
+        if ((Input.GetButtonUp("Start") || Input.GetKeyDown(KeyCode.Escape)) && GameManager.inst.State != GameManager.GameState.Menu)
         {
             if (GameManager.inst.State == GameManager.GameState.InGame)
                 DisplayPauseMenu();
             else if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
         }
-        else if (Input.GetButtonDown("B"))
+        else if (Input.GetButtonUp("B"))
         {
             if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
@@ -130,7 +142,7 @@ public class CanvasManager : MonoBehaviour {
         }
 
         #if UNITY_EDITOR
-            if (Input.GetKeyDown("x"))
+        if (Input.GetKeyDown("x"))
                 _score += 2;
         #endif
     }
