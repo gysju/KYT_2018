@@ -9,7 +9,7 @@ public class UIAnimation : MonoBehaviour {
     [SerializeField] private Image _background;
     [SerializeField] private Selectable _firstSelectable;
     [SerializeField] private RectTransform[] _objects;
-    private float _openTime = .7f, _fadeOutTime = .3f, _increaseOpenTime = .1f, _openDelay = .2f;
+    private float _openTime = .7f, _fadeOutTime = .3f, _increaseOpenTime = .1f;
     private Sequence _inTweenOpen;
 
     public void SetActive(bool active)

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 public class BloodDonor : DragableObj
 {
@@ -54,8 +52,10 @@ public class BloodDonor : DragableObj
             animator = GetComponentInChildren<Animator>();
     }
 
-    void Start ()
+    protected override void Start()
     {
+        base.Start();
+
         state = State.home;
 
         if (_data.HumansDatas != null)

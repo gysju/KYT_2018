@@ -13,7 +13,7 @@ public class Car : MonoBehaviour {
     private RedLight redLight;
 
     private Transform _transform;
-    [SerializeField] private Transform _start, _end;
+    [SerializeField] private Transform _start = null, _end = null;
 
 	private void Start ()
     {

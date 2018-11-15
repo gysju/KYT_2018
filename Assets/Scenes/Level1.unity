@@ -156,40 +156,16 @@ Prefab:
       propertyPath: m_Name
       value: '[Player_1]'
       objectReference: {fileID: 0}
-    - target: {fileID: 33653127957824618, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 906415e8258ef05468bf806b9dff5782, type: 3}
     - target: {fileID: 114903078089160692, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
         type: 2}
       propertyPath: _playerID
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4474533140386650, guid: cdaece7012ddbb5459bab2f89a4e7b0d, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 235.103
-      objectReference: {fileID: 0}
-    - target: {fileID: 114167590378688746, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
+    - target: {fileID: 33653127957824618, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
         type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114167590378688746, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114596228218863056, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114596228218863056, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 906415e8258ef05468bf806b9dff5782, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdaece7012ddbb5459bab2f89a4e7b0d, type: 2}
   m_IsPrefabAsset: 0
@@ -4276,6 +4252,11 @@ Prefab:
     - target: {fileID: 1855961399977396, guid: cdaece7012ddbb5459bab2f89a4e7b0d, type: 2}
       propertyPath: m_Name
       value: '[Player_0]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114903078089160692, guid: cdaece7012ddbb5459bab2f89a4e7b0d,
+        type: 2}
+      propertyPath: _boost
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdaece7012ddbb5459bab2f89a4e7b0d, type: 2}
@@ -45684,6 +45665,46 @@ Prefab:
     - target: {fileID: 4817044203790568, guid: e3cff7d94526250428c5c05cdcf6ab3c, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179156194013936, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179156194013936, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114188520268707718, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114188520268707718, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114993302670922326, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114993302670922326, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114847405943888750, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114847405943888750, guid: e3cff7d94526250428c5c05cdcf6ab3c,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3cff7d94526250428c5c05cdcf6ab3c, type: 2}

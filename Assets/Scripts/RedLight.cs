@@ -7,7 +7,9 @@ public class RedLight : MonoBehaviour {
     [SerializeField] private Collider _stopCollider;
     [SerializeField] private Light[] _lights;
 
-    [SerializeField] private Color _red, _orange, _green;
+    [SerializeField] private Color _red;
+    [SerializeField] private Color _orange;
+    [SerializeField] private Color _green;
 
     private float _transitionSpeed = 2f;
     public bool isRed = true, canDrive;

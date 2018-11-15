@@ -13,7 +13,7 @@ public class Commands : MonoBehaviour {
 
     [SerializeField] private Truck _truck;
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _soundSuccess, _soundLose;
+    [SerializeField] private AudioClip _soundSuccess = null, _soundLose = null;
 
     private List<BloodInfo> ask, given;
     private int _remaining;

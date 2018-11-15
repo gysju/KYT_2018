@@ -37,7 +37,7 @@ public class Compatibility : MonoBehaviour {
         }
     }
 
-    private float _openTime = .7f, _fadeOutTime = .3f, _increaseOpenTime = .1f, _openDelay = .2f;
+    private float _openTime = .7f;
     private Sequence _inTweenOpen;
     [SerializeField] private RectTransform _rect;
 
