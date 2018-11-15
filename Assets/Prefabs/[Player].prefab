@@ -256,8 +256,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855961399977396}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00005571544}
-  m_LocalPosition: {x: 1.8, y: 0, z: 6.21}
+  m_LocalRotation: {x: 0, y: 0.868718, z: 0, w: 0.495307}
+  m_LocalPosition: {x: -4.08, y: 0, z: 2.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4591786886992918}
@@ -631,6 +631,7 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
+  m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
@@ -765,6 +766,7 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
+  m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
@@ -920,6 +922,7 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
+  m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
@@ -1033,6 +1036,7 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
+  m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
@@ -1173,6 +1177,7 @@ MonoBehaviour:
   _attrachAnchor: {fileID: 4735684047001788}
   _grabCenter: {fileID: 4934660369427454}
   _speed: 150
+  _boost: 0.3
   _interactObj:
     serializedVersion: 2
     m_Bits: 2048
@@ -1182,6 +1187,9 @@ MonoBehaviour:
   _volume: 1
   _attachedSound: {fileID: 8300000, guid: a2dd04c55fe8b644f9f5370205111a93, type: 3}
   _detachedSound: {fileID: 8300000, guid: 0bfb2bd9d2b225646868843a6a3ac81e, type: 3}
+  _dashSounds:
+  - {fileID: 8300000, guid: d71399518de1bfb44957c184dfdd5bcc, type: 3}
+  - {fileID: 8300000, guid: 209ccb352161b7345b77dce735b0b212, type: 3}
   _bul: {fileID: 1703719071722786}
   _bulImg: {fileID: 114055813683795220}
   _bulText: {fileID: 114737836096585106}

@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float _volume = 1;
     [SerializeField] private AudioClip _attachedSound = null, _detachedSound = null;
+    [SerializeField] private AudioClip[] _dashSounds;
 
     [SerializeField] private GameObject _bul;
     [SerializeField] private UnityEngine.UI.Image _bulImg;
@@ -118,6 +119,9 @@ public class Player : MonoBehaviour
         {
             _dashRecorvery = TimeManager.time + _dashRecorveryTime;
             _rgd.AddForce(transform.forward * _speed * _boost, ForceMode.Impulse);
+
+            _audioSource.clip = _dashSounds[Random.Range(0, 2)];
+            _audioSource.Play();
         }
     }
 
