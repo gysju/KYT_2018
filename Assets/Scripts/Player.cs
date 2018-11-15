@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private UIAddScore _addScore;
 
+    [SerializeField] private ParticleSystem _dashParticleSystem;
+
     private void Start()
     {
         startPosition = transform.position;
@@ -122,6 +124,8 @@ public class Player : MonoBehaviour
 
             _audioSource.clip = _dashSounds[Random.Range(0, 2)];
             _audioSource.Play();
+
+            _dashParticleSystem.Play();
         }
     }
 
