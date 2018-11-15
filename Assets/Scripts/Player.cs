@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _playerID;
     [SerializeField] private Transform _attrachAnchor;
     [SerializeField] private Transform _grabCenter;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _speed = 150, _boost = .3f;
 
     private float _hAxis, _vAxis;
 
@@ -17,11 +17,11 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask _interactPlace;
 
     [SerializeField] private float _volume = 1;
-    [SerializeField] private AudioClip _attachedSound, _detachedSound;
+    [SerializeField] private AudioClip _attachedSound = null, _detachedSound = null;
 
     [SerializeField] private GameObject _bul;
     [SerializeField] private UnityEngine.UI.Image _bulImg;
-    [SerializeField] private TextMeshProUGUI _bulText, _bulText_Img;
+    [SerializeField] private TextMeshProUGUI _bulText, _bulText_Img = null;
 
     [SerializeField] private Sprite[] sprites;
 
@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     private Rigidbody _rgd;
     private DragableObj _currentObjAttached = null;
     private bool _hasBeenAttachedCheck = false;
+    private bool _wantDash;
+    private float _dashRecorvery, _dashRecorveryTime = .6f;
 
     private HighlightObj _lastHighlightObj = new HighlightObj(null, null, false);
 
@@ -62,20 +64,24 @@ public class Player : MonoBehaviour
 
         if (_currentObjAttached != null)
         {
-            if (Input.GetButtonUp("A"+_playerID)/*Input.GetKeyUp("joystick " + (_playerID+1) + " button 0")*/)
+            if (Input.GetButtonUp("A"+_playerID))
             {
                 _hasBeenAttachedCheck = true;
             }
-            else if (Input.GetButtonDown("A" + _playerID)/*Input.GetKeyDown("joystick " + (_playerID+1) + " button 0")*/ && _hasBeenAttachedCheck)
+            else if (Input.GetButtonDown("A" + _playerID) && _hasBeenAttachedCheck)
             {
                 CheckOnDrop();
                 DetachObj();
             }
         }
-        else if (Input.GetButtonDown("A" + _playerID)/*Input.GetKeyDown("joystick " + (_playerID+1) + " button 0")*/)
+        else if (Input.GetButtonDown("A" + _playerID))
         {
             //CheckOnDrop();
             TryGrab();
+        }
+        if (Input.GetButtonDown("B" + _playerID))
+        {
+            _wantDash = true;
         }
     }
 
@@ -86,8 +92,9 @@ public class Player : MonoBehaviour
             return;
 
         HighlightManagement();
-
-        Move();
+        if (_wantDash)
+            Dash();
+        else Move();
     }
 
     private void Move()
@@ -102,6 +109,16 @@ public class Player : MonoBehaviour
             _animator.SetFloat("Speed", Mathf.Clamp01(Mathf.Abs(_hAxis) + Mathf.Abs(_vAxis)));
         }
         else _animator.SetFloat("Speed", 0.0f);
+    }
+
+    private void Dash()
+    {
+        _wantDash = false;
+        if (_dashRecorvery < TimeManager.time)
+        {
+            _dashRecorvery = TimeManager.time + _dashRecorveryTime;
+            _rgd.AddForce(transform.forward * _speed * _boost, ForceMode.Impulse);
+        }
     }
 
     private void AttachObj(DragableObj obj, Transform anchor)

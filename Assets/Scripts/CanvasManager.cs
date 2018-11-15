@@ -128,7 +128,7 @@ public class CanvasManager : MonoBehaviour {
             else if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
         }
-        else if (Input.GetButtonUp("B"))
+        else if (Input.GetButtonUp("B") && GameManager.inst.State != GameManager.GameState.InGame)
         {
             if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
@@ -403,7 +403,6 @@ public class CanvasManager : MonoBehaviour {
     {
         TextMeshProUGUI[] texts = GameManager.inst.GetHUDText();
         _timerText = texts[0];
-        Debug.Log(" _data.GameDuration " + _data.GameDuration);
         _timerText.text = _data.GameDuration.ToString("0.0");
         _scoreText = texts[1];
         _scoreText.text = "0";
