@@ -5,6 +5,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static string username_path = "username.txt";
+
     public int levelIndex = -1;
     public const int numberOfLevel = 5;
     public const string buildVersion = "0.9.1";

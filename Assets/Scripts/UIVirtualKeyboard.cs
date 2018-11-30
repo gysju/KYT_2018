@@ -15,7 +15,7 @@ public class UIVirtualKeyboard : MonoBehaviour
 
     private static readonly char[][] _keys_qwerty = new char[4][];
 
-    [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private InputField inputField;
     private AudioSource _source;
 
     public void Init()
@@ -92,7 +92,7 @@ public class UIVirtualKeyboard : MonoBehaviour
     public void KeyBoardOutput(char key)
     {
         if (inputField.characterLimit > inputField.text.Length)
-            inputField.text += key;
+            inputField.text += (_uppercase ? (""+key).ToUpper() : ""+key);
     }
     public void DeleteButton()
     {

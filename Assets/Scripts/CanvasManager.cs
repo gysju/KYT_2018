@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using System.Text;
+using System.Text.RegularExpressions;
 
 public class CanvasManager : MonoBehaviour {
 
@@ -36,7 +38,8 @@ public class CanvasManager : MonoBehaviour {
 
     [SerializeField] Compatibility _compatibility;
 
-    public Image _fade;
+    [SerializeField] private Image _fade_background;
+    public Image _fade_forground;
 
     private Button _crtReturnButton;
 
@@ -48,13 +51,12 @@ public class CanvasManager : MonoBehaviour {
     private int[] _bestScores = { 0, 0, 0, 0, 0 };
 
     [SerializeField] private TextMeshProUGUI _yourScore_Score;
+    [SerializeField] private TextMeshProUGUI _yourName_Score;
 
     [SerializeField] private TextMeshProUGUI[] _bestScore_Scores;
     [SerializeField] private TextMeshProUGUI[] _bestScore_Names;
 
-    [SerializeField] private TMP_InputField tMP_InputField;
-
-    [SerializeField] private GameObject _keyBoard;
+    [HideInInspector] public bool keyboardDisplay = false;
 
     private void Awake()
     {
@@ -76,10 +78,9 @@ public class CanvasManager : MonoBehaviour {
 
         GameManager.inst.State = GameManager.GameState.Menu;
 
-        AskHighscore();
-
-        _fade.gameObject.SetActive(true);
+        _fade_forground.gameObject.SetActive(true);
         _mainMenu.gameObject.SetActive(true);
+        _fade_background.gameObject.SetActive(true);
         _mainMenu.OpenMainMenu(true);
     }
 
@@ -102,13 +103,16 @@ public class CanvasManager : MonoBehaviour {
                     _bestScores[index] = _score;
 
                 _yourScore_Score.text = "" + _score;
-                if (_score > 0)
+                //if (_score > 0)
                 {
-                    tMP_InputField.gameObject.SetActive(true);
-                    _keyBoard.SetActive(true);
+                    _yourName_Score.gameObject.SetActive(true);
+                    string username = HandleTextFile.ReadString(GameManager.username_path);
+                    username = Regex.Replace(username, @"[^A-Za-z0-9]+", "");
+                    _yourName_Score.text = string.IsNullOrEmpty(username) ? "anonymous" : username;
+                    //_keyBoard.SetActive(true);
                     //HSController.inst.PostScores("anonymous", _score);
                 }
-                else tMP_InputField.gameObject.SetActive(false);
+                //else _yourName_Score.gameObject.SetActive(false);
 
                 DisplayGameOverMenu();
             }
@@ -128,7 +132,7 @@ public class CanvasManager : MonoBehaviour {
             else if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
         }
-        else if (Input.GetButtonUp("B") && GameManager.inst.State != GameManager.GameState.InGame)
+        else if (Input.GetButtonUp("B") && GameManager.inst.State != GameManager.GameState.InGame && !keyboardDisplay)
         {
             if (GameManager.inst.State == GameManager.GameState.Paused)
                 HidePauseMenu();
@@ -154,6 +158,7 @@ public class CanvasManager : MonoBehaviour {
     public void DisplayPauseMenu()
     {
         _pauseMenu.SetActive(true);
+        _fade_background.gameObject.SetActive(true);
         _pauseMenu.Open();
         _pauseButton.FindSelectableOnDown().Select();
         _pauseButton.Select();
@@ -169,6 +174,7 @@ public class CanvasManager : MonoBehaviour {
     public void HidePauseMenu()
     {
         _pauseMenu.SetActive(false);
+        _fade_background.gameObject.SetActive(false);
         GameManager.inst.State = GameManager.GameState.InGame;
 
         TimeManager.timeScale = 1.0f;
@@ -186,6 +192,7 @@ public class CanvasManager : MonoBehaviour {
         _pauseMenu.SetActive(false);
         HideGameOverMenu();
         _mainMenu.SetActive(true);
+        _fade_background.gameObject.SetActive(true);
         _compatibility.gameObject.SetActive(false);
 
         _startButton.Select();
@@ -199,6 +206,7 @@ public class CanvasManager : MonoBehaviour {
         _isTransitionningGameOver = true;
 
         _gameOverMenu.SetActive(true);
+        _fade_background.gameObject.SetActive(true);
         _gameOverMenu.Open();        
 
         _pauseButton.FindSelectableOnDown().Select();
@@ -222,13 +230,14 @@ public class CanvasManager : MonoBehaviour {
     public void HideGameOverMenu()
     {
         _gameOverMenu.SetActive(false);
-        tMP_InputField.gameObject.SetActive(true);
-        _keyBoard.SetActive(false);
+        _fade_background.gameObject.SetActive(false);
+        //_keyBoard.SetActive(false);
     }
 
     public void StartGame(bool resetHUD = true)
     {
         _mainMenu.SetActive(false);
+        _fade_background.gameObject.SetActive(false);
 
         GameManager.inst.State = GameManager.GameState.InGame;
 
@@ -236,6 +245,8 @@ public class CanvasManager : MonoBehaviour {
 
         if (resetHUD)
             ResetHUD();
+
+        AskHighscore();
     }
 
     public void ResetHUD()
@@ -248,9 +259,8 @@ public class CanvasManager : MonoBehaviour {
 
     public void ReplayGame()
     {
-
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(_fade.DOFade(1, .3f));
+        sequence.Append(_fade_forground.DOFade(1, .3f));
         sequence.AppendCallback( () => {
             GameManager.inst.ClearAllInstance();
             ResetHUD();
@@ -258,7 +268,7 @@ public class CanvasManager : MonoBehaviour {
             HideGameOverMenu();
             _compatibility.gameObject.SetActive(false);
         });
-        sequence.Append(_fade.DOFade(0, .3f));
+        sequence.Append(_fade_forground.DOFade(0, .3f));
         sequence.AppendCallback(() => {
             StartGame(false);
         });
@@ -313,12 +323,10 @@ public class CanvasManager : MonoBehaviour {
             }
         }
     }
-    public void PostHighScore()
+    public void PostHighScore(InputField field)
     {
-        HSController.inst.PostScores(tMP_InputField.text, _score);
-        _keyBoard.SetActive(false);
-        tMP_InputField.interactable = false;
-        _gameOverButton.Select();
+        if (_score > 0)
+            HSController.inst.PostScores(field.text, _score);
     }
 
     //Conservations
@@ -355,7 +363,7 @@ public class CanvasManager : MonoBehaviour {
         else buttonPositionGameOver.DisplayNextLevel();
 
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(_fade.DOFade(1, .3f));
+        sequence.Append(_fade_forground.DOFade(1, .3f));
         sequence.AppendCallback(() => {
             HideGameOverMenu();
             _mainMenu.SetActive(false);
@@ -375,8 +383,8 @@ public class CanvasManager : MonoBehaviour {
 
         SoundManagerPlayMusic("GameMusic");
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(_fade.DOFade(0, .3f));
-        sequence.AppendCallback(() => { AskHighscore(); StartGame(); });
+        sequence.Append(_fade_forground.DOFade(0, .3f));
+        sequence.AppendCallback(() => { StartGame(); });
     }
     public void SetCrtReturnButton(Button button)
     {
@@ -406,5 +414,10 @@ public class CanvasManager : MonoBehaviour {
         _timerText.text = _data.GameDuration.ToString("0.0");
         _scoreText = texts[1];
         _scoreText.text = "0";
+    }
+
+    public void SetGameOverScoreName(string value)
+    {
+        _yourName_Score.text = value;
     }
 }
