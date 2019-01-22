@@ -6,9 +6,7 @@ public class BloodDonor : DragableObj
 {
     public BloodInfo bloodInfo;
     private GameData _data;
-    [SerializeField] private FillIcon _waitingFill;
-
-    private Player _grabBy;
+    [SerializeField] private FillIcon _waitingFill = null;
 
     [HideInInspector] public bool onProcess;
     [HideInInspector] public int progressionStat;
@@ -30,16 +28,16 @@ public class BloodDonor : DragableObj
     }
     private State _state = State.idle;
 
-    private Rigidbody _rgd;
-    [HideInInspector] public NavMeshAgent _navMeshAgent;
+    private Rigidbody _rgd = null;
+    [HideInInspector] public NavMeshAgent _navMeshAgent = null;
     private float _currentIdle = 0.0f;
 
-    private List<Transform> _currentPath;
+    private List<Transform> _currentPath = null;
     private int _currentPathIndex = 0;
-    public Animator animator;
+    public Animator animator = null;
 
     private AudioSource _audioSource;
-    [SerializeField] private AudioClip _rageQuit;
+    [SerializeField] private AudioClip _rageQuit = null;
 
     [HideInInspector] public bool desableKinematic = true;   
 

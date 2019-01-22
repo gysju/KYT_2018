@@ -6,43 +6,43 @@ using TMPro;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _playerID;
-    [SerializeField] private Transform _attrachAnchor;
-    [SerializeField] private Transform _grabCenter;
+    [SerializeField] private int _playerID = 0;
+    [SerializeField] private Transform _attrachAnchor = null;
+    [SerializeField] private Transform _grabCenter = null;
     [SerializeField] private float _speed = 150, _boost = .3f;
 
-    private float _hAxis, _vAxis;
+    private float _hAxis = 0, _vAxis = 0;
 
-    [SerializeField] private LayerMask _interactObj;
-    [SerializeField] private LayerMask _interactPlace;
+    [SerializeField] private LayerMask _interactObj = 0;
+    [SerializeField] private LayerMask _interactPlace = 0;
 
     [SerializeField] private float _volume = 1;
     [SerializeField] private AudioClip _attachedSound = null, _detachedSound = null;
-    [SerializeField] private AudioClip[] _dashSounds;
+    [SerializeField] private AudioClip[] _dashSounds = null;
 
-    [SerializeField] private GameObject _bul;
-    [SerializeField] private UnityEngine.UI.Image _bulImg;
-    [SerializeField] private TextMeshProUGUI _bulText, _bulText_Img = null;
+    [SerializeField] private GameObject _bul = null;
+    [SerializeField] private UnityEngine.UI.Image _bulImg = null;
+    [SerializeField] private TextMeshProUGUI _bulText = null, _bulText_Img = null;
 
-    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Sprite[] sprites = null;
 
-    private AudioSource _audioSource;
-    private Rigidbody _rgd;
+    private AudioSource _audioSource = null;
+    private Rigidbody _rgd = null;
     private DragableObj _currentObjAttached = null;
     private bool _hasBeenAttachedCheck = false;
-    private bool _wantDash;
-    private float _dashRecorvery, _dashRecorveryTime = .6f;
+    private bool _wantDash = false;
+    private float _dashRecorvery = 0, _dashRecorveryTime = .6f;
 
     private HighlightObj _lastHighlightObj = new HighlightObj(null, null, false);
 
-    private Animator _animator;
+    private Animator _animator = null;
 
     public Vector3 startPosition;
     public Quaternion startRotation;
 
-    [SerializeField] private UIAddScore _addScore;
+    [SerializeField] private UIAddScore _addScore = null;
 
-    [SerializeField] private ParticleSystem _dashParticleSystem;
+    [SerializeField] private ParticleSystem _dashParticleSystem = null;
 
     private void Start()
     {

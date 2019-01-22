@@ -4,7 +4,7 @@ using UnityEngine;
 public class FoodShelf : Shelf {
 
     #region Var
-    [SerializeField] private DragableObj _foodBag; //prefab
+    [SerializeField] private DragableObj _foodBag = null; //prefab
     #endregion
     #region MonoFunction
     #endregion

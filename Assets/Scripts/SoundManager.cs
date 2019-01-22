@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
         PlayMusic("TitleMusic");
     }
 
-    public void PlayMusic(string name)
+    public void PlayMusic(string name, bool fromBegining = true)
     {
         SoundsSettings soundSettings = Sounds.Find(x => x.Name == name);
         if (soundSettings.Clip != null)
@@ -45,6 +45,8 @@ public class SoundManager : MonoBehaviour
             Source.volume = soundSettings.Volume * Source.volume;
             Source.pitch = soundSettings.Pitch;
             Source.loop = soundSettings.Loop;
+
+            if (fromBegining) Source.time = 0;
 
             Source.Play();
         }

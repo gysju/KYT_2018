@@ -5,10 +5,10 @@ using TMPro;
 
 public class Compatibility : MonoBehaviour {
 
-    [SerializeField] private Sprite[] _sprites;
+    [SerializeField] private Sprite[] _sprites = null;
 
-    [SerializeField] private TextMeshProUGUI _type;
-    [SerializeField] private Image[] _images;
+    [SerializeField] private TextMeshProUGUI _type = null;
+    [SerializeField] private Image[] _images = null;
 
     private int[] _blood = { 1,1,1,1,
                              1,0,1,0,
@@ -38,8 +38,8 @@ public class Compatibility : MonoBehaviour {
     }
 
     private float _openTime = .7f;
-    private Sequence _inTweenOpen;
-    [SerializeField] private RectTransform _rect;
+    private Sequence _inTweenOpen = null;
+    [SerializeField] private RectTransform _rect = null;
 
     public void Open()
     {

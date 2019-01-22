@@ -6,7 +6,7 @@ public class Truck : MonoBehaviour {
 
     private bool _isBack, _needToGo;
 
-    [SerializeField] private Animator anim;
+    [SerializeField] private Animator anim = null;
 
     private void Update()
     {

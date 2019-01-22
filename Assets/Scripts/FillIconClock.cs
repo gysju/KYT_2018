@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FillIconClock : FillIcon {
 
-    [SerializeField] private Transform _indicator;
+    [SerializeField] private Transform _indicator = null;
 
     public override void Fill(float value)
     {

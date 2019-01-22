@@ -5,18 +5,18 @@ using TMPro;
 public class UIAddScore : MonoBehaviour {
 
     [SerializeField] private Vector3 staticAngle = new Vector3(0, 137.446f, 0);
-    private Sequence[] _inTweens;
-    [SerializeField] private RectTransform[] _scores;
-    [SerializeField] private TextMeshProUGUI[] _scoresText;
+    private Sequence[] _inTweens = null;
+    [SerializeField] private RectTransform[] _scores = null;
+    [SerializeField] private TextMeshProUGUI[] _scoresText = null;
 
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _audioSource = null;
     [SerializeField] private float _volume = .8f;
-    [SerializeField] private AudioClip _clipSource;
+    [SerializeField] private AudioClip _clipSource = null;
 
 
     private float _upTime = 0.6f;
 
-    private Transform _transform;
+    private Transform _transform = null;
 
 	void Start ()
     {

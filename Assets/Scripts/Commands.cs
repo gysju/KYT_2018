@@ -5,17 +5,17 @@ using UnityEngine;
 public class Commands : MonoBehaviour {
 
     #region Var
-    public Bord[] bordsNeeds, bordsGiven;
-    public Sprite[] sprites;
+    public Bord[] bordsNeeds = null, bordsGiven = null;
+    public Sprite[] sprites = null;
     private GameData _data;
 
     public static int maxQuantity = 4;
 
-    [SerializeField] private Truck _truck;
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private Truck _truck = null;
+    [SerializeField] private AudioSource _audioSource = null;
     [SerializeField] private AudioClip _soundSuccess = null, _soundLose = null;
 
-    private List<BloodInfo> ask, given;
+    private List<BloodInfo> ask = null, given = null;
     private int _remaining;
 
     private List<int> _nBagnextCommands = new List<int>();
@@ -25,7 +25,7 @@ public class Commands : MonoBehaviour {
     private MeshRenderer[] _meshRenderers;
     public MeshRenderer[] meshRenderers { get { return _meshRenderers; } }
 
-    [SerializeField] private GameObject _given;
+    [SerializeField] private GameObject _given = null;
 
     #endregion
     #region MonoFunction

@@ -18,43 +18,43 @@ public class CanvasManager : MonoBehaviour {
     private GameData _data;
 
     //HUD
-    private TextMeshProUGUI _timerText;
-    private TextMeshProUGUI _scoreText;
+    private TextMeshProUGUI _timerText = null;
+    private TextMeshProUGUI _scoreText = null;
 
     private float _time = 0.0f;
     private int _score = 0;
 
     [Header("MainMenu")]
-    [SerializeField] UIAnimation _mainMenu;
-    [SerializeField] Button _startButton;
+    [SerializeField] UIAnimation _mainMenu = null;
+    [SerializeField] Button _startButton = null;
 
     [Header("PauseMenu")]
-    [SerializeField] UIAnimation _pauseMenu;
-    [SerializeField] Button _pauseButton;
+    [SerializeField] UIAnimation _pauseMenu = null;
+    [SerializeField] Button _pauseButton = null;
 
     [Header("GameOverMenu")]
-    [SerializeField] UIAnimation _gameOverMenu;
-    [SerializeField] Button _gameOverButton;
+    [SerializeField] UIAnimation _gameOverMenu = null;
+    [SerializeField] Button _gameOverButton = null;
 
-    [SerializeField] Compatibility _compatibility;
+    [SerializeField] Compatibility _compatibility = null;
 
-    [SerializeField] private Image _fade_background;
-    public Image _fade_forground;
+    [SerializeField] private Image _fade_background = null;
+    public Image _fade_forground = null;
 
-    private Button _crtReturnButton;
+    private Button _crtReturnButton = null;
 
-    [SerializeField] private ButtonPosition buttonPositionGameOver;
+    [SerializeField] private ButtonPosition buttonPositionGameOver = null;
 
     private bool _isTransitionningGameOver = false;
-    [SerializeField] private UnityEvent _gameOverReplay, _gameOverNextLevel, _gameOverQuit;
+    [SerializeField] private UnityEvent _gameOverReplay = null, _gameOverNextLevel = null, _gameOverQuit = null;
 
     private int[] _bestScores = { 0, 0, 0, 0, 0 };
 
-    [SerializeField] private TextMeshProUGUI _yourScore_Score;
-    [SerializeField] private TextMeshProUGUI _yourName_Score;
+    [SerializeField] private TextMeshProUGUI _yourScore_Score = null;
+    [SerializeField] private TextMeshProUGUI _yourName_Score = null;
 
-    [SerializeField] private TextMeshProUGUI[] _bestScore_Scores;
-    [SerializeField] private TextMeshProUGUI[] _bestScore_Names;
+    [SerializeField] private TextMeshProUGUI[] _bestScore_Scores = null;
+    [SerializeField] private TextMeshProUGUI[] _bestScore_Names = null;
 
     [HideInInspector] public bool keyboardDisplay = false;
 
@@ -350,7 +350,7 @@ public class CanvasManager : MonoBehaviour {
     {
         SoundManager.Instance.SetVolume(slider.value * .1f);
     }
-    [SerializeField] private AudioMixer _audioMixer;
+    [SerializeField] private AudioMixer _audioMixer = null;
     public void SFXSetVolume(Slider slider)
     {
         _audioMixer.SetFloat("VomueMasterSFX", slider.value <= 0 ? -80 : slider.value * 5f - 30f);

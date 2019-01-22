@@ -22,27 +22,27 @@ public class GameManager : MonoBehaviour
     private GameState _state;
 
     [Header("GameSettings")]
-    [SerializeField] private ConstGameData _constData;
-    [SerializeField] private LevelData _levelData;
+    [SerializeField] private ConstGameData _constData = null;
+    [SerializeField] private LevelData _levelData = null;
     private GameData _data;
 
     [Header("Blood donor settings")]
-    [SerializeField] private BloodDonor _bloodDonor;
-    [SerializeField] private Transform _bdSpawn;
+    [SerializeField] private BloodDonor _bloodDonor = null;
+    [SerializeField] private Transform _bdSpawn = null;
 
     List<BloodDonor> _bloodDonors = new List<BloodDonor>();
-    public Player _playerOne;
-    public Player _playerTwo;
+    public Player _playerOne = null;
+    public Player _playerTwo = null;
 
-    public BloodShelf[] shelves;
-    public InteractableWihDonor[] interactableWihDonors;
+    public BloodShelf[] shelves = null;
+    public InteractableWihDonor[] interactableWihDonors = null;
 
     private List<BloodBag> bloodBags = new List<BloodBag>();
 
-    public Commands command;
+    public Commands command = null;
 
-    [SerializeField] private TextMeshProUGUI _scoreText;
-    [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private TextMeshProUGUI _scoreText = null;
+    [SerializeField] private TextMeshProUGUI _timerText = null;
 
     private void Awake()
     {

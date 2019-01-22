@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class RedLight : MonoBehaviour {
 
-    [SerializeField] private Collider _stopCollider;
-    [SerializeField] private Light[] _lights;
+    [SerializeField] private Light[] _lights = null;
 
-    [SerializeField] private Color _red;
-    [SerializeField] private Color _orange;
-    [SerializeField] private Color _green;
+    [SerializeField] private Color _red = Color.white;
+    [SerializeField] private Color _orange = Color.white;
+    [SerializeField] private Color _green = Color.white;
 
     private float _transitionSpeed = 2f;
-    public bool isRed = true, canDrive;
+    public bool isRed = true, canDrive = false;
     
     public List<Car> cars = new List<Car>();
 

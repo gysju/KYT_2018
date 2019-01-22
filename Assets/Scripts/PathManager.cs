@@ -7,13 +7,13 @@ public class PathManager : MonoBehaviour
 {
     public static PathManager Instance;
 
-    [SerializeField] Transform _pathParentHomeToDoc;
+    [SerializeField] Transform _pathParentHomeToDoc = null;
     [HideInInspector] public List<Transform> PathsHomeToDoc = new List<Transform>();
 
-    [SerializeField] Transform _pathParentDocToBed;
+    [SerializeField] Transform _pathParentDocToBed = null;
     [HideInInspector] public List<Transform> PathsDocToBed = new List<Transform>();
 
-    [SerializeField] Transform _pathParentBedToExit;
+    [SerializeField] Transform _pathParentBedToExit = null;
     [HideInInspector] public List<Transform> PathsBedToExit = new List<Transform>();
 
     private void Awake()

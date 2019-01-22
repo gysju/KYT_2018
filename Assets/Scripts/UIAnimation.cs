@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class UIAnimation : MonoBehaviour {
 
-    [SerializeField] private Image _background;
-    [SerializeField] private Selectable _firstSelectable;
-    [SerializeField] private RectTransform[] _objects;
+    [SerializeField] private Image _background = null;
+    [SerializeField] private Selectable _firstSelectable = null;
+    [SerializeField] private RectTransform[] _objects = null;
     private float _openTime = .7f, _fadeOutTime = .3f, _increaseOpenTime = .1f;
-    private Sequence _inTweenOpen;
+    private Sequence _inTweenOpen = null;
 
     public void SetActive(bool active)
     {

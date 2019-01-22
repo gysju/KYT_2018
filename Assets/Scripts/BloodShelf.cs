@@ -6,11 +6,11 @@ using UnityEngine;
 public class BloodShelf : Shelf {
 
     #region Var
-    public BloodInfo info;
+    public BloodInfo info = null;
     private GameData _data;
-    [SerializeField] private TextMeshProUGUI[] _family;
+    [SerializeField] private TextMeshProUGUI[] _family = null;
 
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _audioSource = null;
     #endregion
     #region MonoFunction
     protected override void Start()

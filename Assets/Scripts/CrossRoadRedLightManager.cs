@@ -5,7 +5,7 @@ using UnityEngine;
 public class CrossRoadRedLightManager : MonoBehaviour {
 
 
-    [SerializeField] private RedLight[] redLights;
+    [SerializeField] private RedLight[] redLights = null;
 
 
     [SerializeField] private float _refreshTime = 25f;

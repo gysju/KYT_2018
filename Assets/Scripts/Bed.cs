@@ -9,9 +9,9 @@ public class Bed : InteractableWihDonor {
     public GameObject bloodbag;
 
     private bool _hasAlrBeFeed;
-    [SerializeField] private Transform _bloodbagSpawn;
+    [SerializeField] private Transform _bloodbagSpawn = null;
 
-    [SerializeField] private Material[] _materialsBloodBags;
+    [SerializeField] private Material[] _materialsBloodBags = null;
     #endregion
     #region MonoFunction
     protected override void Start()

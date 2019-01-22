@@ -6,7 +6,7 @@ public class OutlineEffect : MonoBehaviour {
 
     public float Tickness = 2.0f;
 
-    [SerializeField] private Material _outlineMaterial;
+    [SerializeField] private Material _outlineMaterial = null;
     private Vector3[] _initVertices;
 
     private MeshFilter _meshFilter;
