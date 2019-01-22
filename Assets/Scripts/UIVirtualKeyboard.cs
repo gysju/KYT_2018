@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using UnityEngine.UI;
-using TMPro;
 
 public class UIVirtualKeyboard : MonoBehaviour
 {
     private bool _uppercase = false;
     private bool _qwerty = true;
 
-    [SerializeField] private ButtonArray[] _keys_button;
+    [SerializeField] private ButtonArray[] _keys_button = null;
+    [SerializeField] private Button _shift = null, _backSpace = null, _return = null;
 
     private static readonly char[][] _keys_azerty = new char[4][];
 
     private static readonly char[][] _keys_qwerty = new char[4][];
 
-    [SerializeField] private InputField inputField;
-    private AudioSource _source;
+    [SerializeField] private InputField inputField = null;
+    private AudioSource _source = null;
+
+    private Button _crtSelected = null;
 
     public void Init()
     {
@@ -101,17 +102,54 @@ public class UIVirtualKeyboard : MonoBehaviour
     }
     public void UpperCaseButton()
     {
-        _uppercase = !_uppercase;
+        UpperCaseButton(!_uppercase);
+    }
+    public void UpperCaseButton(bool upperCase)
+    {
+        _uppercase = upperCase;
         char[][] keys = _qwerty ? _keys_qwerty : _keys_azerty;
         InitText(keys);
     }
-
-
 
     private void Start()
     {
         Init();
     }
+
+    private int _capsLockState = -1;
+    private bool capsLockState
+    {
+        get { return _capsLockState == 1; }
+        set
+        {
+            if (_capsLockState == -1)
+            {
+                _capsLockState = value ? 1 : 0;
+                if (value)
+                    UpperCaseButton();
+            }
+            else if (_capsLockState == 1 != value)
+            {
+                _capsLockState = value ? 1 : 0;
+                InvokeSelectable(_shift);
+            }
+        }
+    }
+
+    private void InvokeSelectable(Button selectable)
+    {
+        if (_crtSelected == selectable)
+            PlaySound();
+        else
+        {
+            _crtSelected = selectable;
+            _crtSelected.Select();
+        }
+        _crtSelected.onClick.Invoke();
+    }
+
+    [System.Runtime.InteropServices.DllImport("USER32.dll")]
+    public static extern short GetKeyState(int nVirtKey);
 
     private void Update()
     {
@@ -119,6 +157,41 @@ public class UIVirtualKeyboard : MonoBehaviour
         {
             DeleteButton();
             PlaySound();
+        }
+
+        capsLockState = (GetKeyState(0x14) & 1) > 0;
+
+        if ((Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
+         || (Input.GetKeyDown(KeyCode.RightShift) && !Input.GetKey(KeyCode.LeftShift))
+         || (Input.GetKeyUp(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
+         || (Input.GetKeyUp(KeyCode.RightShift) && !Input.GetKey(KeyCode.LeftShift)))
+        {
+            InvokeSelectable(_shift);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Delete))
+        {
+            InvokeSelectable(_backSpace);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            InvokeSelectable(_return);
+        }
+
+        for (int i = 0; i < _keys_qwerty.Length; i++)
+        {
+            for (int j = 0; j < _keys_qwerty[i].Length; j++)
+            {
+                if (Input.GetKeyDown(_keys_qwerty[i][j].ToString()))
+                {
+                    if (i < _keys_button[i].buttons.Length)
+                    {
+                        InvokeSelectable(_keys_button[i].buttons[j]);
+                        //_keys_button[i].buttons[j].onClick.Invoke();
+                    }
+                }
+            }
         }
     }
 

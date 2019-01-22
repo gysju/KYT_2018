@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class KeyboardView : MonoBehaviour {
 
-    [SerializeField] private InputField _input;
-    [SerializeField] private GameObject _backgroundOverlayed;
-    [SerializeField] private Selectable _selectable;
-    private Selectable _backStack;
+    [SerializeField] private InputField _input = null;
+    [SerializeField] private GameObject _backgroundOverlayed = null;
+    [SerializeField] private Selectable _selectable = null;
+    private Selectable _backStack = null;
 
     public void Show(Selectable backStack)
     {
