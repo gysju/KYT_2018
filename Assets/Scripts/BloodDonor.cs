@@ -37,7 +37,7 @@ public class BloodDonor : DragableObj
     public Animator animator = null;
 
     private AudioSource _audioSource;
-    [SerializeField] private AudioClip _rageQuit = null;
+    [SerializeField] private AudioClip[] _rageQuits = null;
 
     [HideInInspector] public bool desableKinematic = true;   
 
@@ -140,10 +140,7 @@ public class BloodDonor : DragableObj
                 _currentIdle = .5f;
                 _waitingFill.Fill(1.0f);
 
-                _audioSource.clip = _rageQuit;
-                _audioSource.loop = false;
-                _audioSource.pitch = Random.Range(0.7f, 1.0f);
-                _audioSource.Play();
+                PlayRageSound();
                 break;
             default:
                 break;
@@ -299,5 +296,16 @@ public class BloodDonor : DragableObj
     public void DesableWaintingFill()
     {
         _waitingFill.SetActive(false);
+    }
+
+    public void PlayRageSound()
+    {
+        if (_audioSource.isPlaying)
+            return;
+
+        _audioSource.clip = _rageQuits[Random.Range(0, 1)];
+        _audioSource.loop = false;
+        _audioSource.pitch = Random.Range(0.7f, 1.0f);
+        _audioSource.Play();
     }
 }

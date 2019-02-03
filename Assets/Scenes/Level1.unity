@@ -19585,6 +19585,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Canvas]'
       objectReference: {fileID: 0}
+    - target: {fileID: 1486101156394966, guid: 785ca7ae2fdb32b448895a01f9644920, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224508087188220240, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19869,6 +19873,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -39.840332
+      objectReference: {fileID: 0}
+    - target: {fileID: 224311571911101284, guid: 785ca7ae2fdb32b448895a01f9644920,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.7602539
       objectReference: {fileID: 0}
     - target: {fileID: 224958808384128314, guid: 785ca7ae2fdb32b448895a01f9644920,
         type: 3}
@@ -36385,6 +36394,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: _FPSDisplay_
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654093324525501872, guid: cd10513d9df98db42a0857dd1bddb5aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7362271699385040968, guid: cd10513d9df98db42a0857dd1bddb5aa,
         type: 3}

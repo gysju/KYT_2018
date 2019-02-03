@@ -164,6 +164,8 @@ public class Player : MonoBehaviour
                     SetBul(true, sprites[(int)donor.bloodInfo.type - 1], "" + donor.bloodInfo.family);
                     ResetHighlightAndBul(false);
                 }
+                else if (donor.state == BloodDonor.State.rageQuit)
+                    donor.PlayRageSound();
             }
             else if (cols[0].CompareTag("Bloodbag"))
             {
