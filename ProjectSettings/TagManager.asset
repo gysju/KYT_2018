@@ -14,6 +14,7 @@ TagManager:
   - RedLight
   - FoodShelf
   - FoodBag
+  - CallCenter
   layers:
   - Default
   - TransparentFX

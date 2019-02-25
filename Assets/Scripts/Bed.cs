@@ -17,7 +17,6 @@ public class Bed : InteractableWihDonor {
     protected override void Start()
     {
         base.Start();
-
     }
     #endregion
     #region Function

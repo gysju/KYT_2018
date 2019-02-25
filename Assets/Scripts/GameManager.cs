@@ -41,8 +41,12 @@ public class GameManager : MonoBehaviour
 
     public Commands command = null;
 
+    [SerializeField] CallCenter _callCenter = null;
+
     [SerializeField] private TextMeshProUGUI _scoreText = null;
     [SerializeField] private TextMeshProUGUI _timerText = null;
+
+    private int _calledDonorCount = 0;
 
     private void Awake()
     {
@@ -79,10 +83,10 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(_data.SpawnSpeed);
         }
 
-        if(_bloodDonors.Count < _data.MaxHumanCount)
+        if(_bloodDonors.Count < _data.MaxHumanCount + _calledDonorCount)
         {
             BloodDonor donor = Instantiate(_bloodDonor, _bdSpawn.position, _bdSpawn.rotation);
-            donor.SetData(_data);
+            donor.Init(_data, BloodInfoGetRand());
             _bloodDonors.Add(donor);
         }
 
@@ -91,6 +95,8 @@ public class GameManager : MonoBehaviour
 
     public void Removedonor( BloodDonor donor)
     {
+        if (donor.called)
+            _calledDonorCount--;
         _bloodDonors.Remove(donor);
     }
 
@@ -125,6 +131,8 @@ public class GameManager : MonoBehaviour
 
         if (command != null)
             command.ResetCommand();
+
+        _callCenter.ResetCallCenter();
     }
 
     public void AddBag(BloodBag b)
@@ -154,5 +162,17 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI[] GetHUDText()
     {
         return new TextMeshProUGUI[] { _timerText, _scoreText };
+    }
+
+    public void CallDonor(BloodInfo.BloodType type, BloodInfo.BloodFamily familly)
+    {
+        _calledDonorCount += _data.NumberOfDonorByCall;
+        for (int i = 0; i < _data.NumberOfDonorByCall; i++)
+        {
+            BloodDonor donor = Instantiate(_bloodDonor, _bdSpawn.position, _bdSpawn.rotation);
+            donor.Init(_data, new BloodInfo(type, familly, BloodInfo.BloodRhesus.None));
+            donor.called = true;
+            _bloodDonors.Add(donor);
+        }
     }
 }

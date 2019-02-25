@@ -7,6 +7,7 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _playerID = 0;
+    /*[HideInInspector]*/ public bool canMove = true;
     [SerializeField] private Transform _attrachAnchor = null;
     [SerializeField] private Transform _grabCenter = null;
     [SerializeField] private float _speed = 150, _boost = .3f;
@@ -44,6 +45,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private ParticleSystem _dashParticleSystem = null;
 
+    private bool pausedInput = true;
+
     private void Start()
     {
         startPosition = transform.position;
@@ -56,9 +59,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.inst.State != GameManager.GameState.InGame)
+        if (GameManager.inst.State != GameManager.GameState.InGame || !canMove)
         {
             _animator.SetFloat("Speed", 0.0f);
+            pausedInput = true;
+            return;
+        }
+        if (pausedInput)
+        {
+            pausedInput = false;
             return;
         }
 
@@ -91,7 +100,7 @@ public class Player : MonoBehaviour
     void FixedUpdate ()
     {
 
-        if (GameManager.inst.State != GameManager.GameState.InGame)
+        if (GameManager.inst.State != GameManager.GameState.InGame || !canMove)
             return;
 
         HighlightManagement();
@@ -202,6 +211,12 @@ public class Player : MonoBehaviour
                             }
                         }
                     }
+                }
+                else if (cols[0].CompareTag("CallCenter"))
+                {
+                    CallCenter cc = cols[0].GetComponent<CallCenter>();
+                    if (cc != null)
+                        cc.Open(this);
                 }
             }
         }
@@ -368,6 +383,12 @@ public class Player : MonoBehaviour
             Commands commands = col.GetComponent<Commands>();
             if (_currentObjAttached != null && _currentObjAttached is BloodBag)
                 _lastHighlightObj.SetData(col, commands.meshRenderers, false);
+        }
+        else if (col.CompareTag("CallCenter"))
+        {
+            CallCenter cc = col.GetComponent<CallCenter>();
+            if (!cc.inRecorvery)
+                _lastHighlightObj.SetData(col, cc.meshRenderers, false);
         } else ResetHighlightAndBul(false);
     }
 
@@ -476,4 +497,6 @@ public class Player : MonoBehaviour
         if (score[0] <= 0) return;
         _addScore.NewScore(score);
     }
+
+    public int playerId { get { return _playerID; } }
 }

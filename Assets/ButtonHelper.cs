@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ButtonHelper : MonoBehaviour, ISelectHandler, ISubmitHandler, IPointerClickHandler
+public class ButtonHelper : MonoBehaviour, ISelectHandler, ISubmitHandler, IPointerClickHandler, IPointerEnterHandler
 {
     private AudioSource _source;
 
@@ -35,5 +36,12 @@ public class ButtonHelper : MonoBehaviour, ISelectHandler, ISubmitHandler, IPoin
         _source.pitch = Random.Range(0.7f, 1);
         _source.loop = false;
         _source.Play();
+    }
+
+    public void OnPointerEnter(PointerEventData pointerEventData)
+    {
+        Selectable s = GetComponent<Selectable>();
+        if (s != null)
+            s.Select();
     }
 }

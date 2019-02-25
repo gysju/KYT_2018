@@ -21,4 +21,10 @@ public class LevelData : ScriptableObject
     [Space(10)]
     public float SpawnSpeed = 15.0f;
     public int MaxHumanCount = 3;
+
+    [Header("CallCenter")]
+    [Space(10)]
+    public float MaxCallCenterReuseTime = 30;
+    public int NumberOfDonorByCall = 3;
+    public float TimeBetweenDonor = 0f; //Spawn
 }

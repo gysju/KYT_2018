@@ -39,7 +39,9 @@ public class BloodDonor : DragableObj
     private AudioSource _audioSource;
     [SerializeField] private AudioClip[] _rageQuits = null;
 
-    [HideInInspector] public bool desableKinematic = true;   
+    [HideInInspector] public bool desableKinematic = true;
+
+    [HideInInspector] public bool called = false;
 
     private void Awake()
     {
@@ -53,16 +55,6 @@ public class BloodDonor : DragableObj
     protected override void Start()
     {
         base.Start();
-
-        state = State.home;
-
-        if (_data.HumansDatas != null)
-        {
-            SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
-            bloodInfo = GameManager.inst.BloodInfoGetRand();
-
-            _waitingFill.SetProgressionColor(_data.MedicColor);
-        }
     }
 	
 	void Update ()
@@ -94,6 +86,21 @@ public class BloodDonor : DragableObj
         {
             OnStateUpdate();
             HasReachedHisDestination();
+        }
+    }
+
+    public void Init(GameData data, BloodInfo bloodInfo)
+    {
+        _data = data;
+
+        state = State.home;
+
+        //if (_data.HumansDatas != null)
+        {
+            SetModels(_data.HumansDatas[Random.Range(0, _data.HumansDatas.Count)]);
+            this.bloodInfo = bloodInfo;
+
+            _waitingFill.SetProgressionColor(_data.MedicColor);
         }
     }
 

@@ -7,13 +7,14 @@ public class Doctor : InteractableWihDonor {
     #region Var
     #endregion
     #region MonoFunction
-    #endregion
-    #region Function
     protected override void Start()
     {
         base.Start();
         _duration = _data.MaxMedicTime;
     }
+    #endregion
+    #region Function
+
     public override void Begin()
     {
         _donor.state = BloodDonor.State.medic;

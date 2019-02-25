@@ -49,4 +49,8 @@ public struct GameData
         _constData = constData;
         _levelData = levelData;
     }
+
+    public float MaxCallCenterReuse { get { return _levelData.MaxCallCenterReuseTime; } }
+    public int NumberOfDonorByCall { get { return _levelData.NumberOfDonorByCall; } }
+    public float TimeBetweenDonor { get { return _levelData.TimeBetweenDonor; } }
 }
